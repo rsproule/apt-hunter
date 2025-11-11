@@ -38,7 +38,8 @@ model Scrape {
   listingsCount Int @default(0)
 
   // Relations
-  listings ScrapeListing[]
+  listings     ScrapeListing[]
+  enhancements Enhancement[]
 
   @@index([userId])
   @@index([createdAt])
@@ -104,7 +105,8 @@ model Listing {
   rawData Json
 
   // Relations
-  scrapes ScrapeListing[]
+  scrapes            ScrapeListing[]
+  enhancementResults EnhancementResult[]
 
   @@index([zpid])
   @@index([addressZipcode])
@@ -128,4 +130,95 @@ model ScrapeListing {
   @@id([scrapeId, listingId])
   @@index([scrapeId])
   @@index([listingId])
+}
+
+// Semantic enhancement query session
+model Enhancement {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Link to the scrape being enhanced
+  scrape   Scrape @relation(fields: [scrapeId], references: [id], onDelete: Cascade)
+  scrapeId String
+
+  // Echo user who created this enhancement
+  userId String
+
+  // User's query text
+  query String
+
+  // Trigger.dev task ID
+  taskId String?
+
+  // Status tracking
+  status      String // "pending", "processing", "completed", "failed"
+  error       String?
+  completedAt DateTime?
+
+  // Progress tracking
+  processedCount Int @default(0)
+  totalCount     Int @default(0)
+
+  // Relations
+  columns EnhancementColumn[]
+  results EnhancementResult[]
+
+  @@index([scrapeId])
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+// Semantic columns generated from the enhancement query
+model EnhancementColumn {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // Link to enhancement
+  enhancement   Enhancement @relation(fields: [enhancementId], references: [id], onDelete: Cascade)
+  enhancementId String
+
+  // Column definition
+  name        String // e.g., "has_hardwood_floors", "modern_kitchen_score"
+  type        String // "boolean" or "score"
+  description String // Human-readable description
+
+  // User-configurable weight (0-10) for composite scoring
+  weight Float @default(5.0)
+
+  // Display order
+  order Int @default(0)
+
+  @@index([enhancementId])
+}
+
+// AI-analyzed values for each listing in an enhancement
+model EnhancementResult {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Links to enhancement and listing
+  enhancement   Enhancement @relation(fields: [enhancementId], references: [id], onDelete: Cascade)
+  enhancementId String
+  listing       Listing     @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  listingId     String
+
+  // Column values stored as JSON
+  // Structure: { "has_hardwood_floors": true, "modern_kitchen_score": 8, ... }
+  values Json
+
+  // Composite score calculated from weighted column values
+  compositeScore Float @default(0)
+
+  // Processing status
+  status String  @default("pending") // "pending", "processing", "completed", "failed"
+  error  String?
+
+  @@unique([enhancementId, listingId])
+  @@index([enhancementId])
+  @@index([listingId])
+  @@index([status])
+  @@index([enhancementId, compositeScore])
 }

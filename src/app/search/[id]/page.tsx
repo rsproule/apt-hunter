@@ -1,3 +1,6 @@
+import ColumnWeights from "@/app/search/[id]/ColumnWeights";
+import EnhancementChat from "@/app/search/[id]/EnhancementChat";
+import EnhancementPolling from "@/app/search/[id]/EnhancementPolling";
 import ListingsTable from "@/app/search/[id]/ListingsTable";
 import SearchPageClient from "@/app/search/[id]/SearchPageClient";
 import { Badge } from "@/components/ui/badge";
@@ -12,6 +15,7 @@ interface SearchPageProps {
   searchParams: Promise<{
     page?: string;
     limit?: string;
+    enhancements?: string; // Comma-separated enhancement IDs
   }>;
 }
 
@@ -20,12 +24,21 @@ export default async function SearchPage({
   searchParams,
 }: SearchPageProps) {
   const { id } = await params;
-  const { page: pageParam, limit: limitParam } = await searchParams;
+  const {
+    page: pageParam,
+    limit: limitParam,
+    enhancements: enhancementsParam,
+  } = await searchParams;
 
   // Parse pagination params
   const page = pageParam ? Number.parseInt(pageParam, 10) : 1;
   const limit = limitParam ? Number.parseInt(limitParam, 10) : 25;
   const skip = (page - 1) * limit;
+
+  // Parse enhancement IDs (comma-separated)
+  const activeEnhancementIds = enhancementsParam
+    ? enhancementsParam.split(",").filter(Boolean)
+    : [];
 
   // Fetch the scrape metadata and total count
   const scrape = await prisma.scrape.findUnique({
@@ -41,18 +54,136 @@ export default async function SearchPage({
     notFound();
   }
 
-  // Fetch paginated listings
-  const listings = await prisma.scrapeListing.findMany({
+  // Fetch all enhancements for this scrape
+  const allEnhancements = await prisma.enhancement.findMany({
     where: { scrapeId: id },
+    orderBy: { createdAt: "desc" },
     include: {
-      listing: true,
+      columns: {
+        orderBy: { order: "asc" },
+      },
     },
-    orderBy: {
-      foundAt: "desc",
-    },
-    skip,
-    take: limit,
   });
+
+  // Fetch details for active enhancements
+  const activeEnhancements = allEnhancements.filter((e) =>
+    activeEnhancementIds.includes(e.id),
+  );
+
+  // Collect all columns from active enhancements
+  const enhancementColumns = activeEnhancements.flatMap((e) => e.columns);
+
+  // Fetch listings with enhancements
+  let listingsWithEnhancements;
+
+  if (activeEnhancementIds.length > 0) {
+    // Get all listing IDs for this scrape
+    const scrapeListingIds = await prisma.scrapeListing.findMany({
+      where: { scrapeId: id },
+      select: { listingId: true },
+    });
+
+    const listingIds = scrapeListingIds.map((sl) => sl.listingId);
+
+    // Fetch all enhancement results for these listings from ALL active enhancements
+    const allEnhancementResults = await Promise.all(
+      activeEnhancementIds.map((enhancementId) =>
+        prisma.enhancementResult.findMany({
+          where: {
+            enhancementId,
+            listingId: { in: listingIds },
+          },
+        }),
+      ),
+    );
+
+    // Merge results by listing and calculate unified composite score
+    const listingResultsMap = new Map<
+      string,
+      {
+        values: Record<string, boolean | number>;
+        compositeScore: number;
+        status: string;
+      }
+    >();
+
+    for (const results of allEnhancementResults) {
+      for (const result of results) {
+        const existing = listingResultsMap.get(result.listingId);
+
+        if (existing) {
+          // Merge values and add to composite score
+          existing.values = {
+            ...existing.values,
+            ...(result.values as Record<string, boolean | number>),
+          };
+          existing.compositeScore += result.compositeScore;
+          if (result.status !== "completed") {
+            existing.status = result.status;
+          }
+        } else {
+          listingResultsMap.set(result.listingId, {
+            values: result.values as Record<string, boolean | number>,
+            compositeScore: result.compositeScore,
+            status: result.status,
+          });
+        }
+      }
+    }
+
+    // Convert to array and sort by composite score
+    const sortedListingIds = Array.from(listingResultsMap.entries())
+      .sort((a, b) => b[1].compositeScore - a[1].compositeScore)
+      .slice(skip, skip + limit)
+      .map(([listingId]) => listingId);
+
+    // Fetch listings in sorted order
+    const listings = await prisma.listing.findMany({
+      where: { id: { in: sortedListingIds } },
+      include: {
+        scrapes: {
+          where: { scrapeId: id },
+        },
+      },
+    });
+
+    // Create map for easy lookup
+    const listingsMap = new Map(listings.map((l) => [l.id, l]));
+
+    // Maintain sorted order
+    listingsWithEnhancements = sortedListingIds
+      .map((listingId) => {
+        const listing = listingsMap.get(listingId);
+        if (!listing) return null;
+
+        return {
+          listing,
+          scrapeId: id,
+          listingId,
+          foundAt: listing.scrapes[0]?.foundAt || new Date(),
+          enhancementResult: {
+            listingId,
+            ...listingResultsMap.get(listingId)!,
+          },
+        };
+      })
+      .filter(Boolean) as any;
+  } else {
+    // Default: fetch listings sorted by foundAt
+    const scrapeListings = await prisma.scrapeListing.findMany({
+      where: { scrapeId: id },
+      include: {
+        listing: true,
+      },
+      orderBy: {
+        foundAt: "desc",
+      },
+      skip,
+      take: limit,
+    });
+
+    listingsWithEnhancements = scrapeListings;
+  }
 
   const totalListings = scrape._count.listings;
   const totalPages = Math.ceil(totalListings / limit);
@@ -92,6 +223,9 @@ export default async function SearchPage({
       {/* Auto-refresh component for pending/running searches */}
       <SearchPageClient scrapeId={scrape.id} status={scrape.status} />
 
+      {/* Enhancement polling */}
+      <EnhancementPolling enhancementId={activeEnhancementIds[0] || null} />
+
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div>
@@ -108,14 +242,58 @@ export default async function SearchPage({
           </p>
         </div>
 
+        {/* Enhancement Chat - only show if scrape is completed */}
+        {scrape.status === "completed" && (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-2">
+              <EnhancementChat
+                scrapeId={scrape.id}
+                activeEnhancementIds={activeEnhancementIds}
+                enhancements={allEnhancements.map((e) => ({
+                  id: e.id,
+                  query: e.query,
+                  status: e.status,
+                  error: e.error,
+                  processedCount: e.processedCount,
+                  totalCount: e.totalCount,
+                  createdAt: e.createdAt.toISOString(),
+                  columns: e.columns.map((c) => ({
+                    name: c.name,
+                    type: c.type,
+                    description: c.description,
+                  })),
+                }))}
+              />
+            </div>
+
+            {/* Column Weights - show when enhancements are active */}
+            {activeEnhancementIds.length > 0 &&
+              enhancementColumns.length > 0 && (
+                <div className="lg:col-span-1">
+                  <ColumnWeights
+                    enhancementIds={activeEnhancementIds}
+                    columns={enhancementColumns.map((c) => ({
+                      id: c.id,
+                      name: c.name,
+                      type: c.type,
+                      description: c.description,
+                      weight: c.weight,
+                    }))}
+                  />
+                </div>
+              )}
+          </div>
+        )}
+
         {/* Listings */}
         {scrape.status === "completed" && totalListings > 0 ? (
           <ListingsTable
-            listings={listings}
+            listings={listingsWithEnhancements}
             totalItems={totalListings}
             currentPage={page}
             itemsPerPage={limit}
             totalPages={totalPages}
+            enhancementColumns={enhancementColumns}
           />
         ) : scrape.status === "running" || scrape.status === "pending" ? (
           <Card>

@@ -45,12 +45,30 @@ interface Listing {
   rawData: any;
 }
 
+interface EnhancementColumn {
+  id: string;
+  name: string;
+  type: string;
+  description: string;
+  order: number;
+}
+
+interface EnhancementValue {
+  listingId: string;
+  values: Record<string, boolean | number>;
+  status: string;
+}
+
 interface ListingsTableProps {
-  listings: Array<{ listing: Listing }>;
+  listings: Array<{
+    listing: Listing;
+    enhancementResult?: EnhancementValue | null;
+  }>;
   totalItems: number;
   currentPage: number;
   itemsPerPage: number;
   totalPages: number;
+  enhancementColumns?: EnhancementColumn[];
 }
 
 export default function ListingsTable({
@@ -59,6 +77,7 @@ export default function ListingsTable({
   currentPage,
   itemsPerPage,
   totalPages,
+  enhancementColumns = [],
 }: ListingsTableProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -149,14 +168,21 @@ export default function ListingsTable({
         <div className="w-32 flex-shrink-0">Beds/Baths</div>
         <div className="w-24 flex-shrink-0">Area</div>
         <div className="flex-1 min-w-0">Address</div>
-        <div className="w-16 flex-shrink-0">Media</div>
+        {enhancementColumns.length > 0 && (
+          <div className="w-24 flex-shrink-0 text-center">Scores</div>
+        )}
         <div className="w-16 flex-shrink-0">Link</div>
       </div>
 
       {/* Listings */}
       <div className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-        {listings.map(({ listing }) => (
-          <ListingRow key={listing.id} listing={listing} />
+        {listings.map(({ listing, enhancementResult }) => (
+          <ListingRow
+            key={listing.id}
+            listing={listing}
+            enhancementColumns={enhancementColumns}
+            enhancementResult={enhancementResult}
+          />
         ))}
       </div>
 

@@ -1,6 +1,12 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface Listing {
   id: string;
@@ -36,17 +42,89 @@ interface Listing {
   rawData: any;
 }
 
-interface ListingRowProps {
-  listing: Listing;
+interface EnhancementColumn {
+  id: string;
+  name: string;
+  type: string;
+  description: string;
+  order: number;
 }
 
-export default function ListingRow({ listing }: ListingRowProps) {
+interface EnhancementValue {
+  listingId: string;
+  values: Record<string, boolean | number>;
+  status: string;
+}
+
+interface ListingRowProps {
+  listing: Listing;
+  enhancementColumns?: EnhancementColumn[];
+  enhancementResult?: EnhancementValue | null;
+}
+
+export default function ListingRow({ 
+  listing,
+  enhancementColumns = [],
+  enhancementResult,
+}: ListingRowProps) {
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
       maximumFractionDigits: 0,
     }).format(price);
+  };
+
+  const renderEnhancementValue = (column: EnhancementColumn) => {
+    if (!enhancementResult || enhancementResult.status !== "completed") {
+      return (
+        <div className="w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600" />
+      );
+    }
+
+    const value = enhancementResult.values[column.name];
+
+    if (value === undefined || value === null) {
+      return (
+        <div className="w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600" />
+      );
+    }
+
+    // Determine color based on value
+    let colorClass;
+    let displayValue;
+    
+    if (column.type === "boolean") {
+      colorClass = value ? "bg-green-500" : "bg-red-500";
+      displayValue = value ? "Yes" : "No";
+    } else {
+      // Score (0-10)
+      const score = typeof value === "number" ? value : 0;
+      if (score >= 8) {
+        colorClass = "bg-green-500";
+      } else if (score >= 6) {
+        colorClass = "bg-lime-500";
+      } else if (score >= 4) {
+        colorClass = "bg-yellow-500";
+      } else if (score >= 2) {
+        colorClass = "bg-orange-500";
+      } else {
+        colorClass = "bg-red-500";
+      }
+      displayValue = `${score}/10`;
+    }
+
+    return (
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <div className={`w-2 h-2 rounded-full ${colorClass} cursor-help`} />
+        </TooltipTrigger>
+        <TooltipContent>
+          <p className="font-medium">{column.description}</p>
+          <p className="text-sm">{displayValue}</p>
+        </TooltipContent>
+      </Tooltip>
+    );
   };
 
   const handleRowClick = () => {
@@ -128,19 +206,18 @@ export default function ListingRow({ listing }: ListingRowProps) {
         )}
       </div>
 
-      {/* Badges */}
-      <div className="flex gap-1 flex-shrink-0">
-        {listing.has3DModel && (
-          <Badge variant="secondary" className="text-xs">
-            3D
-          </Badge>
-        )}
-        {listing.hasVideo && (
-          <Badge variant="secondary" className="text-xs">
-            Video
-          </Badge>
-        )}
-      </div>
+      {/* Enhancement Columns - 2D Grid of Dots */}
+      {enhancementColumns.length > 0 && (
+        <TooltipProvider delayDuration={100}>
+          <div className="flex flex-wrap gap-1.5 w-24 flex-shrink-0 items-center justify-center">
+            {enhancementColumns.map((col) => (
+              <div key={col.id}>
+                {renderEnhancementValue(col)}
+              </div>
+            ))}
+          </div>
+        </TooltipProvider>
+      )}
 
       {/* Link */}
       <a

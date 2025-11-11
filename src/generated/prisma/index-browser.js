@@ -180,6 +180,44 @@ exports.Prisma.ScrapeListingScalarFieldEnum = {
   foundAt: 'foundAt'
 };
 
+exports.Prisma.EnhancementScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  scrapeId: 'scrapeId',
+  userId: 'userId',
+  query: 'query',
+  taskId: 'taskId',
+  status: 'status',
+  error: 'error',
+  completedAt: 'completedAt',
+  processedCount: 'processedCount',
+  totalCount: 'totalCount'
+};
+
+exports.Prisma.EnhancementColumnScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  enhancementId: 'enhancementId',
+  name: 'name',
+  type: 'type',
+  description: 'description',
+  weight: 'weight',
+  order: 'order'
+};
+
+exports.Prisma.EnhancementResultScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  enhancementId: 'enhancementId',
+  listingId: 'listingId',
+  values: 'values',
+  compositeScore: 'compositeScore',
+  status: 'status',
+  error: 'error'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -209,7 +247,10 @@ exports.Prisma.NullsOrder = {
 exports.Prisma.ModelName = {
   Scrape: 'Scrape',
   Listing: 'Listing',
-  ScrapeListing: 'ScrapeListing'
+  ScrapeListing: 'ScrapeListing',
+  Enhancement: 'Enhancement',
+  EnhancementColumn: 'EnhancementColumn',
+  EnhancementResult: 'EnhancementResult'
 };
 
 /**
