@@ -90,70 +90,48 @@ export const runApifyTask = task({
             );
 
             let created = 0;
-            let updated = 0;
+            let skipped = 0;
 
             // Save each listing and associate with scrape
             for (const listing of validListings) {
               const data = extractListingForDb(listing);
 
-              const existing = await prisma.listing.findUnique({
+              // Check if listing already exists
+              let savedListing = await prisma.listing.findUnique({
                 where: { zpid: data.zpid },
               });
 
-              const savedListing = await prisma.listing.upsert({
-                where: { zpid: data.zpid },
-                create: {
-                  ...data,
-                  rawData: data.rawData as any,
-                },
-                update: {
-                  imgSrc: data.imgSrc,
-                  photos: data.photos,
-                  hasImage: data.hasImage,
-                  has3DModel: data.has3DModel,
-                  hasVideo: data.hasVideo,
-                  statusType: data.statusType,
-                  statusText: data.statusText,
-                  price: data.price,
-                  priceFormatted: data.priceFormatted,
-                  address: data.address,
-                  addressStreet: data.addressStreet,
-                  addressCity: data.addressCity,
-                  addressState: data.addressState,
-                  addressZipcode: data.addressZipcode,
-                  latitude: data.latitude,
-                  longitude: data.longitude,
-                  beds: data.beds,
-                  baths: data.baths,
-                  area: data.area,
-                  homeType: data.homeType,
-                  availabilityDate: data.availabilityDate,
-                  brokerName: data.brokerName,
-                  zestimate: data.zestimate,
-                  rentZestimate: data.rentZestimate,
-                  isFeaturedListing: data.isFeaturedListing,
-                  rawData: data.rawData as any,
-                  updatedAt: new Date(),
-                },
-              });
-
-              if (existing) {
-                updated++;
-              } else {
+              if (!savedListing) {
+                // Only create if it doesn't exist
+                savedListing = await prisma.listing.create({
+                  data: {
+                    ...data,
+                    rawData: data.rawData as any,
+                  },
+                });
                 created++;
+              } else {
+                skipped++;
               }
 
-              // Associate with scrape
-              await prisma.scrapeListing.create({
-                data: {
+              // Associate with scrape (avoid duplicate associations)
+              await prisma.scrapeListing.upsert({
+                where: {
+                  scrapeId_listingId: {
+                    scrapeId: scrape.id,
+                    listingId: savedListing.id,
+                  },
+                },
+                create: {
                   scrapeId: scrape.id,
                   listingId: savedListing.id,
                 },
+                update: {}, // No-op if already associated
               });
             }
 
             console.log(
-              `Saved listings: ${created} created, ${updated} updated`,
+              `Saved listings: ${created} created, ${skipped} skipped (already exist)`,
             );
 
             // Update scrape as completed
