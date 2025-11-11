@@ -12,40 +12,74 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { useZillowZipSearch } from "@/hooks/use-apify";
+import { useZillowUrlSearch, useZillowZipSearch } from "@/hooks/use-apify";
 import { useState } from "react";
 
+type SearchMode = "zipcode" | "url";
+
 export default function TestApifyPage() {
-  // Search form state
+  // Search mode
+  const [searchMode, setSearchMode] = useState<SearchMode>("zipcode");
+
+  // ZIP Code search state
   const [zipCodes, setZipCodes] = useState("10014,07306");
   const [priceMax, setPriceMax] = useState<number | undefined>(400000);
   const [forRent, setForRent] = useState(true);
 
+  // URL search state
+  const [searchUrl, setSearchUrl] = useState(
+    "https://www.zillow.com/jersey-city-nj/rentals/?searchQueryState=%7B%22pagination%22%3A%7B%7D%2C%22isMapVisible%22%3Atrue%2C%22mapBounds%22%3A%7B%22west%22%3A-74.1033%2C%22east%22%3A-74.0067%2C%22south%22%3A40.6945%2C%22north%22%3A40.7645%7D%2C%22regionSelection%22%3A%5B%7B%22regionId%22%3A24643%2C%22regionType%22%3A6%7D%5D%2C%22filterState%22%3A%7B%22fr%22%3A%7B%22value%22%3Atrue%7D%2C%22fsba%22%3A%7B%22value%22%3Afalse%7D%2C%22fsbo%22%3A%7B%22value%22%3Afalse%7D%2C%22nc%22%3A%7B%22value%22%3Afalse%7D%2C%22cmsn%22%3A%7B%22value%22%3Afalse%7D%2C%22auc%22%3A%7B%22value%22%3Afalse%7D%2C%22fore%22%3A%7B%22value%22%3Afalse%7D%2C%22price%22%3A%7B%22max%22%3A400000%7D%2C%22mp%22%3A%7B%22max%22%3A1500%7D%7D%7D",
+  );
+
   // Results state
   const [searchResults, setSearchResults] = useState<any>(null);
 
-  // TanStack Query hook - now returns results inline via workflow!
-  const { mutate: searchZillow, isPending, error } = useZillowZipSearch();
+  // TanStack Query hooks - now returns results inline via Trigger.dev!
+  const {
+    mutate: searchZillowByZip,
+    isPending: isZipSearchPending,
+    error: zipSearchError,
+  } = useZillowZipSearch();
+  const {
+    mutate: searchZillowByUrl,
+    isPending: isUrlSearchPending,
+    error: urlSearchError,
+  } = useZillowUrlSearch();
+
+  const isPending = isZipSearchPending || isUrlSearchPending;
+  const error = zipSearchError || urlSearchError;
 
   const startApifyTask = () => {
-    const zipCodeArray = zipCodes
-      .split(",")
-      .map((zip) => zip.trim())
-      .filter(Boolean);
+    // Clear previous results
+    setSearchResults(null);
 
-    searchZillow(
-      {
-        zipCodes: zipCodeArray,
-        priceMax: priceMax || undefined,
-        forRent,
-      },
-      {
+    if (searchMode === "zipcode") {
+      const zipCodeArray = zipCodes
+        .split(",")
+        .map((zip) => zip.trim())
+        .filter(Boolean);
+
+      searchZillowByZip(
+        {
+          zipCodes: zipCodeArray,
+          priceMax: priceMax || undefined,
+          forRent,
+        },
+        {
+          onSuccess: (data) => {
+            console.log("ZIP search completed:", data);
+            setSearchResults(data);
+          },
+        },
+      );
+    } else {
+      searchZillowByUrl(searchUrl.trim(), {
         onSuccess: (data) => {
-          console.log("Search completed:", data);
+          console.log("URL search completed:", data);
           setSearchResults(data);
         },
-      },
-    );
+      });
+    }
   };
 
   const downloadResults = (format: "json" | "csv" = "json") => {
@@ -99,8 +133,7 @@ export default function TestApifyPage() {
         <div>
           <h1 className="text-3xl font-bold mb-2">Apify Zillow Scraper Test</h1>
           <p className="text-gray-600">
-            Test the Apify integration with Vercel Workflow - results return
-            inline!
+            Test the Apify integration with Trigger.dev - results return inline!
           </p>
         </div>
 
@@ -108,49 +141,102 @@ export default function TestApifyPage() {
           <CardHeader>
             <CardTitle>Search Properties</CardTitle>
             <CardDescription>
-              Enter your search criteria to scrape Zillow listings. The workflow
-              will wait for results.
+              Choose your search method and enter criteria to scrape Zillow
+              listings. The task will wait for results.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="zipCodes">Zip Codes (comma-separated)</Label>
-                <Input
-                  id="zipCodes"
-                  value={zipCodes}
-                  onChange={(e) => setZipCodes(e.target.value)}
-                  placeholder="e.g., 10014, 07306, 90210"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="priceMax">Max Price ($)</Label>
-                <Input
-                  id="priceMax"
-                  type="number"
-                  min="1000"
-                  value={priceMax || ""}
-                  onChange={(e) =>
-                    setPriceMax(
-                      e.target.value ? Number(e.target.value) : undefined,
-                    )
-                  }
-                  placeholder="e.g., 400000"
-                />
+            {/* Search Mode Selector */}
+            <div className="space-y-2">
+              <Label>Search Mode</Label>
+              <div className="flex gap-2">
+                <Button
+                  type="button"
+                  variant={searchMode === "zipcode" ? "default" : "outline"}
+                  onClick={() => setSearchMode("zipcode")}
+                  disabled={isPending}
+                >
+                  ZIP Code Search
+                </Button>
+                <Button
+                  type="button"
+                  variant={searchMode === "url" ? "default" : "outline"}
+                  onClick={() => setSearchMode("url")}
+                  disabled={isPending}
+                >
+                  URL Search
+                </Button>
               </div>
             </div>
 
-            <div className="flex items-center space-x-2">
-              <Switch
-                id="forRent"
-                checked={forRent}
-                onCheckedChange={setForRent}
-              />
-              <Label htmlFor="forRent">
-                {forRent ? "For Rent" : "For Sale"}
-              </Label>
-            </div>
+            {/* ZIP Code Search Fields */}
+            {searchMode === "zipcode" && (
+              <>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="zipCodes">
+                      Zip Codes (comma-separated)
+                    </Label>
+                    <Input
+                      id="zipCodes"
+                      value={zipCodes}
+                      onChange={(e) => setZipCodes(e.target.value)}
+                      placeholder="e.g., 10014, 07306, 90210"
+                      disabled={isPending}
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="priceMax">Max Price ($)</Label>
+                    <Input
+                      id="priceMax"
+                      type="number"
+                      min="1000"
+                      value={priceMax || ""}
+                      onChange={(e) =>
+                        setPriceMax(
+                          e.target.value ? Number(e.target.value) : undefined,
+                        )
+                      }
+                      placeholder="e.g., 400000"
+                      disabled={isPending}
+                    />
+                  </div>
+                </div>
+
+                <div className="flex items-center space-x-2">
+                  <Switch
+                    id="forRent"
+                    checked={forRent}
+                    onCheckedChange={setForRent}
+                    disabled={isPending}
+                  />
+                  <Label htmlFor="forRent">
+                    {forRent ? "For Rent" : "For Sale"}
+                  </Label>
+                </div>
+              </>
+            )}
+
+            {/* URL Search Fields */}
+            {searchMode === "url" && (
+              <div className="space-y-2">
+                <Label htmlFor="searchUrl">Zillow Search URL</Label>
+                <Input
+                  id="searchUrl"
+                  value={searchUrl}
+                  onChange={(e) => setSearchUrl(e.target.value)}
+                  placeholder="https://www.zillow.com/..."
+                  disabled={isPending}
+                  className="font-mono text-xs"
+                />
+                <p className="text-xs text-gray-500">
+                  Paste a complete Zillow search URL with filters applied. You
+                  can get this by searching on Zillow and copying the URL from
+                  your browser.
+                </p>
+              </div>
+            )}
 
             <Button
               onClick={startApifyTask}
@@ -158,8 +244,10 @@ export default function TestApifyPage() {
               className="w-full sm:w-auto"
             >
               {isPending
-                ? "Running workflow and waiting for results..."
-                : "Start Zillow Scraping"}
+                ? "Running task and waiting for results..."
+                : `Start ${
+                    searchMode === "zipcode" ? "ZIP Code" : "URL"
+                  } Search`}
             </Button>
 
             {error && (
@@ -186,9 +274,7 @@ export default function TestApifyPage() {
           <Card>
             <CardHeader>
               <CardTitle>Results</CardTitle>
-              <CardDescription>
-                Workflow completed - results ready!
-              </CardDescription>
+              <CardDescription>Task completed - results ready!</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-4">
