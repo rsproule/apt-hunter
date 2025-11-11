@@ -1,103 +1,143 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useEffect } from 'react';
-import type {
-  SearchRequest,
-  StartTaskResponse,
-  GetResultsResponse,
-  DownloadResultsRequest
-} from '@/lib/apify-schemas';
+import type { ApifyWorkflowRequest } from "@/lib/apify-actors";
+import { useMutation } from "@tanstack/react-query";
 
-// Start a new property search task
-export const useStartPropertySearch = () => {
-  return useMutation<StartTaskResponse, Error, SearchRequest>({
-    mutationFn: async (searchParams) => {
-      const response = await fetch('/api/apify/start-task', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(searchParams),
+interface ApifyWorkflowResponse {
+  success: boolean;
+  runId: string;
+  status: string;
+  results?: any[];
+  count?: number;
+  error?: string;
+}
+
+interface TriggerTaskResponse {
+  taskId: string;
+  message: string;
+}
+
+interface TaskStatusResponse {
+  id: string;
+  status: string;
+  output: ApifyWorkflowResponse | null;
+  isCompleted: boolean;
+  isSuccess: boolean;
+  isFailed: boolean;
+  startedAt: string | null;
+  completedAt: string | null;
+}
+
+// Generic hook to run any Apify actor through Trigger.dev
+export const useRunApifyActor = () => {
+  return useMutation<ApifyWorkflowResponse, Error, ApifyWorkflowRequest>({
+    mutationFn: async (request) => {
+      // Step 1: Trigger the task
+      const triggerResponse = await fetch("/api/apify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(request),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to start search');
+      if (!triggerResponse.ok) {
+        const errorData = await triggerResponse.json();
+        throw new Error(errorData.error || "Failed to trigger task");
       }
 
-      return response.json();
+      const { taskId }: TriggerTaskResponse = await triggerResponse.json();
+
+      // Step 2: Poll for completion
+      const pollInterval = 3000; // 3 seconds
+      const maxWaitTime = 10 * 60 * 1000; // 10 minutes
+      const startTime = Date.now();
+
+      while (Date.now() - startTime < maxWaitTime) {
+        const statusResponse = await fetch(`/api/apify/status/${taskId}`);
+
+        if (!statusResponse.ok) {
+          throw new Error("Failed to check task status");
+        }
+
+        const status: TaskStatusResponse = await statusResponse.json();
+
+        if (status.isCompleted) {
+          if (status.isSuccess && status.output) {
+            return status.output;
+          } else {
+            throw new Error(
+              status.output?.error || "Task failed without error message",
+            );
+          }
+        }
+
+        // Wait before polling again
+        await new Promise((resolve) => setTimeout(resolve, pollInterval));
+      }
+
+      throw new Error("Task timed out");
     },
   });
 };
 
-// Check results for a running task
-export const usePropertySearchResults = (runId: string | null, enabled = true) => {
-  const queryClient = useQueryClient();
-  const queryKey = ['property-search-results', runId];
+// Convenience hook for Zillow zip code search
+export const useZillowZipSearch = () => {
+  const mutation = useRunApifyActor();
 
-  const query = useQuery<GetResultsResponse, Error>({
-    queryKey,
-    queryFn: async () => {
-      if (!runId) throw new Error('Run ID is required');
-
-      console.log('🔄 Fetching results for runId:', runId, 'at', new Date().toLocaleTimeString());
-      const response = await fetch(`/api/apify/get-results?runId=${runId}`);
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to fetch results');
-      }
-
-      const data = await response.json();
-      console.log('📊 API Response:', data);
-      return data;
+  return {
+    ...mutation,
+    mutate: (
+      params: {
+        zipCodes: string[];
+        priceMax?: number;
+        forRent?: boolean;
+      },
+      options?: {
+        onSuccess?: (data: ApifyWorkflowResponse) => void;
+        onError?: (error: Error) => void;
+      },
+    ) => {
+      return mutation.mutate(
+        {
+          actorId: "maxcopell/zillow-zip-search",
+          input: {
+            zipCodes: params.zipCodes,
+            priceMax: params.priceMax,
+            forRent: params.forRent ?? true,
+            forSaleByAgent: params.forRent ? false : true,
+            forSaleByOwner: false,
+            sold: false,
+          },
+        },
+        options,
+      );
     },
-    enabled: enabled && Boolean(runId),
-    staleTime: 0,
-    refetchOnMount: true,
-    refetchOnWindowFocus: false,
-  });
-
-  // Manual polling with useEffect
-  useEffect(() => {
-    if (!enabled || !runId || !query.data) {
-      return;
-    }
-
-    // Only poll if task is not finished
-    if (query.data.finished === false) {
-      console.log('🔄 Setting up polling interval for status:', query.data.status);
-
-      const interval = setInterval(() => {
-        console.log('⏰ Manual polling trigger at', new Date().toLocaleTimeString());
-        queryClient.invalidateQueries({ queryKey });
-      }, 5000);
-
-      return () => {
-        console.log('🛑 Clearing polling interval');
-        clearInterval(interval);
-      };
-    } else {
-      console.log('✅ Task finished, no more polling needed. Status:', query.data.status);
-    }
-  }, [enabled, runId, query.data, queryClient, queryKey]);
-
-  return query;
+  };
 };
 
-// Download results in specified format
-export const useDownloadResults = () => {
-  return useMutation<Blob, Error, DownloadResultsRequest>({
-    mutationFn: async ({ runId, format }) => {
-      const response = await fetch('/api/apify/get-results', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ runId, format }),
-      });
+// Convenience hook for Zillow URL search
+export const useZillowUrlSearch = () => {
+  const mutation = useRunApifyActor();
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to download results');
-      }
-
-      return response.blob();
+  return {
+    ...mutation,
+    mutate: (
+      searchUrl: string,
+      options?: {
+        onSuccess?: (data: ApifyWorkflowResponse) => void;
+        onError?: (error: Error) => void;
+      },
+    ) => {
+      return mutation.mutate(
+        {
+          actorId: "maxcopell/zillow-scraper",
+          input: {
+            searchUrls: [{ url: searchUrl }],
+          },
+        },
+        options,
+      );
     },
-  });
+  };
 };
+
+// Note: With Trigger.dev, the hook handles polling internally.
+// The mutation will wait for the task to complete and return results.
+// The UI will show a loading state while the task is running.

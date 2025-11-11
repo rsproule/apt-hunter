@@ -12,6 +12,17 @@ export const SearchRequestSchema = z.object({
   forRent: z.boolean().default(true),
 });
 
+// Generic Apify actor run schema
+export const ApifyActorRunSchema = z.object({
+  actorId: z.string().min(1, "Actor ID is required"),
+  input: z.record(z.string(), z.any()),
+});
+
+// Zillow URL search schema
+export const ZillowUrlSearchSchema = z.object({
+  searchUrl: z.string().url("Valid Zillow search URL is required"),
+});
+
 // Get results query schema
 export const GetResultsQuerySchema = z.object({
   runId: z.string().min(1, "Run ID is required"),
@@ -64,3 +75,5 @@ export type StartTaskResponse = z.infer<typeof StartTaskResponseSchema>;
 export type GetResultsResponse = z.infer<typeof GetResultsResponseSchema>;
 export type ErrorResponse = z.infer<typeof ErrorResponseSchema>;
 export type ApifyRunStatusType = z.infer<typeof ApifyRunStatus>;
+export type ApifyActorRun = z.infer<typeof ApifyActorRunSchema>;
+export type ZillowUrlSearch = z.infer<typeof ZillowUrlSearchSchema>;

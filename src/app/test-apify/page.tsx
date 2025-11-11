@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,28 +12,20 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import {
-  useDownloadResults,
-  usePropertySearchResults,
-  useStartPropertySearch,
-} from "@/hooks/use-apify";
+import { useZillowZipSearch } from "@/hooks/use-apify";
+import { useState } from "react";
 
 export default function TestApifyPage() {
-  const [runId, setRunId] = useState<string>("");
-
   // Search form state
   const [zipCodes, setZipCodes] = useState("10014,07306");
   const [priceMax, setPriceMax] = useState<number | undefined>(400000);
   const [forRent, setForRent] = useState(true);
 
-  // TanStack Query hooks
-  const startSearchMutation = useStartPropertySearch();
-  const {
-    data: resultsData,
-    error: resultsError,
-    isLoading: resultsLoading,
-  } = usePropertySearchResults(runId);
-  const downloadMutation = useDownloadResults();
+  // Results state
+  const [searchResults, setSearchResults] = useState<any>(null);
+
+  // TanStack Query hook - now returns results inline via workflow!
+  const { mutate: searchZillow, isPending, error } = useZillowZipSearch();
 
   const startApifyTask = () => {
     const zipCodeArray = zipCodes
@@ -42,7 +33,7 @@ export default function TestApifyPage() {
       .map((zip) => zip.trim())
       .filter(Boolean);
 
-    startSearchMutation.mutate(
+    searchZillow(
       {
         zipCodes: zipCodeArray,
         priceMax: priceMax || undefined,
@@ -50,32 +41,41 @@ export default function TestApifyPage() {
       },
       {
         onSuccess: (data) => {
-          setRunId(data.runId);
+          console.log("Search completed:", data);
+          setSearchResults(data);
         },
       },
     );
   };
 
-  // Results are automatically polled by usePropertySearchResults hook
-
   const downloadResults = (format: "json" | "csv" = "json") => {
-    if (!runId) return;
+    if (!searchResults?.results) return;
 
-    downloadMutation.mutate(
-      { runId, format },
-      {
-        onSuccess: (blob) => {
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = `zillow-results-${runId}.${format}`;
-          document.body.appendChild(a);
-          a.click();
-          window.URL.revokeObjectURL(url);
-          document.body.removeChild(a);
-        },
-      },
+    const dataStr =
+      format === "json"
+        ? JSON.stringify(searchResults.results, null, 2)
+        : convertToCSV(searchResults.results);
+
+    const blob = new Blob([dataStr], {
+      type: format === "json" ? "application/json" : "text/csv",
+    });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `zillow-results-${searchResults.runId}.${format}`;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  };
+
+  const convertToCSV = (data: any[]): string => {
+    if (!data.length) return "";
+    const headers = Object.keys(data[0]);
+    const rows = data.map((row) =>
+      headers.map((header) => JSON.stringify(row[header] ?? "")).join(","),
     );
+    return [headers.join(","), ...rows].join("\n");
   };
 
   const getStatusColor = (status: string) => {
@@ -99,7 +99,8 @@ export default function TestApifyPage() {
         <div>
           <h1 className="text-3xl font-bold mb-2">Apify Zillow Scraper Test</h1>
           <p className="text-gray-600">
-            Test the Apify integration for scraping Zillow listings
+            Test the Apify integration with Vercel Workflow - results return
+            inline!
           </p>
         </div>
 
@@ -107,7 +108,8 @@ export default function TestApifyPage() {
           <CardHeader>
             <CardTitle>Search Properties</CardTitle>
             <CardDescription>
-              Enter your search criteria to scrape Zillow listings
+              Enter your search criteria to scrape Zillow listings. The workflow
+              will wait for results.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -152,107 +154,77 @@ export default function TestApifyPage() {
 
             <Button
               onClick={startApifyTask}
-              disabled={startSearchMutation.isPending}
+              disabled={isPending}
               className="w-full sm:w-auto"
             >
-              {startSearchMutation.isPending
-                ? "Starting..."
+              {isPending
+                ? "Running workflow and waiting for results..."
                 : "Start Zillow Scraping"}
             </Button>
 
-            {startSearchMutation.error && (
-              <div className="text-red-600 text-sm">
-                Error: {startSearchMutation.error.message}
-              </div>
+            {error && (
+              <div className="text-red-600 text-sm">Error: {error.message}</div>
             )}
 
-            {runId && (
+            {searchResults && (
               <div className="space-y-2">
                 <p>
-                  <strong>Run ID:</strong> {runId}
+                  <strong>Run ID:</strong> {searchResults.runId}
                 </p>
-                {resultsData?.status && (
-                  <div className="flex items-center gap-2">
-                    <strong>Status:</strong>
-                    <Badge className={getStatusColor(resultsData.status)}>
-                      {resultsData.status}
-                    </Badge>
-                  </div>
-                )}
+                <div className="flex items-center gap-2">
+                  <strong>Status:</strong>
+                  <Badge className={getStatusColor(searchResults.status)}>
+                    {searchResults.status}
+                  </Badge>
+                </div>
               </div>
             )}
           </CardContent>
         </Card>
 
-        {runId && (
+        {searchResults?.results && searchResults.results.length > 0 && (
           <Card>
             <CardHeader>
               <CardTitle>Results</CardTitle>
               <CardDescription>
-                Results are automatically updated as they become available
+                Workflow completed - results ready!
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              {resultsLoading && (
-                <div className="text-blue-600 text-sm">
-                  Checking for results...
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <p className="text-sm text-gray-600">
+                    Found {searchResults.count} results
+                  </p>
+                  <div className="flex gap-2">
+                    <Button
+                      onClick={() => downloadResults("json")}
+                      size="sm"
+                      variant="outline"
+                    >
+                      Download JSON
+                    </Button>
+                    <Button
+                      onClick={() => downloadResults("csv")}
+                      size="sm"
+                      variant="outline"
+                    >
+                      Download CSV
+                    </Button>
+                  </div>
                 </div>
-              )}
 
-              {resultsError && (
-                <div className="text-red-600 text-sm">
-                  Error: {resultsError.message}
-                </div>
-              )}
-
-              {resultsData?.results && resultsData.results.length > 0 && (
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm text-gray-600">
-                      Found {resultsData.results.length} results
+                <div className="border rounded-lg p-4 bg-gray-50 max-h-96 overflow-y-auto">
+                  <pre className="text-sm whitespace-pre-wrap">
+                    {JSON.stringify(searchResults.results.slice(0, 3), null, 2)}
+                  </pre>
+                  {searchResults.results.length > 3 && (
+                    <p className="text-sm text-gray-500 mt-2">
+                      ... and {searchResults.results.length - 3} more results
                     </p>
-                    <div className="flex gap-2">
-                      <Button
-                        onClick={() => downloadResults("json")}
-                        size="sm"
-                        variant="outline"
-                        disabled={downloadMutation.isPending}
-                      >
-                        {downloadMutation.isPending
-                          ? "Downloading..."
-                          : "Download JSON"}
-                      </Button>
-                      <Button
-                        onClick={() => downloadResults("csv")}
-                        size="sm"
-                        variant="outline"
-                        disabled={downloadMutation.isPending}
-                      >
-                        {downloadMutation.isPending
-                          ? "Downloading..."
-                          : "Download CSV"}
-                      </Button>
-                    </div>
-                  </div>
-
-                  <div className="border rounded-lg p-4 bg-gray-50 max-h-96 overflow-y-auto">
-                    <pre className="text-sm whitespace-pre-wrap">
-                      {JSON.stringify(resultsData.results.slice(0, 3), null, 2)}
-                    </pre>
-                    {resultsData.results.length > 3 && (
-                      <p className="text-sm text-gray-500 mt-2">
-                        ... and {resultsData.results.length - 3} more results
-                      </p>
-                    )}
-                  </div>
+                  )}
                 </div>
-              )}
-
-              {downloadMutation.error && (
-                <div className="text-red-600 text-sm">
-                  Download error: {downloadMutation.error.message}
-                </div>
-              )}
+              </div>
             </CardContent>
           </Card>
         )}

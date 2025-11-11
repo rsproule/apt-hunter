@@ -1,8 +1,8 @@
+import Chat from "@/app/_components/chat";
 import SignInButton from "@/app/_components/echo/sign-in-button";
-import SearchBar from "@/app/_components/SearchBar";
 import { isSignedIn } from "@/echo";
 
-export default async function Home() {
+export default async function ChatPage() {
   const signedIn = await isSignedIn();
 
   if (!signedIn) {
@@ -30,11 +30,5 @@ export default async function Home() {
     );
   }
 
-  return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <div className="container mx-auto px-4 py-16">
-        <SearchBar />
-      </div>
-    </div>
-  );
+  return <Chat />;
 }
