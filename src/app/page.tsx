@@ -1,5 +1,6 @@
 import SignInButton from "@/app/_components/echo/sign-in-button";
 import SearchBar from "@/app/_components/SearchBar";
+import SearchHistory from "@/app/_components/SearchHistory";
 import { isSignedIn } from "@/echo";
 
 export default async function Home() {
@@ -31,10 +32,28 @@ export default async function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <div className="container mx-auto px-4 py-16">
-        <SearchBar />
-      </div>
+    <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
+      {/* Sidebar */}
+      <aside className="w-80 border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 overflow-y-auto flex flex-col">
+        <div className="p-4 border-b border-gray-200 dark:border-gray-800">
+          <h2 className="text-lg font-semibold mb-2">Search History</h2>
+          <p className="text-sm text-gray-500">Your recent searches</p>
+        </div>
+        <div className="p-4 flex-1">
+          <SearchHistory />
+        </div>
+      </aside>
+
+      {/* Main Content */}
+      <main className="flex-1 overflow-y-auto">
+        <div className="container mx-auto px-4 py-16">
+          <div className="text-center mb-8">
+            <h1 className="text-4xl font-bold mb-2">Apartment Hunter</h1>
+            <p className="text-gray-600">Find your perfect apartment</p>
+          </div>
+          <SearchBar />
+        </div>
+      </main>
     </div>
   );
 }

@@ -93,6 +93,19 @@ export const ZillowListingSchema = z
     // Additional flags
     isFeaturedListing: z.boolean().optional().default(false),
     isShowcaseListing: z.boolean().optional().default(false),
+
+    // Multi-unit building support
+    isBuilding: z.boolean().optional().default(false),
+    units: z
+      .array(
+        z.object({
+          beds: z.union([z.string(), z.number()]).optional(),
+          baths: z.union([z.string(), z.number()]).optional(),
+          price: z.string().optional(), // "$4,502+" format
+          roomForRent: z.boolean().optional(),
+        }),
+      )
+      .optional(),
   })
   .passthrough(); // Allow additional fields we don't care about
 
@@ -113,7 +126,73 @@ export const ZillowScraperResultSchema = z.object({
 export type ZillowScraperResult = z.infer<typeof ZillowScraperResultSchema>;
 
 /**
+ * Helper to parse price string like "$4,502+" into a number
+ */
+function parsePriceString(priceStr: string): number {
+  // Remove $, commas, and any + signs
+  const cleaned = priceStr.replace(/[$,+]/g, "");
+  const num = Number.parseFloat(cleaned);
+  return Number.isNaN(num) ? 0 : num;
+}
+
+/**
+ * Expand multi-unit buildings into individual listings
+ */
+function expandMultiUnitBuilding(building: ZillowListing): ZillowListing[] {
+  // If not a building or no units, return as-is
+  if (!building.isBuilding || !building.units || building.units.length === 0) {
+    return [building];
+  }
+
+  console.log(
+    `🏢 Expanding multi-unit building ${building.address} (zpid: ${building.zpid}) into ${building.units.length} separate listings`,
+  );
+
+  const expandedListings: ZillowListing[] = [];
+
+  for (let i = 0; i < building.units.length; i++) {
+    const unit = building.units[i];
+
+    // Parse unit-specific data
+    const unitBeds =
+      typeof unit.beds === "string"
+        ? Number.parseInt(unit.beds, 10)
+        : unit.beds || null;
+    const unitBaths =
+      typeof unit.baths === "string"
+        ? Number.parseFloat(unit.baths)
+        : unit.baths || null;
+    const unitPrice = unit.price ? parsePriceString(unit.price) : 0;
+
+    // Create a new listing for this unit
+    const unitListing: ZillowListing = {
+      ...building,
+      // Use building zpid + unit index for unique ID
+      zpid: `${building.zpid}-unit-${i}`,
+      id: `${building.id}-unit-${i}`,
+      // Override with unit-specific data
+      beds: unitBeds,
+      baths: unitBaths,
+      unformattedPrice: unitPrice,
+      price: unit.price || `$${unitPrice}`,
+      // Keep all building-level data (address, images, etc.)
+      isBuilding: false, // Mark as individual unit, not building
+      units: undefined, // Remove units array from individual listings
+    };
+
+    console.log(
+      `   ↳ Unit ${i + 1}: ${unitBeds} beds, ${unitBaths} baths, $${unitPrice}`,
+    );
+
+    expandedListings.push(unitListing);
+  }
+
+  return expandedListings;
+}
+
+/**
  * Helper to safely parse Zillow listings
+ * Expands multi-unit buildings into individual unit listings
  */
 export function parseZillowListings(data: unknown[]): ZillowListing[] {
   const parsed: ZillowListing[] = [];
@@ -122,7 +201,9 @@ export function parseZillowListings(data: unknown[]): ZillowListing[] {
   for (let i = 0; i < data.length; i++) {
     const result = ZillowListingSchema.safeParse(data[i]);
     if (result.success) {
-      parsed.push(result.data);
+      // Expand multi-unit buildings
+      const expandedListings = expandMultiUnitBuilding(result.data);
+      parsed.push(...expandedListings);
     } else {
       errors.push({
         index: i,
@@ -134,7 +215,7 @@ export function parseZillowListings(data: unknown[]): ZillowListing[] {
 
   if (errors.length > 0) {
     console.warn(
-      `Parsed ${parsed.length}/${data.length} listings (${errors.length} failed)`,
+      `Parsed ${parsed.length}/${data.length} raw items (${errors.length} failed)`,
     );
   }
 

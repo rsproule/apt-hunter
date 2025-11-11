@@ -15,6 +15,7 @@ interface ApifyTaskPayload {
   userId: string;
   searchType: "zipcode" | "url";
   searchQuery: any;
+  scrapeId?: string; // Optional: if provided, update existing scrape instead of creating
 }
 
 interface ApifyTaskResult {
@@ -34,7 +35,8 @@ export const runApifyTask = task({
 
     // Validate the payload
     const validatedRequest = ApifyWorkflowRequestSchema.parse(payload);
-    const { actorId, input, userId, searchType, searchQuery } = payload;
+    const { actorId, input, userId, searchType, searchQuery, scrapeId } =
+      payload;
 
     // Get API token from environment
     const env = ApifyEnvSchema.parse(process.env);
@@ -49,21 +51,34 @@ export const runApifyTask = task({
     const runId = run.id;
     console.log(`Started Apify actor ${actorId} with run ID: ${runId}`);
 
-    // Step 2: Create scrape record
+    // Step 2: Update or create scrape record
     let scrape;
     try {
-      scrape = await prisma.scrape.create({
-        data: {
-          userId,
-          searchType,
-          searchQuery,
-          apifyRunId: runId,
-          status: "running",
-        },
-      });
-      console.log(`Created scrape record: ${scrape.id}`);
+      if (scrapeId) {
+        // Update existing scrape record
+        scrape = await prisma.scrape.update({
+          where: { id: scrapeId },
+          data: {
+            apifyRunId: runId,
+            status: "running",
+          },
+        });
+        console.log(`Updated scrape record: ${scrape.id}`);
+      } else {
+        // Create new scrape record (fallback for old behavior)
+        scrape = await prisma.scrape.create({
+          data: {
+            userId,
+            searchType,
+            searchQuery,
+            apifyRunId: runId,
+            status: "running",
+          },
+        });
+        console.log(`Created scrape record: ${scrape.id}`);
+      }
     } catch (error) {
-      console.error("Failed to create scrape record:", error);
+      console.error("Failed to create/update scrape record:", error);
       // Continue anyway, we still want to get the results
     }
 
@@ -86,7 +101,7 @@ export const runApifyTask = task({
           try {
             const validListings = parseZillowListings(dataset.items);
             console.log(
-              `Parsed ${validListings.length}/${dataset.items.length} listings`,
+              `Parsed ${validListings.length} listings from ${dataset.items.length} raw items (includes expanded multi-unit buildings)`,
             );
 
             let created = 0;

@@ -1,12 +1,16 @@
+import { getUserId } from "@/echo";
 import { prisma } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
 // GET /api/scrapes - Get user's scrape history
 export async function GET(request: NextRequest) {
   try {
-    // TODO: Get userId from Echo session
-    // For now, use a placeholder - integrate with Echo auth
-    const userId = request.headers.get("x-user-id") || "anonymous";
+    // Get userId from Echo session
+    const userId = await getUserId();
+    
+    if (!userId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
 
     const searchParams = request.nextUrl.searchParams;
     const limit = Number.parseInt(searchParams.get("limit") || "50");

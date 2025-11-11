@@ -1,5 +1,7 @@
+import { getUserId } from "@/echo";
 import { ApifyWorkflowRequestSchema } from "@/lib/apify-actors";
 import { ApifyEnvSchema } from "@/lib/apify-schemas";
+import { prisma } from "@/lib/db";
 import { runApifyTask } from "@/trigger/apify-scraper";
 import { tasks } from "@trigger.dev/sdk/v3";
 import { NextRequest, NextResponse } from "next/server";
@@ -16,9 +18,12 @@ export async function POST(request: NextRequest) {
     // Validate environment
     ApifyEnvSchema.parse(process.env);
 
-    // TODO: Get userId from Echo session
-    // For now, use a placeholder - integrate with Echo auth
-    const userId = request.headers.get("x-user-id") || "anonymous";
+    // Get userId from Echo session
+    const userId = await getUserId();
+
+    if (!userId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
 
     // Determine search type and query
     const searchType =
@@ -27,17 +32,38 @@ export async function POST(request: NextRequest) {
         : "url";
     const searchQuery = validatedRequest.input;
 
+    // Create the scrape record immediately
+    const scrape = await prisma.scrape.create({
+      data: {
+        userId,
+        searchType,
+        searchQuery,
+        apifyRunId: "pending", // Will be updated by the task
+        status: "pending",
+      },
+    });
+
     // Trigger the task - it will run in the background
     const handle = await tasks.trigger<typeof runApifyTask>("apify-scraper", {
       ...validatedRequest,
       userId,
       searchType,
       searchQuery,
+      scrapeId: scrape.id, // Pass the scrape ID to the task
     });
 
-    // Return the task handle so the client can poll for results
+    // Update the scrape with the task ID
+    await prisma.scrape.update({
+      where: { id: scrape.id },
+      data: {
+        taskId: handle.id,
+      },
+    });
+
+    // Return immediately so the UI can redirect
     return NextResponse.json({
       taskId: handle.id,
+      scrapeId: scrape.id,
       message: "Task triggered successfully",
     });
   } catch (error) {

@@ -3,11 +3,13 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useZillowUrlSearch } from "@/hooks/use-apify";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function SearchBar() {
   const [searchValue, setSearchValue] = useState("");
   const { mutate: startSearch, isPending } = useZillowUrlSearch();
+  const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,9 +20,10 @@ export default function SearchBar() {
 
     startSearch(searchValue, {
       onSuccess: (data) => {
-        console.log("Search completed successfully:", data);
-        console.log(`Found ${data.count} results`);
-        // TODO: Handle successful search (e.g., redirect to results page or show results)
+        console.log("Search triggered successfully:", data);
+        // Redirect immediately to the search results page
+        router.push(`/search/${data.scrapeId}`);
+        router.refresh(); // Refresh to update sidebar
       },
       onError: (error) => {
         console.error("Search failed:", error);
@@ -41,7 +44,7 @@ export default function SearchBar() {
           disabled={isPending}
         />
         <Button type="submit" disabled={isPending}>
-          {isPending ? "Searching..." : "Search"}
+          {isPending ? "Starting..." : "Search"}
         </Button>
       </form>
     </div>
