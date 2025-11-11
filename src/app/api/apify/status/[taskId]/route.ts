@@ -19,7 +19,7 @@ export async function GET(
       isSuccess: run.isSuccess,
       isFailed: run.isFailed,
       startedAt: run.startedAt,
-      completedAt: run.completedAt,
+      completedAt: run.finishedAt || null, // Use finishedAt instead of completedAt
     });
   } catch (error) {
     console.error("Error checking task status:", error);
