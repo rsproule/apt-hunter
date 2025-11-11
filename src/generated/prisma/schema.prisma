@@ -1,0 +1,131 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Scrape {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Echo user who initiated this scrape
+  userId String
+
+  // Scrape metadata
+  name        String? // Optional user-provided name
+  searchType  String // "zipcode" or "url"
+  searchQuery Json // Store the search parameters as JSON
+
+  // Apify run info
+  apifyRunId String  @unique
+  taskId     String? // Trigger.dev task ID
+
+  // Status tracking
+  status      String // "pending", "running", "completed", "failed"
+  error       String?
+  completedAt DateTime?
+  durationMs  Int? // Duration in milliseconds
+
+  // Results summary
+  listingsCount Int @default(0)
+
+  // Relations
+  listings ScrapeListing[]
+
+  @@index([userId])
+  @@index([createdAt])
+  @@index([apifyRunId])
+  @@index([status])
+}
+
+model Listing {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Zillow identifiers
+  zpid      String @unique
+  detailUrl String
+
+  // Images
+  imgSrc     String?
+  photos     String[] // Array of photo URLs from carousel
+  hasImage   Boolean  @default(false)
+  has3DModel Boolean  @default(false)
+  hasVideo   Boolean  @default(false)
+
+  // Status
+  statusType String // FOR_SALE, FOR_RENT, etc.
+  statusText String
+
+  // Pricing
+  price          Int // Unformatted price in dollars
+  priceFormatted String? // "$995,000" format
+  currency       String  @default("USD")
+
+  // Location
+  address        String
+  addressStreet  String?
+  addressCity    String?
+  addressState   String?
+  addressZipcode String?
+  latitude       Float?
+  longitude      Float?
+
+  // Property details
+  beds     Int?
+  baths    Float?
+  area     Int? // Square footage
+  homeType String? // CONDO, APARTMENT, HOUSE, etc.
+
+  // Dates
+  availabilityDate DateTime?
+  scrapedAt        DateTime  @default(now())
+
+  // Broker info
+  brokerName String?
+
+  // Estimates
+  zestimate     Int?
+  rentZestimate Int?
+
+  // Flags
+  isFeaturedListing Boolean @default(false)
+
+  // Store full raw JSON for reference
+  rawData Json
+
+  // Relations
+  scrapes ScrapeListing[]
+
+  @@index([zpid])
+  @@index([addressZipcode])
+  @@index([addressCity, addressState])
+  @@index([price])
+  @@index([beds, baths])
+  @@index([statusType])
+  @@index([scrapedAt])
+}
+
+// Junction table connecting Scrapes to Listings
+model ScrapeListing {
+  scrape    Scrape  @relation(fields: [scrapeId], references: [id], onDelete: Cascade)
+  scrapeId  String
+  listing   Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  listingId String
+
+  // When this listing was found in this scrape
+  foundAt DateTime @default(now())
+
+  @@id([scrapeId, listingId])
+  @@index([scrapeId])
+  @@index([listingId])
+}

@@ -19,17 +19,15 @@ type SearchMode = "zipcode" | "url";
 
 export default function TestApifyPage() {
   // Search mode
-  const [searchMode, setSearchMode] = useState<SearchMode>("zipcode");
+  const [searchMode, setSearchMode] = useState<SearchMode>("url");
 
   // ZIP Code search state
-  const [zipCodes, setZipCodes] = useState("10014,07306");
+  const [zipCodes, setZipCodes] = useState("10003"); // East Village
   const [priceMax, setPriceMax] = useState<number | undefined>(400000);
   const [forRent, setForRent] = useState(true);
 
   // URL search state
-  const [searchUrl, setSearchUrl] = useState(
-    "https://www.zillow.com/jersey-city-nj/rentals/?searchQueryState=%7B%22pagination%22%3A%7B%7D%2C%22isMapVisible%22%3Atrue%2C%22mapBounds%22%3A%7B%22west%22%3A-74.1033%2C%22east%22%3A-74.0067%2C%22south%22%3A40.6945%2C%22north%22%3A40.7645%7D%2C%22regionSelection%22%3A%5B%7B%22regionId%22%3A24643%2C%22regionType%22%3A6%7D%5D%2C%22filterState%22%3A%7B%22fr%22%3A%7B%22value%22%3Atrue%7D%2C%22fsba%22%3A%7B%22value%22%3Afalse%7D%2C%22fsbo%22%3A%7B%22value%22%3Afalse%7D%2C%22nc%22%3A%7B%22value%22%3Afalse%7D%2C%22cmsn%22%3A%7B%22value%22%3Afalse%7D%2C%22auc%22%3A%7B%22value%22%3Afalse%7D%2C%22fore%22%3A%7B%22value%22%3Afalse%7D%2C%22price%22%3A%7B%22max%22%3A400000%7D%2C%22mp%22%3A%7B%22max%22%3A1500%7D%7D%7D",
-  );
+  const [searchUrl, setSearchUrl] = useState("");
 
   // Results state
   const [searchResults, setSearchResults] = useState<any>(null);

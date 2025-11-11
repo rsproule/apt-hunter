@@ -16,11 +16,24 @@ export async function POST(request: NextRequest) {
     // Validate environment
     ApifyEnvSchema.parse(process.env);
 
+    // TODO: Get userId from Echo session
+    // For now, use a placeholder - integrate with Echo auth
+    const userId = request.headers.get("x-user-id") || "anonymous";
+
+    // Determine search type and query
+    const searchType =
+      validatedRequest.actorId === "maxcopell/zillow-zip-search"
+        ? "zipcode"
+        : "url";
+    const searchQuery = validatedRequest.input;
+
     // Trigger the task - it will run in the background
-    const handle = await tasks.trigger<typeof runApifyTask>(
-      "apify-scraper",
-      validatedRequest,
-    );
+    const handle = await tasks.trigger<typeof runApifyTask>("apify-scraper", {
+      ...validatedRequest,
+      userId,
+      searchType,
+      searchQuery,
+    });
 
     // Return the task handle so the client can poll for results
     return NextResponse.json({
