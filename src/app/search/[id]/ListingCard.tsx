@@ -1,7 +1,6 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
 
 interface Listing {
   id: string;
@@ -37,11 +36,11 @@ interface Listing {
   rawData: any;
 }
 
-interface ListingCardProps {
+interface ListingRowProps {
   listing: Listing;
 }
 
-export default function ListingCard({ listing }: ListingCardProps) {
+export default function ListingRow({ listing }: ListingRowProps) {
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -50,7 +49,7 @@ export default function ListingCard({ listing }: ListingCardProps) {
     }).format(price);
   };
 
-  const handleCardClick = () => {
+  const handleRowClick = () => {
     console.group(`🏠 Listing Debug: ${listing.address}`);
     console.log("📊 Database Object:", {
       id: listing.id,
@@ -75,56 +74,85 @@ export default function ListingCard({ listing }: ListingCardProps) {
   };
 
   return (
-    <Card
-      className="overflow-hidden cursor-pointer hover:shadow-lg transition-shadow"
-      onClick={handleCardClick}
+    <div
+      className="flex items-center gap-4 py-2 px-3 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer border-b border-gray-200 dark:border-gray-700 transition-colors"
+      onClick={handleRowClick}
     >
-      {listing.imgSrc && (
-        <div className="relative h-48 bg-gray-200">
+      {/* Image */}
+      <div className="flex-shrink-0 w-24 h-16 bg-gray-200 dark:bg-gray-700 rounded overflow-hidden">
+        {listing.imgSrc ? (
           <img
             src={listing.imgSrc}
             alt={listing.address}
             className="w-full h-full object-cover"
           />
-          {listing.has3DModel && (
-            <Badge className="absolute top-2 right-2">3D Tour</Badge>
-          )}
-          {listing.hasVideo && (
-            <Badge className="absolute top-2 left-2">Video</Badge>
-          )}
-        </div>
-      )}
-      <CardContent className="p-4">
-        <div className="flex items-start justify-between mb-2">
-          <div className="text-2xl font-bold">{formatPrice(listing.price)}</div>
-          <Badge variant="outline">{listing.statusType}</Badge>
-        </div>
-
-        <p className="text-sm text-gray-600 mb-2">{listing.address}</p>
-
-        <div className="flex items-center gap-3 text-sm text-gray-700 mb-3">
-          {listing.beds && <span>{listing.beds} beds</span>}
-          {listing.baths && <span>{listing.baths} baths</span>}
-          {listing.area && <span>{listing.area} sqft</span>}
-        </div>
-
-        {listing.homeType && (
-          <p className="text-xs text-gray-500 mb-2 capitalize">
-            {listing.homeType.toLowerCase()}
-          </p>
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
+            No Image
+          </div>
         )}
+      </div>
 
-        <a
-          href={listing.detailUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-600 hover:underline text-sm"
-          onClick={(e) => e.stopPropagation()} // Prevent card click when clicking link
-        >
-          View on Zillow →
-        </a>
-      </CardContent>
-    </Card>
+      {/* Price */}
+      <div className="w-28 flex-shrink-0 font-semibold text-sm">
+        {formatPrice(listing.price)}
+      </div>
+
+      {/* Beds/Baths */}
+      <div className="w-32 flex-shrink-0 text-sm text-gray-600 dark:text-gray-400">
+        {listing.beds && listing.baths ? (
+          <span>
+            {listing.beds}bd / {listing.baths}ba
+          </span>
+        ) : listing.beds ? (
+          <span>{listing.beds} beds</span>
+        ) : listing.baths ? (
+          <span>{listing.baths} baths</span>
+        ) : (
+          <span className="text-gray-400">—</span>
+        )}
+      </div>
+
+      {/* Area */}
+      <div className="w-24 flex-shrink-0 text-sm text-gray-600 dark:text-gray-400">
+        {listing.area ? `${listing.area} sqft` : "—"}
+      </div>
+
+      {/* Address */}
+      <div className="flex-1 min-w-0 text-sm">
+        <div className="truncate font-medium">{listing.address}</div>
+        {listing.homeType && (
+          <div className="text-xs text-gray-500 capitalize">
+            {listing.homeType.toLowerCase()}
+          </div>
+        )}
+      </div>
+
+      {/* Badges */}
+      <div className="flex gap-1 flex-shrink-0">
+        {listing.has3DModel && (
+          <Badge variant="secondary" className="text-xs">
+            3D
+          </Badge>
+        )}
+        {listing.hasVideo && (
+          <Badge variant="secondary" className="text-xs">
+            Video
+          </Badge>
+        )}
+      </div>
+
+      {/* Link */}
+      <a
+        href={listing.detailUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex-shrink-0 text-blue-600 hover:underline text-xs"
+        onClick={(e) => e.stopPropagation()}
+      >
+        View →
+      </a>
+    </div>
   );
 }
 

@@ -1,13 +1,7 @@
-import ListingCard from "@/app/search/[id]/ListingCard";
+import ListingsTable from "@/app/search/[id]/ListingsTable";
 import SearchPageClient from "@/app/search/[id]/SearchPageClient";
 import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
 
@@ -15,22 +9,30 @@ interface SearchPageProps {
   params: Promise<{
     id: string;
   }>;
+  searchParams: Promise<{
+    page?: string;
+    limit?: string;
+  }>;
 }
 
-export default async function SearchPage({ params }: SearchPageProps) {
+export default async function SearchPage({
+  params,
+  searchParams,
+}: SearchPageProps) {
   const { id } = await params;
+  const { page: pageParam, limit: limitParam } = await searchParams;
 
-  // Fetch the scrape with its listings
+  // Parse pagination params
+  const page = pageParam ? Number.parseInt(pageParam, 10) : 1;
+  const limit = limitParam ? Number.parseInt(limitParam, 10) : 25;
+  const skip = (page - 1) * limit;
+
+  // Fetch the scrape metadata and total count
   const scrape = await prisma.scrape.findUnique({
     where: { id },
     include: {
-      listings: {
-        include: {
-          listing: true,
-        },
-        orderBy: {
-          foundAt: "desc",
-        },
+      _count: {
+        select: { listings: true },
       },
     },
   });
@@ -38,6 +40,22 @@ export default async function SearchPage({ params }: SearchPageProps) {
   if (!scrape) {
     notFound();
   }
+
+  // Fetch paginated listings
+  const listings = await prisma.scrapeListing.findMany({
+    where: { scrapeId: id },
+    include: {
+      listing: true,
+    },
+    orderBy: {
+      foundAt: "desc",
+    },
+    skip,
+    take: limit,
+  });
+
+  const totalListings = scrape._count.listings;
+  const totalPages = Math.ceil(totalListings / limit);
 
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
@@ -73,7 +91,7 @@ export default async function SearchPage({ params }: SearchPageProps) {
     <div className="container mx-auto px-4 py-8">
       {/* Auto-refresh component for pending/running searches */}
       <SearchPageClient scrapeId={scrape.id} status={scrape.status} />
-      
+
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div>
@@ -90,78 +108,15 @@ export default async function SearchPage({ params }: SearchPageProps) {
           </p>
         </div>
 
-        {/* Search Details */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Search Details</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <dl className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <dt className="text-sm font-medium text-gray-500">
-                  Search Type
-                </dt>
-                <dd className="mt-1 capitalize">{scrape.searchType}</dd>
-              </div>
-              {scrape.searchType === "zipcode" && searchQuery && (
-                <>
-                  <div>
-                    <dt className="text-sm font-medium text-gray-500">
-                      ZIP Codes
-                    </dt>
-                    <dd className="mt-1">
-                      {searchQuery.zipCodes?.join(", ") || "N/A"}
-                    </dd>
-                  </div>
-                  {searchQuery.priceMax && (
-                    <div>
-                      <dt className="text-sm font-medium text-gray-500">
-                        Max Price
-                      </dt>
-                      <dd className="mt-1">
-                        {formatPrice(searchQuery.priceMax)}
-                      </dd>
-                    </div>
-                  )}
-                  <div>
-                    <dt className="text-sm font-medium text-gray-500">Type</dt>
-                    <dd className="mt-1">
-                      {searchQuery.forRent ? "For Rent" : "For Sale"}
-                    </dd>
-                  </div>
-                </>
-              )}
-              {scrape.durationMs && (
-                <div>
-                  <dt className="text-sm font-medium text-gray-500">
-                    Duration
-                  </dt>
-                  <dd className="mt-1">
-                    {(scrape.durationMs / 1000).toFixed(1)}s
-                  </dd>
-                </div>
-              )}
-              <div>
-                <dt className="text-sm font-medium text-gray-500">Run ID</dt>
-                <dd className="mt-1 font-mono text-sm">{scrape.apifyRunId}</dd>
-              </div>
-            </dl>
-          </CardContent>
-        </Card>
-
         {/* Listings */}
-        {scrape.status === "completed" && scrape.listings.length > 0 ? (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Listings</h2>
-            <p className="text-sm text-gray-500">
-              Click on any card to see raw JSON and database data in console
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {scrape.listings.map(({ listing }) => (
-                <ListingCard key={listing.id} listing={listing} />
-              ))}
-            </div>
-          </div>
+        {scrape.status === "completed" && totalListings > 0 ? (
+          <ListingsTable
+            listings={listings}
+            totalItems={totalListings}
+            currentPage={page}
+            itemsPerPage={limit}
+            totalPages={totalPages}
+          />
         ) : scrape.status === "running" || scrape.status === "pending" ? (
           <Card>
             <CardContent className="py-12 text-center">
@@ -197,4 +152,3 @@ export default async function SearchPage({ params }: SearchPageProps) {
     </div>
   );
 }
-
