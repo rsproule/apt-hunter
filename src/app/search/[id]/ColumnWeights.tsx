@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 interface Column {
@@ -27,6 +27,11 @@ export default function ColumnWeights({
   const router = useRouter();
   const [columns, setColumns] = useState(initialColumns);
   const [isSaving, setIsSaving] = useState(false);
+
+  // Update columns when props change (e.g., new enhancement added)
+  useEffect(() => {
+    setColumns(initialColumns);
+  }, [initialColumns]);
 
   const handleWeightChange = (columnId: string, newWeight: number[]) => {
     setColumns((prev) =>
@@ -67,8 +72,9 @@ export default function ColumnWeights({
     }
   };
 
-  const hasChanges = columns.some((col, idx) => {
-    return col.weight !== initialColumns[idx].weight;
+  const hasChanges = columns.some((col) => {
+    const initial = initialColumns.find((c) => c.id === col.id);
+    return initial && col.weight !== initial.weight;
   });
 
   return (

@@ -56,6 +56,7 @@ interface EnhancementColumn {
 interface EnhancementValue {
   listingId: string;
   values: Record<string, boolean | number>;
+  compositeScore: number;
   status: string;
 }
 
@@ -169,7 +170,10 @@ export default function ListingsTable({
         <div className="w-24 flex-shrink-0">Area</div>
         <div className="flex-1 min-w-0">Address</div>
         {enhancementColumns.length > 0 && (
-          <div className="w-24 flex-shrink-0 text-center">Scores</div>
+          <>
+            <div className="w-20 flex-shrink-0 text-center">Score</div>
+            <div className="w-24 flex-shrink-0 text-center">Details</div>
+          </>
         )}
         <div className="w-16 flex-shrink-0">Link</div>
       </div>

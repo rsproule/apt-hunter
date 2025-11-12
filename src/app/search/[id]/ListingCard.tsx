@@ -53,6 +53,7 @@ interface EnhancementColumn {
 interface EnhancementValue {
   listingId: string;
   values: Record<string, boolean | number>;
+  compositeScore: number;
   status: string;
 }
 
@@ -206,17 +207,38 @@ export default function ListingRow({
         )}
       </div>
 
-      {/* Enhancement Columns - 2D Grid of Dots */}
+      {/* Enhancement Score and Details */}
       {enhancementColumns.length > 0 && (
-        <TooltipProvider delayDuration={100}>
-          <div className="flex flex-wrap gap-1.5 w-24 flex-shrink-0 items-center justify-center">
-            {enhancementColumns.map((col) => (
-              <div key={col.id}>
-                {renderEnhancementValue(col)}
+        <>
+          {/* Composite Score */}
+          <div className="w-20 flex-shrink-0 text-center">
+            {enhancementResult && enhancementResult.status === "completed" ? (
+              <div className="inline-flex items-center justify-center">
+                <span className="text-lg font-bold text-blue-600 dark:text-blue-400">
+                  {enhancementResult.compositeScore.toFixed(1)}
+                </span>
+                <span className="text-xs text-gray-500 ml-0.5">/10</span>
               </div>
-            ))}
+            ) : enhancementResult?.status === "pending" ? (
+              <span className="text-xs text-gray-400">Pending</span>
+            ) : enhancementResult?.status === "processing" ? (
+              <span className="text-xs text-blue-500">...</span>
+            ) : (
+              <span className="text-xs text-gray-400">—</span>
+            )}
           </div>
-        </TooltipProvider>
+
+          {/* Enhancement Details - Grid of Dots */}
+          <TooltipProvider delayDuration={100}>
+            <div className="flex flex-wrap gap-1.5 w-24 flex-shrink-0 items-center justify-center">
+              {enhancementColumns.map((col) => (
+                <div key={col.id}>
+                  {renderEnhancementValue(col)}
+                </div>
+              ))}
+            </div>
+          </TooltipProvider>
+        </>
       )}
 
       {/* Link */}

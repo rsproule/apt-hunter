@@ -190,6 +190,9 @@ model EnhancementColumn {
     // Display order
     order Int @default(0)
 
+    // Relations
+    values EnhancementValue[]
+
     @@index([enhancementId])
 }
 
@@ -205,7 +208,7 @@ model EnhancementResult {
     listing       Listing     @relation(fields: [listingId], references: [id], onDelete: Cascade)
     listingId     String
 
-    // Column values stored as JSON
+    // Column values stored as JSON (for backwards compatibility and display)
     // Structure: { "has_hardwood_floors": true, "modern_kitchen_score": 8, ... }
     values Json
 
@@ -216,9 +219,33 @@ model EnhancementResult {
     status String  @default("pending") // "pending", "processing", "completed", "failed"
     error  String?
 
+    // Relations
+    individualValues EnhancementValue[]
+
     @@unique([enhancementId, listingId])
     @@index([enhancementId])
     @@index([listingId])
     @@index([status])
     @@index([enhancementId, compositeScore])
+}
+
+// Individual column values for efficient sorting and indexing
+model EnhancementValue {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+
+    // Links
+    result            EnhancementResult  @relation(fields: [resultId], references: [id], onDelete: Cascade)
+    resultId          String
+    column            EnhancementColumn  @relation(fields: [columnId], references: [id], onDelete: Cascade)
+    columnId          String
+    enhancementId     String
+    listingId         String
+
+    // Normalized value (boolean as 0 or 10, scores as 0-10)
+    normalizedValue Float
+
+    @@unique([resultId, columnId])
+    @@index([enhancementId, columnId, normalizedValue]) // For efficient sorting by any column
+    @@index([listingId, columnId])
 }

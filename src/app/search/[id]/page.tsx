@@ -77,69 +77,38 @@ export default async function SearchPage({
   let listingsWithEnhancements;
 
   if (activeEnhancementIds.length > 0) {
-    // Get all listing IDs for this scrape
-    const scrapeListingIds = await prisma.scrapeListing.findMany({
-      where: { scrapeId: id },
-      select: { listingId: true },
-    });
+    // Calculate composite scores dynamically at query time based on current column weights
+    // This ensures scores are always fresh and all listings are included
+    const rankedListings = await prisma.$queryRaw<
+      Array<{
+        listingId: string;
+        totalCompositeScore: number;
+      }>
+    >`
+      SELECT 
+        sl."listingId",
+        COALESCE(
+          SUM(ev."normalizedValue" * ec.weight) / NULLIF(SUM(ec.weight), 0),
+          0
+        ) as "totalCompositeScore"
+      FROM "ScrapeListing" sl
+      LEFT JOIN "EnhancementResult" er ON er."listingId" = sl."listingId"
+        AND er."enhancementId" = ANY(${activeEnhancementIds}::text[])
+        AND er.status = 'completed'
+      LEFT JOIN "EnhancementValue" ev ON ev."resultId" = er.id
+      LEFT JOIN "EnhancementColumn" ec ON ec.id = ev."columnId"
+      WHERE sl."scrapeId" = ${id}
+      GROUP BY sl."listingId"
+      ORDER BY "totalCompositeScore" DESC
+      LIMIT ${limit}
+      OFFSET ${skip}
+    `;
 
-    const listingIds = scrapeListingIds.map((sl) => sl.listingId);
+    const rankedListingIds = rankedListings.map((r) => r.listingId);
 
-    // Fetch all enhancement results for these listings from ALL active enhancements
-    const allEnhancementResults = await Promise.all(
-      activeEnhancementIds.map((enhancementId) =>
-        prisma.enhancementResult.findMany({
-          where: {
-            enhancementId,
-            listingId: { in: listingIds },
-          },
-        }),
-      ),
-    );
-
-    // Merge results by listing and calculate unified composite score
-    const listingResultsMap = new Map<
-      string,
-      {
-        values: Record<string, boolean | number>;
-        compositeScore: number;
-        status: string;
-      }
-    >();
-
-    for (const results of allEnhancementResults) {
-      for (const result of results) {
-        const existing = listingResultsMap.get(result.listingId);
-
-        if (existing) {
-          // Merge values and add to composite score
-          existing.values = {
-            ...existing.values,
-            ...(result.values as Record<string, boolean | number>),
-          };
-          existing.compositeScore += result.compositeScore;
-          if (result.status !== "completed") {
-            existing.status = result.status;
-          }
-        } else {
-          listingResultsMap.set(result.listingId, {
-            values: result.values as Record<string, boolean | number>,
-            compositeScore: result.compositeScore,
-            status: result.status,
-          });
-        }
-      }
-    }
-
-    // Convert to array and sort by composite score
-    const sortedListingIds = Array.from(listingResultsMap.entries())
-      .sort((a, b) => b[1].compositeScore - a[1].compositeScore)
-      .slice(skip, skip + limit)
-      .map(([listingId]) => listingId);
-
-    // Fetch listings in sorted order
+    // Fetch the actual listings and enhancement results
     const listings = await prisma.listing.findMany({
-      where: { id: { in: sortedListingIds } },
+      where: { id: { in: rankedListingIds } },
       include: {
         scrapes: {
           where: { scrapeId: id },
@@ -147,29 +116,79 @@ export default async function SearchPage({
       },
     });
 
-    // Create map for easy lookup
-    const listingsMap = new Map(listings.map((l) => [l.id, l]));
+    // Fetch enhancement results for these listings
+    const enhancementResults = await prisma.enhancementResult.findMany({
+      where: {
+        enhancementId: { in: activeEnhancementIds },
+        listingId: { in: rankedListingIds },
+      },
+    });
 
-    // Maintain sorted order
-    listingsWithEnhancements = sortedListingIds
+    // Create maps for quick lookup
+    const listingsMap = new Map(listings.map((l) => [l.id, l]));
+    const scoresMap = new Map(
+      rankedListings.map((r) => [r.listingId, Number(r.totalCompositeScore)]),
+    );
+
+    // Group enhancement results by listing
+    const resultsMap = new Map<
+      string,
+      {
+        values: Record<string, boolean | number>;
+        status: string;
+      }
+    >();
+
+    for (const result of enhancementResults) {
+      const existing = resultsMap.get(result.listingId);
+      const resultValues = result.values as Record<string, boolean | number>;
+
+      if (existing) {
+        existing.values = { ...existing.values, ...resultValues };
+        if (result.status !== "completed") {
+          existing.status = result.status;
+        }
+      } else {
+        resultsMap.set(result.listingId, {
+          values: resultValues,
+          status: result.status,
+        });
+      }
+    }
+
+    // Build results maintaining database sort order
+    listingsWithEnhancements = rankedListingIds
       .map((listingId) => {
         const listing = listingsMap.get(listingId);
         if (!listing) return null;
+
+        const resultData = resultsMap.get(listingId);
+        // Use the dynamically calculated composite score from the query
+        const compositeScore = scoresMap.get(listingId) || 0;
 
         return {
           listing,
           scrapeId: id,
           listingId,
           foundAt: listing.scrapes[0]?.foundAt || new Date(),
-          enhancementResult: {
-            listingId,
-            ...listingResultsMap.get(listingId)!,
-          },
+          enhancementResult: resultData
+            ? {
+                listingId,
+                values: resultData.values,
+                compositeScore,
+                status: resultData.status,
+              }
+            : {
+                listingId,
+                values: {},
+                compositeScore,
+                status: "pending",
+              },
         };
       })
       .filter(Boolean) as any;
   } else {
-    // Default: fetch listings sorted by foundAt
+    // Default: fetch listings sorted by foundAt (database-level)
     const scrapeListings = await prisma.scrapeListing.findMany({
       where: { scrapeId: id },
       include: {
@@ -224,7 +243,10 @@ export default async function SearchPage({
       <SearchPageClient scrapeId={scrape.id} status={scrape.status} />
 
       {/* Enhancement polling */}
-      <EnhancementPolling enhancementId={activeEnhancementIds[0] || null} />
+      <EnhancementPolling
+        enhancementId={activeEnhancementIds[0] || null}
+        scrapeId={scrape.id}
+      />
 
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
@@ -271,6 +293,7 @@ export default async function SearchPage({
               enhancementColumns.length > 0 && (
                 <div className="lg:col-span-1">
                   <ColumnWeights
+                    key={activeEnhancementIds.join(",")}
                     enhancementIds={activeEnhancementIds}
                     columns={enhancementColumns.map((c) => ({
                       id: c.id,

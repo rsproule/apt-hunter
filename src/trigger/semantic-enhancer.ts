@@ -21,10 +21,23 @@ const QueryValidationSchema = z.object({
   columns: z.array(ColumnSchema).optional(),
 });
 
-const ListingAnalysisSchema = z.object({
-  values: z.record(z.string(), z.union([z.boolean(), z.number()])),
-  reasoning: z.string().optional(),
-});
+// Helper function to build dynamic schema based on columns
+function buildListingAnalysisSchema(
+  columns: Array<{ name: string; type: string }>,
+) {
+  const schemaFields: Record<string, z.ZodTypeAny> = {};
+
+  for (const column of columns) {
+    if (column.type === "boolean") {
+      schemaFields[column.name] = z.boolean();
+    } else {
+      // score type
+      schemaFields[column.name] = z.number().min(0).max(10);
+    }
+  }
+
+  return z.object(schemaFields);
+}
 
 interface SemanticEnhancementPayload {
   enhancementId: string;
@@ -35,14 +48,16 @@ interface SemanticEnhancementPayload {
 
 export const runSemanticEnhancement = task({
   id: "semantic-enhancer",
+  maxDuration: 3600, // 1 hour max
   run: async (payload: SemanticEnhancementPayload) => {
     const { enhancementId, scrapeId, query } = payload;
 
     console.log(`Starting semantic enhancement ${enhancementId}`);
 
+    let enhancement;
     try {
       // Update status to processing
-      await prisma.enhancement.update({
+      enhancement = await prisma.enhancement.update({
         where: { id: enhancementId },
         data: { status: "processing" },
       });
@@ -135,8 +150,93 @@ Examples of INVALID queries:
         });
       }
 
-      // ===== PASS 2: Listing Analysis Loop =====
-      console.log("Pass 2: Analyzing listings...");
+      // Mark as pending approval and wait for user to approve
+      await prisma.enhancement.update({
+        where: { id: enhancementId },
+        data: { status: "pending_approval" },
+      });
+
+      console.log(
+        `Enhancement ${enhancementId} ready for approval. Columns generated:`,
+        columns.map((c) => c.name),
+      );
+
+      return {
+        success: true,
+        status: "pending_approval",
+        columns: columns.map((c) => c.name),
+        message: "Columns generated. Awaiting user approval.",
+      };
+
+      // ===== PASS 2 will be triggered separately after approval =====
+
+      // This code will not be reached until approval happens
+      // (kept for when we create a separate processing task)
+      return {
+        success: true,
+        status: "pending_approval",
+      };
+    } catch (error) {
+      console.error(`Error in semantic enhancement ${enhancementId}:`, error);
+
+      // Always mark as failed to prevent infinite polling
+      try {
+        await prisma.enhancement.update({
+          where: { id: enhancementId },
+          data: {
+            status: "failed",
+            error:
+              error instanceof Error
+                ? error.message.slice(0, 500) // Limit error message length
+                : "Unknown error occurred during enhancement",
+            completedAt: new Date(),
+          },
+        });
+      } catch (dbError) {
+        console.error("Failed to mark enhancement as failed:", dbError);
+      }
+
+      // Return error info instead of throwing to prevent retry loops
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error",
+        enhancementId,
+      };
+    }
+  },
+});
+
+// Separate task for processing listings after approval
+export const processEnhancementListings = task({
+  id: "process-enhancement-listings",
+  maxDuration: 3600, // 1 hour max
+  run: async (payload: { enhancementId: string; scrapeId: string }) => {
+    const { enhancementId, scrapeId } = payload;
+
+    console.log(`Processing listings for enhancement ${enhancementId}`);
+
+    try {
+      // Update status to processing
+      await prisma.enhancement.update({
+        where: { id: enhancementId },
+        data: { status: "processing" },
+      });
+
+      // Get enhancement with columns
+      const enhancement = await prisma.enhancement.findUnique({
+        where: { id: enhancementId },
+        include: {
+          columns: {
+            orderBy: { order: "asc" },
+          },
+        },
+      });
+
+      if (!enhancement) {
+        throw new Error("Enhancement not found");
+      }
+
+      const columns = enhancement.columns;
 
       // Get all listings for this scrape
       const scrapeListings = await prisma.scrapeListing.findMany({
@@ -164,7 +264,7 @@ Examples of INVALID queries:
       }
 
       let processedCount = 0;
-      const batchSize = 20; // Process 20 listings at a time
+      const batchSize = 50; // Process 50 listings at a time for maximum throughput
 
       for (let i = 0; i < scrapeListings.length; i += batchSize) {
         const batch = scrapeListings.slice(i, i + batchSize);
@@ -189,6 +289,9 @@ Examples of INVALID queries:
 
               if (photos.length === 0) {
                 // No photos available
+                console.log(
+                  `❌ Skipping listing ${listing.zpid}: No photos available`,
+                );
                 await prisma.enhancementResult.updateMany({
                   where: {
                     enhancementId,
@@ -228,72 +331,130 @@ For each column:
 - If it's a score (0-10), rate objectively based on visibility and quality
 - Be conservative - if you can't see it clearly, return false or a low score
 
-Return a JSON object with the column names as keys and the values.`;
+IMPORTANT: Return ONLY a flat JSON object with column names as keys and their values.
+Example: {"has_hardwood_floors": true, "natural_light_score": 8}
+Do NOT wrap in a "values" key.`;
 
-              // Call GPT-4o Vision
-              const result = await generateObject({
-                model: openai("gpt-4o"),
-                schema: ListingAnalysisSchema,
-                messages: [
-                  {
-                    role: "user",
-                    content: [
+              // Build dynamic schema for this specific set of columns
+              const dynamicSchema = buildListingAnalysisSchema(columns);
+
+              // Call GPT-4o Vision with retry logic
+              let result;
+              let retryCount = 0;
+              const MAX_RETRIES = 2;
+
+              while (retryCount <= MAX_RETRIES) {
+                try {
+                  result = await generateObject({
+                    model: openai("gpt-4o"),
+                    schema: dynamicSchema,
+                    messages: [
                       {
-                        type: "text",
-                        text: analysisPrompt,
+                        role: "user",
+                        content: [
+                          {
+                            type: "text",
+                            text: analysisPrompt,
+                          },
+                          ...photos.map((photoUrl) => ({
+                            type: "image" as const,
+                            image: photoUrl,
+                          })),
+                        ],
                       },
-                      ...photos.map((photoUrl) => ({
-                        type: "image" as const,
-                        image: photoUrl,
-                      })),
                     ],
-                  },
-                ],
-              });
-
-              console.log(
-                `Analyzed listing ${listing.zpid}:`,
-                result.object.values,
-              );
-
-              // Calculate composite score
-              let compositeScore = 0;
-              let totalWeight = 0;
-
-              for (const column of columns) {
-                const value = result.object.values[column.name];
-                const weight = 5.0; // Default weight, will be user-configurable
-
-                if (value !== undefined && value !== null) {
-                  // Normalize to 0-10 scale
-                  const normalizedValue =
-                    typeof value === "boolean"
-                      ? value
-                        ? 10
-                        : 0
-                      : Number(value);
-
-                  compositeScore += normalizedValue * weight;
-                  totalWeight += weight;
+                  });
+                  break; // Success, exit retry loop
+                } catch (schemaError) {
+                  retryCount++;
+                  if (retryCount > MAX_RETRIES) {
+                    throw schemaError;
+                  }
+                  console.warn(
+                    `Schema validation failed for ${listing.zpid}, retry ${retryCount}/${MAX_RETRIES}`,
+                  );
+                  await wait.for({ seconds: 1 });
                 }
               }
 
-              // Average the weighted scores
-              const finalScore =
-                totalWeight > 0 ? compositeScore / totalWeight : 0;
+              if (!result) {
+                throw new Error("Failed to generate result after retries");
+              }
 
-              // Save the results with composite score
-              await prisma.enhancementResult.updateMany({
+              const values = result.object as Record<string, boolean | number>;
+
+              console.log(`Analyzed listing ${listing.zpid}:`, values);
+
+              // Save the results
+              // Note: compositeScore is set to 0 here as scores are calculated dynamically
+              // at query time using EnhancementValue records and current column weights
+              const updatedResult = await prisma.enhancementResult.updateMany({
                 where: {
                   enhancementId,
                   listingId: listing.id,
                 },
                 data: {
-                  values: result.object.values as any,
-                  compositeScore: finalScore,
+                  values: values as any,
+                  compositeScore: 0, // Not used - scores calculated at query time
                   status: "completed",
                 },
               });
+
+              // Also save individual values for efficient sorting
+              const enhancementResult =
+                await prisma.enhancementResult.findFirst({
+                  where: {
+                    enhancementId,
+                    listingId: listing.id,
+                  },
+                });
+
+              if (enhancementResult) {
+                // Save each column value individually
+                for (const column of columns) {
+                  const value = values[column.name];
+
+                  if (value !== undefined && value !== null) {
+                    // Normalize to 0-10 scale
+                    const normalizedValue =
+                      typeof value === "boolean"
+                        ? value
+                          ? 10
+                          : 0
+                        : Number(value);
+
+                    // Get the column ID
+                    const columnRecord =
+                      await prisma.enhancementColumn.findFirst({
+                        where: {
+                          enhancementId,
+                          name: column.name,
+                        },
+                      });
+
+                    if (columnRecord) {
+                      await prisma.enhancementValue.upsert({
+                        where: {
+                          resultId_columnId: {
+                            resultId: enhancementResult.id,
+                            columnId: columnRecord.id,
+                          },
+                        },
+                        create: {
+                          resultId: enhancementResult.id,
+                          columnId: columnRecord.id,
+                          enhancementId,
+                          listingId: listing.id,
+                          normalizedValue,
+                        },
+                        update: {
+                          normalizedValue,
+                        },
+                      });
+                    }
+                  }
+                }
+              }
 
               processedCount++;
 
@@ -323,11 +484,23 @@ Return a JSON object with the column names as keys and the values.`;
           }),
         );
 
-        // Small delay between batches to avoid rate limits
+        // Minimal delay between batches
         if (i + batchSize < scrapeListings.length) {
-          await wait.for({ seconds: 1 });
+          await wait.for({ seconds: 0.5 });
         }
       }
+
+      // Get status breakdown
+      const statusCounts = await prisma.enhancementResult.groupBy({
+        by: ["status"],
+        where: { enhancementId },
+        _count: true,
+      });
+
+      const statusSummary = statusCounts.reduce((acc, { status, _count }) => {
+        acc[status] = _count;
+        return acc;
+      }, {} as Record<string, number>);
 
       // Mark enhancement as completed
       await prisma.enhancement.update({
@@ -340,27 +513,48 @@ Return a JSON object with the column names as keys and the values.`;
       });
 
       console.log(
-        `Enhancement ${enhancementId} completed. Processed ${processedCount}/${scrapeListings.length} listings`,
+        `✅ Enhancement ${enhancementId} completed:`,
+        `\n  Total: ${scrapeListings.length}`,
+        `\n  Completed: ${statusSummary.completed || 0}`,
+        `\n  Failed: ${statusSummary.failed || 0}`,
+        `\n  Pending: ${statusSummary.pending || 0}`,
       );
 
       return {
         success: true,
         processedCount,
         totalCount: scrapeListings.length,
+        statusSummary,
       };
     } catch (error) {
-      console.error(`Error in semantic enhancement ${enhancementId}:`, error);
+      console.error(
+        `Error processing enhancement listings ${enhancementId}:`,
+        error,
+      );
 
-      await prisma.enhancement.update({
-        where: { id: enhancementId },
-        data: {
-          status: "failed",
-          error: error instanceof Error ? error.message : "Unknown error",
-          completedAt: new Date(),
-        },
-      });
+      // Always mark as failed to prevent infinite polling
+      try {
+        await prisma.enhancement.update({
+          where: { id: enhancementId },
+          data: {
+            status: "failed",
+            error:
+              error instanceof Error
+                ? error.message.slice(0, 500) // Limit error message length
+                : "Unknown error occurred during enhancement",
+            completedAt: new Date(),
+          },
+        });
+      } catch (dbError) {
+        console.error("Failed to mark enhancement as failed:", dbError);
+      }
 
-      throw error;
+      // Return error info instead of throwing to prevent retry loops
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error",
+        enhancementId,
+      };
     }
   },
 });

@@ -43,6 +43,11 @@ export type EnhancementColumn = $Result.DefaultSelection<Prisma.$EnhancementColu
  * 
  */
 export type EnhancementResult = $Result.DefaultSelection<Prisma.$EnhancementResultPayload>
+/**
+ * Model EnhancementValue
+ * 
+ */
+export type EnhancementValue = $Result.DefaultSelection<Prisma.$EnhancementValuePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -221,6 +226,16 @@ export class PrismaClient<
     * ```
     */
   get enhancementResult(): Prisma.EnhancementResultDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.enhancementValue`: Exposes CRUD operations for the **EnhancementValue** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EnhancementValues
+    * const enhancementValues = await prisma.enhancementValue.findMany()
+    * ```
+    */
+  get enhancementValue(): Prisma.EnhancementValueDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -667,7 +682,8 @@ export namespace Prisma {
     ScrapeListing: 'ScrapeListing',
     Enhancement: 'Enhancement',
     EnhancementColumn: 'EnhancementColumn',
-    EnhancementResult: 'EnhancementResult'
+    EnhancementResult: 'EnhancementResult',
+    EnhancementValue: 'EnhancementValue'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -686,7 +702,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "scrape" | "listing" | "scrapeListing" | "enhancement" | "enhancementColumn" | "enhancementResult"
+      modelProps: "scrape" | "listing" | "scrapeListing" | "enhancement" | "enhancementColumn" | "enhancementResult" | "enhancementValue"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1134,6 +1150,80 @@ export namespace Prisma {
           }
         }
       }
+      EnhancementValue: {
+        payload: Prisma.$EnhancementValuePayload<ExtArgs>
+        fields: Prisma.EnhancementValueFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EnhancementValueFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnhancementValuePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EnhancementValueFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnhancementValuePayload>
+          }
+          findFirst: {
+            args: Prisma.EnhancementValueFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnhancementValuePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EnhancementValueFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnhancementValuePayload>
+          }
+          findMany: {
+            args: Prisma.EnhancementValueFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnhancementValuePayload>[]
+          }
+          create: {
+            args: Prisma.EnhancementValueCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnhancementValuePayload>
+          }
+          createMany: {
+            args: Prisma.EnhancementValueCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EnhancementValueCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnhancementValuePayload>[]
+          }
+          delete: {
+            args: Prisma.EnhancementValueDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnhancementValuePayload>
+          }
+          update: {
+            args: Prisma.EnhancementValueUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnhancementValuePayload>
+          }
+          deleteMany: {
+            args: Prisma.EnhancementValueDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EnhancementValueUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EnhancementValueUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnhancementValuePayload>[]
+          }
+          upsert: {
+            args: Prisma.EnhancementValueUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnhancementValuePayload>
+          }
+          aggregate: {
+            args: Prisma.EnhancementValueAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEnhancementValue>
+          }
+          groupBy: {
+            args: Prisma.EnhancementValueGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EnhancementValueGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EnhancementValueCountArgs<ExtArgs>
+            result: $Utils.Optional<EnhancementValueCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1236,6 +1326,7 @@ export namespace Prisma {
     enhancement?: EnhancementOmit
     enhancementColumn?: EnhancementColumnOmit
     enhancementResult?: EnhancementResultOmit
+    enhancementValue?: EnhancementValueOmit
   }
 
   /* Types for Logging */
@@ -1428,6 +1519,68 @@ export namespace Prisma {
    */
   export type EnhancementCountOutputTypeCountResultsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EnhancementResultWhereInput
+  }
+
+
+  /**
+   * Count Type EnhancementColumnCountOutputType
+   */
+
+  export type EnhancementColumnCountOutputType = {
+    values: number
+  }
+
+  export type EnhancementColumnCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    values?: boolean | EnhancementColumnCountOutputTypeCountValuesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * EnhancementColumnCountOutputType without action
+   */
+  export type EnhancementColumnCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnhancementColumnCountOutputType
+     */
+    select?: EnhancementColumnCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * EnhancementColumnCountOutputType without action
+   */
+  export type EnhancementColumnCountOutputTypeCountValuesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EnhancementValueWhereInput
+  }
+
+
+  /**
+   * Count Type EnhancementResultCountOutputType
+   */
+
+  export type EnhancementResultCountOutputType = {
+    individualValues: number
+  }
+
+  export type EnhancementResultCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    individualValues?: boolean | EnhancementResultCountOutputTypeCountIndividualValuesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * EnhancementResultCountOutputType without action
+   */
+  export type EnhancementResultCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnhancementResultCountOutputType
+     */
+    select?: EnhancementResultCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * EnhancementResultCountOutputType without action
+   */
+  export type EnhancementResultCountOutputTypeCountIndividualValuesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EnhancementValueWhereInput
   }
 
 
@@ -6712,6 +6865,8 @@ export namespace Prisma {
     weight?: boolean
     order?: boolean
     enhancement?: boolean | EnhancementDefaultArgs<ExtArgs>
+    values?: boolean | EnhancementColumn$valuesArgs<ExtArgs>
+    _count?: boolean | EnhancementColumnCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["enhancementColumn"]>
 
   export type EnhancementColumnSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6752,6 +6907,8 @@ export namespace Prisma {
   export type EnhancementColumnOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "enhancementId" | "name" | "type" | "description" | "weight" | "order", ExtArgs["result"]["enhancementColumn"]>
   export type EnhancementColumnInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     enhancement?: boolean | EnhancementDefaultArgs<ExtArgs>
+    values?: boolean | EnhancementColumn$valuesArgs<ExtArgs>
+    _count?: boolean | EnhancementColumnCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type EnhancementColumnIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     enhancement?: boolean | EnhancementDefaultArgs<ExtArgs>
@@ -6764,6 +6921,7 @@ export namespace Prisma {
     name: "EnhancementColumn"
     objects: {
       enhancement: Prisma.$EnhancementPayload<ExtArgs>
+      values: Prisma.$EnhancementValuePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7169,6 +7327,7 @@ export namespace Prisma {
   export interface Prisma__EnhancementColumnClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     enhancement<T extends EnhancementDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EnhancementDefaultArgs<ExtArgs>>): Prisma__EnhancementClient<$Result.GetResult<Prisma.$EnhancementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    values<T extends EnhancementColumn$valuesArgs<ExtArgs> = {}>(args?: Subset<T, EnhancementColumn$valuesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnhancementValuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7602,6 +7761,30 @@ export namespace Prisma {
   }
 
   /**
+   * EnhancementColumn.values
+   */
+  export type EnhancementColumn$valuesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnhancementValue
+     */
+    select?: EnhancementValueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnhancementValue
+     */
+    omit?: EnhancementValueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnhancementValueInclude<ExtArgs> | null
+    where?: EnhancementValueWhereInput
+    orderBy?: EnhancementValueOrderByWithRelationInput | EnhancementValueOrderByWithRelationInput[]
+    cursor?: EnhancementValueWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EnhancementValueScalarFieldEnum | EnhancementValueScalarFieldEnum[]
+  }
+
+  /**
    * EnhancementColumn without action
    */
   export type EnhancementColumnDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7848,6 +8031,8 @@ export namespace Prisma {
     error?: boolean
     enhancement?: boolean | EnhancementDefaultArgs<ExtArgs>
     listing?: boolean | ListingDefaultArgs<ExtArgs>
+    individualValues?: boolean | EnhancementResult$individualValuesArgs<ExtArgs>
+    _count?: boolean | EnhancementResultCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["enhancementResult"]>
 
   export type EnhancementResultSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7894,6 +8079,8 @@ export namespace Prisma {
   export type EnhancementResultInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     enhancement?: boolean | EnhancementDefaultArgs<ExtArgs>
     listing?: boolean | ListingDefaultArgs<ExtArgs>
+    individualValues?: boolean | EnhancementResult$individualValuesArgs<ExtArgs>
+    _count?: boolean | EnhancementResultCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type EnhancementResultIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     enhancement?: boolean | EnhancementDefaultArgs<ExtArgs>
@@ -7909,6 +8096,7 @@ export namespace Prisma {
     objects: {
       enhancement: Prisma.$EnhancementPayload<ExtArgs>
       listing: Prisma.$ListingPayload<ExtArgs>
+      individualValues: Prisma.$EnhancementValuePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8316,6 +8504,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     enhancement<T extends EnhancementDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EnhancementDefaultArgs<ExtArgs>>): Prisma__EnhancementClient<$Result.GetResult<Prisma.$EnhancementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     listing<T extends ListingDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ListingDefaultArgs<ExtArgs>>): Prisma__ListingClient<$Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    individualValues<T extends EnhancementResult$individualValuesArgs<ExtArgs> = {}>(args?: Subset<T, EnhancementResult$individualValuesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnhancementValuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8750,6 +8939,30 @@ export namespace Prisma {
   }
 
   /**
+   * EnhancementResult.individualValues
+   */
+  export type EnhancementResult$individualValuesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnhancementValue
+     */
+    select?: EnhancementValueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnhancementValue
+     */
+    omit?: EnhancementValueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnhancementValueInclude<ExtArgs> | null
+    where?: EnhancementValueWhereInput
+    orderBy?: EnhancementValueOrderByWithRelationInput | EnhancementValueOrderByWithRelationInput[]
+    cursor?: EnhancementValueWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EnhancementValueScalarFieldEnum | EnhancementValueScalarFieldEnum[]
+  }
+
+  /**
    * EnhancementResult without action
    */
   export type EnhancementResultDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8765,6 +8978,1132 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: EnhancementResultInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model EnhancementValue
+   */
+
+  export type AggregateEnhancementValue = {
+    _count: EnhancementValueCountAggregateOutputType | null
+    _avg: EnhancementValueAvgAggregateOutputType | null
+    _sum: EnhancementValueSumAggregateOutputType | null
+    _min: EnhancementValueMinAggregateOutputType | null
+    _max: EnhancementValueMaxAggregateOutputType | null
+  }
+
+  export type EnhancementValueAvgAggregateOutputType = {
+    normalizedValue: number | null
+  }
+
+  export type EnhancementValueSumAggregateOutputType = {
+    normalizedValue: number | null
+  }
+
+  export type EnhancementValueMinAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    resultId: string | null
+    columnId: string | null
+    enhancementId: string | null
+    listingId: string | null
+    normalizedValue: number | null
+  }
+
+  export type EnhancementValueMaxAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    resultId: string | null
+    columnId: string | null
+    enhancementId: string | null
+    listingId: string | null
+    normalizedValue: number | null
+  }
+
+  export type EnhancementValueCountAggregateOutputType = {
+    id: number
+    createdAt: number
+    resultId: number
+    columnId: number
+    enhancementId: number
+    listingId: number
+    normalizedValue: number
+    _all: number
+  }
+
+
+  export type EnhancementValueAvgAggregateInputType = {
+    normalizedValue?: true
+  }
+
+  export type EnhancementValueSumAggregateInputType = {
+    normalizedValue?: true
+  }
+
+  export type EnhancementValueMinAggregateInputType = {
+    id?: true
+    createdAt?: true
+    resultId?: true
+    columnId?: true
+    enhancementId?: true
+    listingId?: true
+    normalizedValue?: true
+  }
+
+  export type EnhancementValueMaxAggregateInputType = {
+    id?: true
+    createdAt?: true
+    resultId?: true
+    columnId?: true
+    enhancementId?: true
+    listingId?: true
+    normalizedValue?: true
+  }
+
+  export type EnhancementValueCountAggregateInputType = {
+    id?: true
+    createdAt?: true
+    resultId?: true
+    columnId?: true
+    enhancementId?: true
+    listingId?: true
+    normalizedValue?: true
+    _all?: true
+  }
+
+  export type EnhancementValueAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EnhancementValue to aggregate.
+     */
+    where?: EnhancementValueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EnhancementValues to fetch.
+     */
+    orderBy?: EnhancementValueOrderByWithRelationInput | EnhancementValueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EnhancementValueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EnhancementValues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EnhancementValues.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EnhancementValues
+    **/
+    _count?: true | EnhancementValueCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: EnhancementValueAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: EnhancementValueSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EnhancementValueMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EnhancementValueMaxAggregateInputType
+  }
+
+  export type GetEnhancementValueAggregateType<T extends EnhancementValueAggregateArgs> = {
+        [P in keyof T & keyof AggregateEnhancementValue]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEnhancementValue[P]>
+      : GetScalarType<T[P], AggregateEnhancementValue[P]>
+  }
+
+
+
+
+  export type EnhancementValueGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EnhancementValueWhereInput
+    orderBy?: EnhancementValueOrderByWithAggregationInput | EnhancementValueOrderByWithAggregationInput[]
+    by: EnhancementValueScalarFieldEnum[] | EnhancementValueScalarFieldEnum
+    having?: EnhancementValueScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EnhancementValueCountAggregateInputType | true
+    _avg?: EnhancementValueAvgAggregateInputType
+    _sum?: EnhancementValueSumAggregateInputType
+    _min?: EnhancementValueMinAggregateInputType
+    _max?: EnhancementValueMaxAggregateInputType
+  }
+
+  export type EnhancementValueGroupByOutputType = {
+    id: string
+    createdAt: Date
+    resultId: string
+    columnId: string
+    enhancementId: string
+    listingId: string
+    normalizedValue: number
+    _count: EnhancementValueCountAggregateOutputType | null
+    _avg: EnhancementValueAvgAggregateOutputType | null
+    _sum: EnhancementValueSumAggregateOutputType | null
+    _min: EnhancementValueMinAggregateOutputType | null
+    _max: EnhancementValueMaxAggregateOutputType | null
+  }
+
+  type GetEnhancementValueGroupByPayload<T extends EnhancementValueGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EnhancementValueGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EnhancementValueGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EnhancementValueGroupByOutputType[P]>
+            : GetScalarType<T[P], EnhancementValueGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EnhancementValueSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    resultId?: boolean
+    columnId?: boolean
+    enhancementId?: boolean
+    listingId?: boolean
+    normalizedValue?: boolean
+    result?: boolean | EnhancementResultDefaultArgs<ExtArgs>
+    column?: boolean | EnhancementColumnDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["enhancementValue"]>
+
+  export type EnhancementValueSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    resultId?: boolean
+    columnId?: boolean
+    enhancementId?: boolean
+    listingId?: boolean
+    normalizedValue?: boolean
+    result?: boolean | EnhancementResultDefaultArgs<ExtArgs>
+    column?: boolean | EnhancementColumnDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["enhancementValue"]>
+
+  export type EnhancementValueSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    resultId?: boolean
+    columnId?: boolean
+    enhancementId?: boolean
+    listingId?: boolean
+    normalizedValue?: boolean
+    result?: boolean | EnhancementResultDefaultArgs<ExtArgs>
+    column?: boolean | EnhancementColumnDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["enhancementValue"]>
+
+  export type EnhancementValueSelectScalar = {
+    id?: boolean
+    createdAt?: boolean
+    resultId?: boolean
+    columnId?: boolean
+    enhancementId?: boolean
+    listingId?: boolean
+    normalizedValue?: boolean
+  }
+
+  export type EnhancementValueOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "resultId" | "columnId" | "enhancementId" | "listingId" | "normalizedValue", ExtArgs["result"]["enhancementValue"]>
+  export type EnhancementValueInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    result?: boolean | EnhancementResultDefaultArgs<ExtArgs>
+    column?: boolean | EnhancementColumnDefaultArgs<ExtArgs>
+  }
+  export type EnhancementValueIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    result?: boolean | EnhancementResultDefaultArgs<ExtArgs>
+    column?: boolean | EnhancementColumnDefaultArgs<ExtArgs>
+  }
+  export type EnhancementValueIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    result?: boolean | EnhancementResultDefaultArgs<ExtArgs>
+    column?: boolean | EnhancementColumnDefaultArgs<ExtArgs>
+  }
+
+  export type $EnhancementValuePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EnhancementValue"
+    objects: {
+      result: Prisma.$EnhancementResultPayload<ExtArgs>
+      column: Prisma.$EnhancementColumnPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      createdAt: Date
+      resultId: string
+      columnId: string
+      enhancementId: string
+      listingId: string
+      normalizedValue: number
+    }, ExtArgs["result"]["enhancementValue"]>
+    composites: {}
+  }
+
+  type EnhancementValueGetPayload<S extends boolean | null | undefined | EnhancementValueDefaultArgs> = $Result.GetResult<Prisma.$EnhancementValuePayload, S>
+
+  type EnhancementValueCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EnhancementValueFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EnhancementValueCountAggregateInputType | true
+    }
+
+  export interface EnhancementValueDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EnhancementValue'], meta: { name: 'EnhancementValue' } }
+    /**
+     * Find zero or one EnhancementValue that matches the filter.
+     * @param {EnhancementValueFindUniqueArgs} args - Arguments to find a EnhancementValue
+     * @example
+     * // Get one EnhancementValue
+     * const enhancementValue = await prisma.enhancementValue.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EnhancementValueFindUniqueArgs>(args: SelectSubset<T, EnhancementValueFindUniqueArgs<ExtArgs>>): Prisma__EnhancementValueClient<$Result.GetResult<Prisma.$EnhancementValuePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one EnhancementValue that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EnhancementValueFindUniqueOrThrowArgs} args - Arguments to find a EnhancementValue
+     * @example
+     * // Get one EnhancementValue
+     * const enhancementValue = await prisma.enhancementValue.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EnhancementValueFindUniqueOrThrowArgs>(args: SelectSubset<T, EnhancementValueFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EnhancementValueClient<$Result.GetResult<Prisma.$EnhancementValuePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EnhancementValue that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EnhancementValueFindFirstArgs} args - Arguments to find a EnhancementValue
+     * @example
+     * // Get one EnhancementValue
+     * const enhancementValue = await prisma.enhancementValue.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EnhancementValueFindFirstArgs>(args?: SelectSubset<T, EnhancementValueFindFirstArgs<ExtArgs>>): Prisma__EnhancementValueClient<$Result.GetResult<Prisma.$EnhancementValuePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EnhancementValue that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EnhancementValueFindFirstOrThrowArgs} args - Arguments to find a EnhancementValue
+     * @example
+     * // Get one EnhancementValue
+     * const enhancementValue = await prisma.enhancementValue.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EnhancementValueFindFirstOrThrowArgs>(args?: SelectSubset<T, EnhancementValueFindFirstOrThrowArgs<ExtArgs>>): Prisma__EnhancementValueClient<$Result.GetResult<Prisma.$EnhancementValuePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more EnhancementValues that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EnhancementValueFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EnhancementValues
+     * const enhancementValues = await prisma.enhancementValue.findMany()
+     * 
+     * // Get first 10 EnhancementValues
+     * const enhancementValues = await prisma.enhancementValue.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const enhancementValueWithIdOnly = await prisma.enhancementValue.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EnhancementValueFindManyArgs>(args?: SelectSubset<T, EnhancementValueFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnhancementValuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a EnhancementValue.
+     * @param {EnhancementValueCreateArgs} args - Arguments to create a EnhancementValue.
+     * @example
+     * // Create one EnhancementValue
+     * const EnhancementValue = await prisma.enhancementValue.create({
+     *   data: {
+     *     // ... data to create a EnhancementValue
+     *   }
+     * })
+     * 
+     */
+    create<T extends EnhancementValueCreateArgs>(args: SelectSubset<T, EnhancementValueCreateArgs<ExtArgs>>): Prisma__EnhancementValueClient<$Result.GetResult<Prisma.$EnhancementValuePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many EnhancementValues.
+     * @param {EnhancementValueCreateManyArgs} args - Arguments to create many EnhancementValues.
+     * @example
+     * // Create many EnhancementValues
+     * const enhancementValue = await prisma.enhancementValue.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EnhancementValueCreateManyArgs>(args?: SelectSubset<T, EnhancementValueCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many EnhancementValues and returns the data saved in the database.
+     * @param {EnhancementValueCreateManyAndReturnArgs} args - Arguments to create many EnhancementValues.
+     * @example
+     * // Create many EnhancementValues
+     * const enhancementValue = await prisma.enhancementValue.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many EnhancementValues and only return the `id`
+     * const enhancementValueWithIdOnly = await prisma.enhancementValue.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EnhancementValueCreateManyAndReturnArgs>(args?: SelectSubset<T, EnhancementValueCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnhancementValuePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a EnhancementValue.
+     * @param {EnhancementValueDeleteArgs} args - Arguments to delete one EnhancementValue.
+     * @example
+     * // Delete one EnhancementValue
+     * const EnhancementValue = await prisma.enhancementValue.delete({
+     *   where: {
+     *     // ... filter to delete one EnhancementValue
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EnhancementValueDeleteArgs>(args: SelectSubset<T, EnhancementValueDeleteArgs<ExtArgs>>): Prisma__EnhancementValueClient<$Result.GetResult<Prisma.$EnhancementValuePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one EnhancementValue.
+     * @param {EnhancementValueUpdateArgs} args - Arguments to update one EnhancementValue.
+     * @example
+     * // Update one EnhancementValue
+     * const enhancementValue = await prisma.enhancementValue.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EnhancementValueUpdateArgs>(args: SelectSubset<T, EnhancementValueUpdateArgs<ExtArgs>>): Prisma__EnhancementValueClient<$Result.GetResult<Prisma.$EnhancementValuePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more EnhancementValues.
+     * @param {EnhancementValueDeleteManyArgs} args - Arguments to filter EnhancementValues to delete.
+     * @example
+     * // Delete a few EnhancementValues
+     * const { count } = await prisma.enhancementValue.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EnhancementValueDeleteManyArgs>(args?: SelectSubset<T, EnhancementValueDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EnhancementValues.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EnhancementValueUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EnhancementValues
+     * const enhancementValue = await prisma.enhancementValue.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EnhancementValueUpdateManyArgs>(args: SelectSubset<T, EnhancementValueUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EnhancementValues and returns the data updated in the database.
+     * @param {EnhancementValueUpdateManyAndReturnArgs} args - Arguments to update many EnhancementValues.
+     * @example
+     * // Update many EnhancementValues
+     * const enhancementValue = await prisma.enhancementValue.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more EnhancementValues and only return the `id`
+     * const enhancementValueWithIdOnly = await prisma.enhancementValue.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EnhancementValueUpdateManyAndReturnArgs>(args: SelectSubset<T, EnhancementValueUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnhancementValuePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one EnhancementValue.
+     * @param {EnhancementValueUpsertArgs} args - Arguments to update or create a EnhancementValue.
+     * @example
+     * // Update or create a EnhancementValue
+     * const enhancementValue = await prisma.enhancementValue.upsert({
+     *   create: {
+     *     // ... data to create a EnhancementValue
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EnhancementValue we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EnhancementValueUpsertArgs>(args: SelectSubset<T, EnhancementValueUpsertArgs<ExtArgs>>): Prisma__EnhancementValueClient<$Result.GetResult<Prisma.$EnhancementValuePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of EnhancementValues.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EnhancementValueCountArgs} args - Arguments to filter EnhancementValues to count.
+     * @example
+     * // Count the number of EnhancementValues
+     * const count = await prisma.enhancementValue.count({
+     *   where: {
+     *     // ... the filter for the EnhancementValues we want to count
+     *   }
+     * })
+    **/
+    count<T extends EnhancementValueCountArgs>(
+      args?: Subset<T, EnhancementValueCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EnhancementValueCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EnhancementValue.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EnhancementValueAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EnhancementValueAggregateArgs>(args: Subset<T, EnhancementValueAggregateArgs>): Prisma.PrismaPromise<GetEnhancementValueAggregateType<T>>
+
+    /**
+     * Group by EnhancementValue.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EnhancementValueGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EnhancementValueGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EnhancementValueGroupByArgs['orderBy'] }
+        : { orderBy?: EnhancementValueGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EnhancementValueGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEnhancementValueGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EnhancementValue model
+   */
+  readonly fields: EnhancementValueFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EnhancementValue.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EnhancementValueClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    result<T extends EnhancementResultDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EnhancementResultDefaultArgs<ExtArgs>>): Prisma__EnhancementResultClient<$Result.GetResult<Prisma.$EnhancementResultPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    column<T extends EnhancementColumnDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EnhancementColumnDefaultArgs<ExtArgs>>): Prisma__EnhancementColumnClient<$Result.GetResult<Prisma.$EnhancementColumnPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EnhancementValue model
+   */
+  interface EnhancementValueFieldRefs {
+    readonly id: FieldRef<"EnhancementValue", 'String'>
+    readonly createdAt: FieldRef<"EnhancementValue", 'DateTime'>
+    readonly resultId: FieldRef<"EnhancementValue", 'String'>
+    readonly columnId: FieldRef<"EnhancementValue", 'String'>
+    readonly enhancementId: FieldRef<"EnhancementValue", 'String'>
+    readonly listingId: FieldRef<"EnhancementValue", 'String'>
+    readonly normalizedValue: FieldRef<"EnhancementValue", 'Float'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EnhancementValue findUnique
+   */
+  export type EnhancementValueFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnhancementValue
+     */
+    select?: EnhancementValueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnhancementValue
+     */
+    omit?: EnhancementValueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnhancementValueInclude<ExtArgs> | null
+    /**
+     * Filter, which EnhancementValue to fetch.
+     */
+    where: EnhancementValueWhereUniqueInput
+  }
+
+  /**
+   * EnhancementValue findUniqueOrThrow
+   */
+  export type EnhancementValueFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnhancementValue
+     */
+    select?: EnhancementValueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnhancementValue
+     */
+    omit?: EnhancementValueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnhancementValueInclude<ExtArgs> | null
+    /**
+     * Filter, which EnhancementValue to fetch.
+     */
+    where: EnhancementValueWhereUniqueInput
+  }
+
+  /**
+   * EnhancementValue findFirst
+   */
+  export type EnhancementValueFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnhancementValue
+     */
+    select?: EnhancementValueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnhancementValue
+     */
+    omit?: EnhancementValueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnhancementValueInclude<ExtArgs> | null
+    /**
+     * Filter, which EnhancementValue to fetch.
+     */
+    where?: EnhancementValueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EnhancementValues to fetch.
+     */
+    orderBy?: EnhancementValueOrderByWithRelationInput | EnhancementValueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EnhancementValues.
+     */
+    cursor?: EnhancementValueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EnhancementValues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EnhancementValues.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EnhancementValues.
+     */
+    distinct?: EnhancementValueScalarFieldEnum | EnhancementValueScalarFieldEnum[]
+  }
+
+  /**
+   * EnhancementValue findFirstOrThrow
+   */
+  export type EnhancementValueFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnhancementValue
+     */
+    select?: EnhancementValueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnhancementValue
+     */
+    omit?: EnhancementValueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnhancementValueInclude<ExtArgs> | null
+    /**
+     * Filter, which EnhancementValue to fetch.
+     */
+    where?: EnhancementValueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EnhancementValues to fetch.
+     */
+    orderBy?: EnhancementValueOrderByWithRelationInput | EnhancementValueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EnhancementValues.
+     */
+    cursor?: EnhancementValueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EnhancementValues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EnhancementValues.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EnhancementValues.
+     */
+    distinct?: EnhancementValueScalarFieldEnum | EnhancementValueScalarFieldEnum[]
+  }
+
+  /**
+   * EnhancementValue findMany
+   */
+  export type EnhancementValueFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnhancementValue
+     */
+    select?: EnhancementValueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnhancementValue
+     */
+    omit?: EnhancementValueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnhancementValueInclude<ExtArgs> | null
+    /**
+     * Filter, which EnhancementValues to fetch.
+     */
+    where?: EnhancementValueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EnhancementValues to fetch.
+     */
+    orderBy?: EnhancementValueOrderByWithRelationInput | EnhancementValueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EnhancementValues.
+     */
+    cursor?: EnhancementValueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EnhancementValues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EnhancementValues.
+     */
+    skip?: number
+    distinct?: EnhancementValueScalarFieldEnum | EnhancementValueScalarFieldEnum[]
+  }
+
+  /**
+   * EnhancementValue create
+   */
+  export type EnhancementValueCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnhancementValue
+     */
+    select?: EnhancementValueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnhancementValue
+     */
+    omit?: EnhancementValueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnhancementValueInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EnhancementValue.
+     */
+    data: XOR<EnhancementValueCreateInput, EnhancementValueUncheckedCreateInput>
+  }
+
+  /**
+   * EnhancementValue createMany
+   */
+  export type EnhancementValueCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EnhancementValues.
+     */
+    data: EnhancementValueCreateManyInput | EnhancementValueCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EnhancementValue createManyAndReturn
+   */
+  export type EnhancementValueCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnhancementValue
+     */
+    select?: EnhancementValueSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnhancementValue
+     */
+    omit?: EnhancementValueOmit<ExtArgs> | null
+    /**
+     * The data used to create many EnhancementValues.
+     */
+    data: EnhancementValueCreateManyInput | EnhancementValueCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnhancementValueIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EnhancementValue update
+   */
+  export type EnhancementValueUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnhancementValue
+     */
+    select?: EnhancementValueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnhancementValue
+     */
+    omit?: EnhancementValueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnhancementValueInclude<ExtArgs> | null
+    /**
+     * The data needed to update a EnhancementValue.
+     */
+    data: XOR<EnhancementValueUpdateInput, EnhancementValueUncheckedUpdateInput>
+    /**
+     * Choose, which EnhancementValue to update.
+     */
+    where: EnhancementValueWhereUniqueInput
+  }
+
+  /**
+   * EnhancementValue updateMany
+   */
+  export type EnhancementValueUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EnhancementValues.
+     */
+    data: XOR<EnhancementValueUpdateManyMutationInput, EnhancementValueUncheckedUpdateManyInput>
+    /**
+     * Filter which EnhancementValues to update
+     */
+    where?: EnhancementValueWhereInput
+    /**
+     * Limit how many EnhancementValues to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EnhancementValue updateManyAndReturn
+   */
+  export type EnhancementValueUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnhancementValue
+     */
+    select?: EnhancementValueSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnhancementValue
+     */
+    omit?: EnhancementValueOmit<ExtArgs> | null
+    /**
+     * The data used to update EnhancementValues.
+     */
+    data: XOR<EnhancementValueUpdateManyMutationInput, EnhancementValueUncheckedUpdateManyInput>
+    /**
+     * Filter which EnhancementValues to update
+     */
+    where?: EnhancementValueWhereInput
+    /**
+     * Limit how many EnhancementValues to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnhancementValueIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EnhancementValue upsert
+   */
+  export type EnhancementValueUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnhancementValue
+     */
+    select?: EnhancementValueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnhancementValue
+     */
+    omit?: EnhancementValueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnhancementValueInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EnhancementValue to update in case it exists.
+     */
+    where: EnhancementValueWhereUniqueInput
+    /**
+     * In case the EnhancementValue found by the `where` argument doesn't exist, create a new EnhancementValue with this data.
+     */
+    create: XOR<EnhancementValueCreateInput, EnhancementValueUncheckedCreateInput>
+    /**
+     * In case the EnhancementValue was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EnhancementValueUpdateInput, EnhancementValueUncheckedUpdateInput>
+  }
+
+  /**
+   * EnhancementValue delete
+   */
+  export type EnhancementValueDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnhancementValue
+     */
+    select?: EnhancementValueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnhancementValue
+     */
+    omit?: EnhancementValueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnhancementValueInclude<ExtArgs> | null
+    /**
+     * Filter which EnhancementValue to delete.
+     */
+    where: EnhancementValueWhereUniqueInput
+  }
+
+  /**
+   * EnhancementValue deleteMany
+   */
+  export type EnhancementValueDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EnhancementValues to delete
+     */
+    where?: EnhancementValueWhereInput
+    /**
+     * Limit how many EnhancementValues to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * EnhancementValue without action
+   */
+  export type EnhancementValueDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnhancementValue
+     */
+    select?: EnhancementValueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnhancementValue
+     */
+    omit?: EnhancementValueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnhancementValueInclude<ExtArgs> | null
   }
 
 
@@ -8895,6 +10234,19 @@ export namespace Prisma {
   };
 
   export type EnhancementResultScalarFieldEnum = (typeof EnhancementResultScalarFieldEnum)[keyof typeof EnhancementResultScalarFieldEnum]
+
+
+  export const EnhancementValueScalarFieldEnum: {
+    id: 'id',
+    createdAt: 'createdAt',
+    resultId: 'resultId',
+    columnId: 'columnId',
+    enhancementId: 'enhancementId',
+    listingId: 'listingId',
+    normalizedValue: 'normalizedValue'
+  };
+
+  export type EnhancementValueScalarFieldEnum = (typeof EnhancementValueScalarFieldEnum)[keyof typeof EnhancementValueScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -9487,6 +10839,7 @@ export namespace Prisma {
     weight?: FloatFilter<"EnhancementColumn"> | number
     order?: IntFilter<"EnhancementColumn"> | number
     enhancement?: XOR<EnhancementScalarRelationFilter, EnhancementWhereInput>
+    values?: EnhancementValueListRelationFilter
   }
 
   export type EnhancementColumnOrderByWithRelationInput = {
@@ -9499,6 +10852,7 @@ export namespace Prisma {
     weight?: SortOrder
     order?: SortOrder
     enhancement?: EnhancementOrderByWithRelationInput
+    values?: EnhancementValueOrderByRelationAggregateInput
   }
 
   export type EnhancementColumnWhereUniqueInput = Prisma.AtLeast<{
@@ -9514,6 +10868,7 @@ export namespace Prisma {
     weight?: FloatFilter<"EnhancementColumn"> | number
     order?: IntFilter<"EnhancementColumn"> | number
     enhancement?: XOR<EnhancementScalarRelationFilter, EnhancementWhereInput>
+    values?: EnhancementValueListRelationFilter
   }, "id">
 
   export type EnhancementColumnOrderByWithAggregationInput = {
@@ -9561,6 +10916,7 @@ export namespace Prisma {
     error?: StringNullableFilter<"EnhancementResult"> | string | null
     enhancement?: XOR<EnhancementScalarRelationFilter, EnhancementWhereInput>
     listing?: XOR<ListingScalarRelationFilter, ListingWhereInput>
+    individualValues?: EnhancementValueListRelationFilter
   }
 
   export type EnhancementResultOrderByWithRelationInput = {
@@ -9575,6 +10931,7 @@ export namespace Prisma {
     error?: SortOrderInput | SortOrder
     enhancement?: EnhancementOrderByWithRelationInput
     listing?: ListingOrderByWithRelationInput
+    individualValues?: EnhancementValueOrderByRelationAggregateInput
   }
 
   export type EnhancementResultWhereUniqueInput = Prisma.AtLeast<{
@@ -9593,6 +10950,7 @@ export namespace Prisma {
     error?: StringNullableFilter<"EnhancementResult"> | string | null
     enhancement?: XOR<EnhancementScalarRelationFilter, EnhancementWhereInput>
     listing?: XOR<ListingScalarRelationFilter, ListingWhereInput>
+    individualValues?: EnhancementValueListRelationFilter
   }, "id" | "enhancementId_listingId">
 
   export type EnhancementResultOrderByWithAggregationInput = {
@@ -9625,6 +10983,77 @@ export namespace Prisma {
     compositeScore?: FloatWithAggregatesFilter<"EnhancementResult"> | number
     status?: StringWithAggregatesFilter<"EnhancementResult"> | string
     error?: StringNullableWithAggregatesFilter<"EnhancementResult"> | string | null
+  }
+
+  export type EnhancementValueWhereInput = {
+    AND?: EnhancementValueWhereInput | EnhancementValueWhereInput[]
+    OR?: EnhancementValueWhereInput[]
+    NOT?: EnhancementValueWhereInput | EnhancementValueWhereInput[]
+    id?: StringFilter<"EnhancementValue"> | string
+    createdAt?: DateTimeFilter<"EnhancementValue"> | Date | string
+    resultId?: StringFilter<"EnhancementValue"> | string
+    columnId?: StringFilter<"EnhancementValue"> | string
+    enhancementId?: StringFilter<"EnhancementValue"> | string
+    listingId?: StringFilter<"EnhancementValue"> | string
+    normalizedValue?: FloatFilter<"EnhancementValue"> | number
+    result?: XOR<EnhancementResultScalarRelationFilter, EnhancementResultWhereInput>
+    column?: XOR<EnhancementColumnScalarRelationFilter, EnhancementColumnWhereInput>
+  }
+
+  export type EnhancementValueOrderByWithRelationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    resultId?: SortOrder
+    columnId?: SortOrder
+    enhancementId?: SortOrder
+    listingId?: SortOrder
+    normalizedValue?: SortOrder
+    result?: EnhancementResultOrderByWithRelationInput
+    column?: EnhancementColumnOrderByWithRelationInput
+  }
+
+  export type EnhancementValueWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    resultId_columnId?: EnhancementValueResultIdColumnIdCompoundUniqueInput
+    AND?: EnhancementValueWhereInput | EnhancementValueWhereInput[]
+    OR?: EnhancementValueWhereInput[]
+    NOT?: EnhancementValueWhereInput | EnhancementValueWhereInput[]
+    createdAt?: DateTimeFilter<"EnhancementValue"> | Date | string
+    resultId?: StringFilter<"EnhancementValue"> | string
+    columnId?: StringFilter<"EnhancementValue"> | string
+    enhancementId?: StringFilter<"EnhancementValue"> | string
+    listingId?: StringFilter<"EnhancementValue"> | string
+    normalizedValue?: FloatFilter<"EnhancementValue"> | number
+    result?: XOR<EnhancementResultScalarRelationFilter, EnhancementResultWhereInput>
+    column?: XOR<EnhancementColumnScalarRelationFilter, EnhancementColumnWhereInput>
+  }, "id" | "resultId_columnId">
+
+  export type EnhancementValueOrderByWithAggregationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    resultId?: SortOrder
+    columnId?: SortOrder
+    enhancementId?: SortOrder
+    listingId?: SortOrder
+    normalizedValue?: SortOrder
+    _count?: EnhancementValueCountOrderByAggregateInput
+    _avg?: EnhancementValueAvgOrderByAggregateInput
+    _max?: EnhancementValueMaxOrderByAggregateInput
+    _min?: EnhancementValueMinOrderByAggregateInput
+    _sum?: EnhancementValueSumOrderByAggregateInput
+  }
+
+  export type EnhancementValueScalarWhereWithAggregatesInput = {
+    AND?: EnhancementValueScalarWhereWithAggregatesInput | EnhancementValueScalarWhereWithAggregatesInput[]
+    OR?: EnhancementValueScalarWhereWithAggregatesInput[]
+    NOT?: EnhancementValueScalarWhereWithAggregatesInput | EnhancementValueScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"EnhancementValue"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"EnhancementValue"> | Date | string
+    resultId?: StringWithAggregatesFilter<"EnhancementValue"> | string
+    columnId?: StringWithAggregatesFilter<"EnhancementValue"> | string
+    enhancementId?: StringWithAggregatesFilter<"EnhancementValue"> | string
+    listingId?: StringWithAggregatesFilter<"EnhancementValue"> | string
+    normalizedValue?: FloatWithAggregatesFilter<"EnhancementValue"> | number
   }
 
   export type ScrapeCreateInput = {
@@ -10175,6 +11604,7 @@ export namespace Prisma {
     weight?: number
     order?: number
     enhancement: EnhancementCreateNestedOneWithoutColumnsInput
+    values?: EnhancementValueCreateNestedManyWithoutColumnInput
   }
 
   export type EnhancementColumnUncheckedCreateInput = {
@@ -10186,6 +11616,7 @@ export namespace Prisma {
     description: string
     weight?: number
     order?: number
+    values?: EnhancementValueUncheckedCreateNestedManyWithoutColumnInput
   }
 
   export type EnhancementColumnUpdateInput = {
@@ -10197,6 +11628,7 @@ export namespace Prisma {
     weight?: FloatFieldUpdateOperationsInput | number
     order?: IntFieldUpdateOperationsInput | number
     enhancement?: EnhancementUpdateOneRequiredWithoutColumnsNestedInput
+    values?: EnhancementValueUpdateManyWithoutColumnNestedInput
   }
 
   export type EnhancementColumnUncheckedUpdateInput = {
@@ -10208,6 +11640,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     weight?: FloatFieldUpdateOperationsInput | number
     order?: IntFieldUpdateOperationsInput | number
+    values?: EnhancementValueUncheckedUpdateManyWithoutColumnNestedInput
   }
 
   export type EnhancementColumnCreateManyInput = {
@@ -10252,6 +11685,7 @@ export namespace Prisma {
     error?: string | null
     enhancement: EnhancementCreateNestedOneWithoutResultsInput
     listing: ListingCreateNestedOneWithoutEnhancementResultsInput
+    individualValues?: EnhancementValueCreateNestedManyWithoutResultInput
   }
 
   export type EnhancementResultUncheckedCreateInput = {
@@ -10264,6 +11698,7 @@ export namespace Prisma {
     compositeScore?: number
     status?: string
     error?: string | null
+    individualValues?: EnhancementValueUncheckedCreateNestedManyWithoutResultInput
   }
 
   export type EnhancementResultUpdateInput = {
@@ -10276,6 +11711,7 @@ export namespace Prisma {
     error?: NullableStringFieldUpdateOperationsInput | string | null
     enhancement?: EnhancementUpdateOneRequiredWithoutResultsNestedInput
     listing?: ListingUpdateOneRequiredWithoutEnhancementResultsNestedInput
+    individualValues?: EnhancementValueUpdateManyWithoutResultNestedInput
   }
 
   export type EnhancementResultUncheckedUpdateInput = {
@@ -10288,6 +11724,7 @@ export namespace Prisma {
     compositeScore?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     error?: NullableStringFieldUpdateOperationsInput | string | null
+    individualValues?: EnhancementValueUncheckedUpdateManyWithoutResultNestedInput
   }
 
   export type EnhancementResultCreateManyInput = {
@@ -10322,6 +11759,74 @@ export namespace Prisma {
     compositeScore?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     error?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EnhancementValueCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    enhancementId: string
+    listingId: string
+    normalizedValue: number
+    result: EnhancementResultCreateNestedOneWithoutIndividualValuesInput
+    column: EnhancementColumnCreateNestedOneWithoutValuesInput
+  }
+
+  export type EnhancementValueUncheckedCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    resultId: string
+    columnId: string
+    enhancementId: string
+    listingId: string
+    normalizedValue: number
+  }
+
+  export type EnhancementValueUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enhancementId?: StringFieldUpdateOperationsInput | string
+    listingId?: StringFieldUpdateOperationsInput | string
+    normalizedValue?: FloatFieldUpdateOperationsInput | number
+    result?: EnhancementResultUpdateOneRequiredWithoutIndividualValuesNestedInput
+    column?: EnhancementColumnUpdateOneRequiredWithoutValuesNestedInput
+  }
+
+  export type EnhancementValueUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resultId?: StringFieldUpdateOperationsInput | string
+    columnId?: StringFieldUpdateOperationsInput | string
+    enhancementId?: StringFieldUpdateOperationsInput | string
+    listingId?: StringFieldUpdateOperationsInput | string
+    normalizedValue?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type EnhancementValueCreateManyInput = {
+    id?: string
+    createdAt?: Date | string
+    resultId: string
+    columnId: string
+    enhancementId: string
+    listingId: string
+    normalizedValue: number
+  }
+
+  export type EnhancementValueUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enhancementId?: StringFieldUpdateOperationsInput | string
+    listingId?: StringFieldUpdateOperationsInput | string
+    normalizedValue?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type EnhancementValueUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resultId?: StringFieldUpdateOperationsInput | string
+    columnId?: StringFieldUpdateOperationsInput | string
+    enhancementId?: StringFieldUpdateOperationsInput | string
+    listingId?: StringFieldUpdateOperationsInput | string
+    normalizedValue?: FloatFieldUpdateOperationsInput | number
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -10925,6 +12430,16 @@ export namespace Prisma {
     isNot?: EnhancementWhereInput
   }
 
+  export type EnhancementValueListRelationFilter = {
+    every?: EnhancementValueWhereInput
+    some?: EnhancementValueWhereInput
+    none?: EnhancementValueWhereInput
+  }
+
+  export type EnhancementValueOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type EnhancementColumnCountOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
@@ -11029,6 +12544,59 @@ export namespace Prisma {
 
   export type EnhancementResultSumOrderByAggregateInput = {
     compositeScore?: SortOrder
+  }
+
+  export type EnhancementResultScalarRelationFilter = {
+    is?: EnhancementResultWhereInput
+    isNot?: EnhancementResultWhereInput
+  }
+
+  export type EnhancementColumnScalarRelationFilter = {
+    is?: EnhancementColumnWhereInput
+    isNot?: EnhancementColumnWhereInput
+  }
+
+  export type EnhancementValueResultIdColumnIdCompoundUniqueInput = {
+    resultId: string
+    columnId: string
+  }
+
+  export type EnhancementValueCountOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    resultId?: SortOrder
+    columnId?: SortOrder
+    enhancementId?: SortOrder
+    listingId?: SortOrder
+    normalizedValue?: SortOrder
+  }
+
+  export type EnhancementValueAvgOrderByAggregateInput = {
+    normalizedValue?: SortOrder
+  }
+
+  export type EnhancementValueMaxOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    resultId?: SortOrder
+    columnId?: SortOrder
+    enhancementId?: SortOrder
+    listingId?: SortOrder
+    normalizedValue?: SortOrder
+  }
+
+  export type EnhancementValueMinOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    resultId?: SortOrder
+    columnId?: SortOrder
+    enhancementId?: SortOrder
+    listingId?: SortOrder
+    normalizedValue?: SortOrder
+  }
+
+  export type EnhancementValueSumOrderByAggregateInput = {
+    normalizedValue?: SortOrder
   }
 
   export type ScrapeListingCreateNestedManyWithoutScrapeInput = {
@@ -11384,6 +12952,20 @@ export namespace Prisma {
     connect?: EnhancementWhereUniqueInput
   }
 
+  export type EnhancementValueCreateNestedManyWithoutColumnInput = {
+    create?: XOR<EnhancementValueCreateWithoutColumnInput, EnhancementValueUncheckedCreateWithoutColumnInput> | EnhancementValueCreateWithoutColumnInput[] | EnhancementValueUncheckedCreateWithoutColumnInput[]
+    connectOrCreate?: EnhancementValueCreateOrConnectWithoutColumnInput | EnhancementValueCreateOrConnectWithoutColumnInput[]
+    createMany?: EnhancementValueCreateManyColumnInputEnvelope
+    connect?: EnhancementValueWhereUniqueInput | EnhancementValueWhereUniqueInput[]
+  }
+
+  export type EnhancementValueUncheckedCreateNestedManyWithoutColumnInput = {
+    create?: XOR<EnhancementValueCreateWithoutColumnInput, EnhancementValueUncheckedCreateWithoutColumnInput> | EnhancementValueCreateWithoutColumnInput[] | EnhancementValueUncheckedCreateWithoutColumnInput[]
+    connectOrCreate?: EnhancementValueCreateOrConnectWithoutColumnInput | EnhancementValueCreateOrConnectWithoutColumnInput[]
+    createMany?: EnhancementValueCreateManyColumnInputEnvelope
+    connect?: EnhancementValueWhereUniqueInput | EnhancementValueWhereUniqueInput[]
+  }
+
   export type FloatFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -11400,6 +12982,34 @@ export namespace Prisma {
     update?: XOR<XOR<EnhancementUpdateToOneWithWhereWithoutColumnsInput, EnhancementUpdateWithoutColumnsInput>, EnhancementUncheckedUpdateWithoutColumnsInput>
   }
 
+  export type EnhancementValueUpdateManyWithoutColumnNestedInput = {
+    create?: XOR<EnhancementValueCreateWithoutColumnInput, EnhancementValueUncheckedCreateWithoutColumnInput> | EnhancementValueCreateWithoutColumnInput[] | EnhancementValueUncheckedCreateWithoutColumnInput[]
+    connectOrCreate?: EnhancementValueCreateOrConnectWithoutColumnInput | EnhancementValueCreateOrConnectWithoutColumnInput[]
+    upsert?: EnhancementValueUpsertWithWhereUniqueWithoutColumnInput | EnhancementValueUpsertWithWhereUniqueWithoutColumnInput[]
+    createMany?: EnhancementValueCreateManyColumnInputEnvelope
+    set?: EnhancementValueWhereUniqueInput | EnhancementValueWhereUniqueInput[]
+    disconnect?: EnhancementValueWhereUniqueInput | EnhancementValueWhereUniqueInput[]
+    delete?: EnhancementValueWhereUniqueInput | EnhancementValueWhereUniqueInput[]
+    connect?: EnhancementValueWhereUniqueInput | EnhancementValueWhereUniqueInput[]
+    update?: EnhancementValueUpdateWithWhereUniqueWithoutColumnInput | EnhancementValueUpdateWithWhereUniqueWithoutColumnInput[]
+    updateMany?: EnhancementValueUpdateManyWithWhereWithoutColumnInput | EnhancementValueUpdateManyWithWhereWithoutColumnInput[]
+    deleteMany?: EnhancementValueScalarWhereInput | EnhancementValueScalarWhereInput[]
+  }
+
+  export type EnhancementValueUncheckedUpdateManyWithoutColumnNestedInput = {
+    create?: XOR<EnhancementValueCreateWithoutColumnInput, EnhancementValueUncheckedCreateWithoutColumnInput> | EnhancementValueCreateWithoutColumnInput[] | EnhancementValueUncheckedCreateWithoutColumnInput[]
+    connectOrCreate?: EnhancementValueCreateOrConnectWithoutColumnInput | EnhancementValueCreateOrConnectWithoutColumnInput[]
+    upsert?: EnhancementValueUpsertWithWhereUniqueWithoutColumnInput | EnhancementValueUpsertWithWhereUniqueWithoutColumnInput[]
+    createMany?: EnhancementValueCreateManyColumnInputEnvelope
+    set?: EnhancementValueWhereUniqueInput | EnhancementValueWhereUniqueInput[]
+    disconnect?: EnhancementValueWhereUniqueInput | EnhancementValueWhereUniqueInput[]
+    delete?: EnhancementValueWhereUniqueInput | EnhancementValueWhereUniqueInput[]
+    connect?: EnhancementValueWhereUniqueInput | EnhancementValueWhereUniqueInput[]
+    update?: EnhancementValueUpdateWithWhereUniqueWithoutColumnInput | EnhancementValueUpdateWithWhereUniqueWithoutColumnInput[]
+    updateMany?: EnhancementValueUpdateManyWithWhereWithoutColumnInput | EnhancementValueUpdateManyWithWhereWithoutColumnInput[]
+    deleteMany?: EnhancementValueScalarWhereInput | EnhancementValueScalarWhereInput[]
+  }
+
   export type EnhancementCreateNestedOneWithoutResultsInput = {
     create?: XOR<EnhancementCreateWithoutResultsInput, EnhancementUncheckedCreateWithoutResultsInput>
     connectOrCreate?: EnhancementCreateOrConnectWithoutResultsInput
@@ -11410,6 +13020,20 @@ export namespace Prisma {
     create?: XOR<ListingCreateWithoutEnhancementResultsInput, ListingUncheckedCreateWithoutEnhancementResultsInput>
     connectOrCreate?: ListingCreateOrConnectWithoutEnhancementResultsInput
     connect?: ListingWhereUniqueInput
+  }
+
+  export type EnhancementValueCreateNestedManyWithoutResultInput = {
+    create?: XOR<EnhancementValueCreateWithoutResultInput, EnhancementValueUncheckedCreateWithoutResultInput> | EnhancementValueCreateWithoutResultInput[] | EnhancementValueUncheckedCreateWithoutResultInput[]
+    connectOrCreate?: EnhancementValueCreateOrConnectWithoutResultInput | EnhancementValueCreateOrConnectWithoutResultInput[]
+    createMany?: EnhancementValueCreateManyResultInputEnvelope
+    connect?: EnhancementValueWhereUniqueInput | EnhancementValueWhereUniqueInput[]
+  }
+
+  export type EnhancementValueUncheckedCreateNestedManyWithoutResultInput = {
+    create?: XOR<EnhancementValueCreateWithoutResultInput, EnhancementValueUncheckedCreateWithoutResultInput> | EnhancementValueCreateWithoutResultInput[] | EnhancementValueUncheckedCreateWithoutResultInput[]
+    connectOrCreate?: EnhancementValueCreateOrConnectWithoutResultInput | EnhancementValueCreateOrConnectWithoutResultInput[]
+    createMany?: EnhancementValueCreateManyResultInputEnvelope
+    connect?: EnhancementValueWhereUniqueInput | EnhancementValueWhereUniqueInput[]
   }
 
   export type EnhancementUpdateOneRequiredWithoutResultsNestedInput = {
@@ -11426,6 +13050,62 @@ export namespace Prisma {
     upsert?: ListingUpsertWithoutEnhancementResultsInput
     connect?: ListingWhereUniqueInput
     update?: XOR<XOR<ListingUpdateToOneWithWhereWithoutEnhancementResultsInput, ListingUpdateWithoutEnhancementResultsInput>, ListingUncheckedUpdateWithoutEnhancementResultsInput>
+  }
+
+  export type EnhancementValueUpdateManyWithoutResultNestedInput = {
+    create?: XOR<EnhancementValueCreateWithoutResultInput, EnhancementValueUncheckedCreateWithoutResultInput> | EnhancementValueCreateWithoutResultInput[] | EnhancementValueUncheckedCreateWithoutResultInput[]
+    connectOrCreate?: EnhancementValueCreateOrConnectWithoutResultInput | EnhancementValueCreateOrConnectWithoutResultInput[]
+    upsert?: EnhancementValueUpsertWithWhereUniqueWithoutResultInput | EnhancementValueUpsertWithWhereUniqueWithoutResultInput[]
+    createMany?: EnhancementValueCreateManyResultInputEnvelope
+    set?: EnhancementValueWhereUniqueInput | EnhancementValueWhereUniqueInput[]
+    disconnect?: EnhancementValueWhereUniqueInput | EnhancementValueWhereUniqueInput[]
+    delete?: EnhancementValueWhereUniqueInput | EnhancementValueWhereUniqueInput[]
+    connect?: EnhancementValueWhereUniqueInput | EnhancementValueWhereUniqueInput[]
+    update?: EnhancementValueUpdateWithWhereUniqueWithoutResultInput | EnhancementValueUpdateWithWhereUniqueWithoutResultInput[]
+    updateMany?: EnhancementValueUpdateManyWithWhereWithoutResultInput | EnhancementValueUpdateManyWithWhereWithoutResultInput[]
+    deleteMany?: EnhancementValueScalarWhereInput | EnhancementValueScalarWhereInput[]
+  }
+
+  export type EnhancementValueUncheckedUpdateManyWithoutResultNestedInput = {
+    create?: XOR<EnhancementValueCreateWithoutResultInput, EnhancementValueUncheckedCreateWithoutResultInput> | EnhancementValueCreateWithoutResultInput[] | EnhancementValueUncheckedCreateWithoutResultInput[]
+    connectOrCreate?: EnhancementValueCreateOrConnectWithoutResultInput | EnhancementValueCreateOrConnectWithoutResultInput[]
+    upsert?: EnhancementValueUpsertWithWhereUniqueWithoutResultInput | EnhancementValueUpsertWithWhereUniqueWithoutResultInput[]
+    createMany?: EnhancementValueCreateManyResultInputEnvelope
+    set?: EnhancementValueWhereUniqueInput | EnhancementValueWhereUniqueInput[]
+    disconnect?: EnhancementValueWhereUniqueInput | EnhancementValueWhereUniqueInput[]
+    delete?: EnhancementValueWhereUniqueInput | EnhancementValueWhereUniqueInput[]
+    connect?: EnhancementValueWhereUniqueInput | EnhancementValueWhereUniqueInput[]
+    update?: EnhancementValueUpdateWithWhereUniqueWithoutResultInput | EnhancementValueUpdateWithWhereUniqueWithoutResultInput[]
+    updateMany?: EnhancementValueUpdateManyWithWhereWithoutResultInput | EnhancementValueUpdateManyWithWhereWithoutResultInput[]
+    deleteMany?: EnhancementValueScalarWhereInput | EnhancementValueScalarWhereInput[]
+  }
+
+  export type EnhancementResultCreateNestedOneWithoutIndividualValuesInput = {
+    create?: XOR<EnhancementResultCreateWithoutIndividualValuesInput, EnhancementResultUncheckedCreateWithoutIndividualValuesInput>
+    connectOrCreate?: EnhancementResultCreateOrConnectWithoutIndividualValuesInput
+    connect?: EnhancementResultWhereUniqueInput
+  }
+
+  export type EnhancementColumnCreateNestedOneWithoutValuesInput = {
+    create?: XOR<EnhancementColumnCreateWithoutValuesInput, EnhancementColumnUncheckedCreateWithoutValuesInput>
+    connectOrCreate?: EnhancementColumnCreateOrConnectWithoutValuesInput
+    connect?: EnhancementColumnWhereUniqueInput
+  }
+
+  export type EnhancementResultUpdateOneRequiredWithoutIndividualValuesNestedInput = {
+    create?: XOR<EnhancementResultCreateWithoutIndividualValuesInput, EnhancementResultUncheckedCreateWithoutIndividualValuesInput>
+    connectOrCreate?: EnhancementResultCreateOrConnectWithoutIndividualValuesInput
+    upsert?: EnhancementResultUpsertWithoutIndividualValuesInput
+    connect?: EnhancementResultWhereUniqueInput
+    update?: XOR<XOR<EnhancementResultUpdateToOneWithWhereWithoutIndividualValuesInput, EnhancementResultUpdateWithoutIndividualValuesInput>, EnhancementResultUncheckedUpdateWithoutIndividualValuesInput>
+  }
+
+  export type EnhancementColumnUpdateOneRequiredWithoutValuesNestedInput = {
+    create?: XOR<EnhancementColumnCreateWithoutValuesInput, EnhancementColumnUncheckedCreateWithoutValuesInput>
+    connectOrCreate?: EnhancementColumnCreateOrConnectWithoutValuesInput
+    upsert?: EnhancementColumnUpsertWithoutValuesInput
+    connect?: EnhancementColumnWhereUniqueInput
+    update?: XOR<XOR<EnhancementColumnUpdateToOneWithWhereWithoutValuesInput, EnhancementColumnUpdateWithoutValuesInput>, EnhancementColumnUncheckedUpdateWithoutValuesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -11834,6 +13514,7 @@ export namespace Prisma {
     status?: string
     error?: string | null
     enhancement: EnhancementCreateNestedOneWithoutResultsInput
+    individualValues?: EnhancementValueCreateNestedManyWithoutResultInput
   }
 
   export type EnhancementResultUncheckedCreateWithoutListingInput = {
@@ -11845,6 +13526,7 @@ export namespace Prisma {
     compositeScore?: number
     status?: string
     error?: string | null
+    individualValues?: EnhancementValueUncheckedCreateNestedManyWithoutResultInput
   }
 
   export type EnhancementResultCreateOrConnectWithoutListingInput = {
@@ -12205,6 +13887,7 @@ export namespace Prisma {
     description: string
     weight?: number
     order?: number
+    values?: EnhancementValueCreateNestedManyWithoutColumnInput
   }
 
   export type EnhancementColumnUncheckedCreateWithoutEnhancementInput = {
@@ -12215,6 +13898,7 @@ export namespace Prisma {
     description: string
     weight?: number
     order?: number
+    values?: EnhancementValueUncheckedCreateNestedManyWithoutColumnInput
   }
 
   export type EnhancementColumnCreateOrConnectWithoutEnhancementInput = {
@@ -12236,6 +13920,7 @@ export namespace Prisma {
     status?: string
     error?: string | null
     listing: ListingCreateNestedOneWithoutEnhancementResultsInput
+    individualValues?: EnhancementValueCreateNestedManyWithoutResultInput
   }
 
   export type EnhancementResultUncheckedCreateWithoutEnhancementInput = {
@@ -12247,6 +13932,7 @@ export namespace Prisma {
     compositeScore?: number
     status?: string
     error?: string | null
+    individualValues?: EnhancementValueUncheckedCreateNestedManyWithoutResultInput
   }
 
   export type EnhancementResultCreateOrConnectWithoutEnhancementInput = {
@@ -12389,6 +14075,34 @@ export namespace Prisma {
     create: XOR<EnhancementCreateWithoutColumnsInput, EnhancementUncheckedCreateWithoutColumnsInput>
   }
 
+  export type EnhancementValueCreateWithoutColumnInput = {
+    id?: string
+    createdAt?: Date | string
+    enhancementId: string
+    listingId: string
+    normalizedValue: number
+    result: EnhancementResultCreateNestedOneWithoutIndividualValuesInput
+  }
+
+  export type EnhancementValueUncheckedCreateWithoutColumnInput = {
+    id?: string
+    createdAt?: Date | string
+    resultId: string
+    enhancementId: string
+    listingId: string
+    normalizedValue: number
+  }
+
+  export type EnhancementValueCreateOrConnectWithoutColumnInput = {
+    where: EnhancementValueWhereUniqueInput
+    create: XOR<EnhancementValueCreateWithoutColumnInput, EnhancementValueUncheckedCreateWithoutColumnInput>
+  }
+
+  export type EnhancementValueCreateManyColumnInputEnvelope = {
+    data: EnhancementValueCreateManyColumnInput | EnhancementValueCreateManyColumnInput[]
+    skipDuplicates?: boolean
+  }
+
   export type EnhancementUpsertWithoutColumnsInput = {
     update: XOR<EnhancementUpdateWithoutColumnsInput, EnhancementUncheckedUpdateWithoutColumnsInput>
     create: XOR<EnhancementCreateWithoutColumnsInput, EnhancementUncheckedCreateWithoutColumnsInput>
@@ -12430,6 +14144,35 @@ export namespace Prisma {
     processedCount?: IntFieldUpdateOperationsInput | number
     totalCount?: IntFieldUpdateOperationsInput | number
     results?: EnhancementResultUncheckedUpdateManyWithoutEnhancementNestedInput
+  }
+
+  export type EnhancementValueUpsertWithWhereUniqueWithoutColumnInput = {
+    where: EnhancementValueWhereUniqueInput
+    update: XOR<EnhancementValueUpdateWithoutColumnInput, EnhancementValueUncheckedUpdateWithoutColumnInput>
+    create: XOR<EnhancementValueCreateWithoutColumnInput, EnhancementValueUncheckedCreateWithoutColumnInput>
+  }
+
+  export type EnhancementValueUpdateWithWhereUniqueWithoutColumnInput = {
+    where: EnhancementValueWhereUniqueInput
+    data: XOR<EnhancementValueUpdateWithoutColumnInput, EnhancementValueUncheckedUpdateWithoutColumnInput>
+  }
+
+  export type EnhancementValueUpdateManyWithWhereWithoutColumnInput = {
+    where: EnhancementValueScalarWhereInput
+    data: XOR<EnhancementValueUpdateManyMutationInput, EnhancementValueUncheckedUpdateManyWithoutColumnInput>
+  }
+
+  export type EnhancementValueScalarWhereInput = {
+    AND?: EnhancementValueScalarWhereInput | EnhancementValueScalarWhereInput[]
+    OR?: EnhancementValueScalarWhereInput[]
+    NOT?: EnhancementValueScalarWhereInput | EnhancementValueScalarWhereInput[]
+    id?: StringFilter<"EnhancementValue"> | string
+    createdAt?: DateTimeFilter<"EnhancementValue"> | Date | string
+    resultId?: StringFilter<"EnhancementValue"> | string
+    columnId?: StringFilter<"EnhancementValue"> | string
+    enhancementId?: StringFilter<"EnhancementValue"> | string
+    listingId?: StringFilter<"EnhancementValue"> | string
+    normalizedValue?: FloatFilter<"EnhancementValue"> | number
   }
 
   export type EnhancementCreateWithoutResultsInput = {
@@ -12546,6 +14289,34 @@ export namespace Prisma {
   export type ListingCreateOrConnectWithoutEnhancementResultsInput = {
     where: ListingWhereUniqueInput
     create: XOR<ListingCreateWithoutEnhancementResultsInput, ListingUncheckedCreateWithoutEnhancementResultsInput>
+  }
+
+  export type EnhancementValueCreateWithoutResultInput = {
+    id?: string
+    createdAt?: Date | string
+    enhancementId: string
+    listingId: string
+    normalizedValue: number
+    column: EnhancementColumnCreateNestedOneWithoutValuesInput
+  }
+
+  export type EnhancementValueUncheckedCreateWithoutResultInput = {
+    id?: string
+    createdAt?: Date | string
+    columnId: string
+    enhancementId: string
+    listingId: string
+    normalizedValue: number
+  }
+
+  export type EnhancementValueCreateOrConnectWithoutResultInput = {
+    where: EnhancementValueWhereUniqueInput
+    create: XOR<EnhancementValueCreateWithoutResultInput, EnhancementValueUncheckedCreateWithoutResultInput>
+  }
+
+  export type EnhancementValueCreateManyResultInputEnvelope = {
+    data: EnhancementValueCreateManyResultInput | EnhancementValueCreateManyResultInput[]
+    skipDuplicates?: boolean
   }
 
   export type EnhancementUpsertWithoutResultsInput = {
@@ -12676,6 +14447,146 @@ export namespace Prisma {
     scrapes?: ScrapeListingUncheckedUpdateManyWithoutListingNestedInput
   }
 
+  export type EnhancementValueUpsertWithWhereUniqueWithoutResultInput = {
+    where: EnhancementValueWhereUniqueInput
+    update: XOR<EnhancementValueUpdateWithoutResultInput, EnhancementValueUncheckedUpdateWithoutResultInput>
+    create: XOR<EnhancementValueCreateWithoutResultInput, EnhancementValueUncheckedCreateWithoutResultInput>
+  }
+
+  export type EnhancementValueUpdateWithWhereUniqueWithoutResultInput = {
+    where: EnhancementValueWhereUniqueInput
+    data: XOR<EnhancementValueUpdateWithoutResultInput, EnhancementValueUncheckedUpdateWithoutResultInput>
+  }
+
+  export type EnhancementValueUpdateManyWithWhereWithoutResultInput = {
+    where: EnhancementValueScalarWhereInput
+    data: XOR<EnhancementValueUpdateManyMutationInput, EnhancementValueUncheckedUpdateManyWithoutResultInput>
+  }
+
+  export type EnhancementResultCreateWithoutIndividualValuesInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    values: JsonNullValueInput | InputJsonValue
+    compositeScore?: number
+    status?: string
+    error?: string | null
+    enhancement: EnhancementCreateNestedOneWithoutResultsInput
+    listing: ListingCreateNestedOneWithoutEnhancementResultsInput
+  }
+
+  export type EnhancementResultUncheckedCreateWithoutIndividualValuesInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enhancementId: string
+    listingId: string
+    values: JsonNullValueInput | InputJsonValue
+    compositeScore?: number
+    status?: string
+    error?: string | null
+  }
+
+  export type EnhancementResultCreateOrConnectWithoutIndividualValuesInput = {
+    where: EnhancementResultWhereUniqueInput
+    create: XOR<EnhancementResultCreateWithoutIndividualValuesInput, EnhancementResultUncheckedCreateWithoutIndividualValuesInput>
+  }
+
+  export type EnhancementColumnCreateWithoutValuesInput = {
+    id?: string
+    createdAt?: Date | string
+    name: string
+    type: string
+    description: string
+    weight?: number
+    order?: number
+    enhancement: EnhancementCreateNestedOneWithoutColumnsInput
+  }
+
+  export type EnhancementColumnUncheckedCreateWithoutValuesInput = {
+    id?: string
+    createdAt?: Date | string
+    enhancementId: string
+    name: string
+    type: string
+    description: string
+    weight?: number
+    order?: number
+  }
+
+  export type EnhancementColumnCreateOrConnectWithoutValuesInput = {
+    where: EnhancementColumnWhereUniqueInput
+    create: XOR<EnhancementColumnCreateWithoutValuesInput, EnhancementColumnUncheckedCreateWithoutValuesInput>
+  }
+
+  export type EnhancementResultUpsertWithoutIndividualValuesInput = {
+    update: XOR<EnhancementResultUpdateWithoutIndividualValuesInput, EnhancementResultUncheckedUpdateWithoutIndividualValuesInput>
+    create: XOR<EnhancementResultCreateWithoutIndividualValuesInput, EnhancementResultUncheckedCreateWithoutIndividualValuesInput>
+    where?: EnhancementResultWhereInput
+  }
+
+  export type EnhancementResultUpdateToOneWithWhereWithoutIndividualValuesInput = {
+    where?: EnhancementResultWhereInput
+    data: XOR<EnhancementResultUpdateWithoutIndividualValuesInput, EnhancementResultUncheckedUpdateWithoutIndividualValuesInput>
+  }
+
+  export type EnhancementResultUpdateWithoutIndividualValuesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    values?: JsonNullValueInput | InputJsonValue
+    compositeScore?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    enhancement?: EnhancementUpdateOneRequiredWithoutResultsNestedInput
+    listing?: ListingUpdateOneRequiredWithoutEnhancementResultsNestedInput
+  }
+
+  export type EnhancementResultUncheckedUpdateWithoutIndividualValuesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enhancementId?: StringFieldUpdateOperationsInput | string
+    listingId?: StringFieldUpdateOperationsInput | string
+    values?: JsonNullValueInput | InputJsonValue
+    compositeScore?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EnhancementColumnUpsertWithoutValuesInput = {
+    update: XOR<EnhancementColumnUpdateWithoutValuesInput, EnhancementColumnUncheckedUpdateWithoutValuesInput>
+    create: XOR<EnhancementColumnCreateWithoutValuesInput, EnhancementColumnUncheckedCreateWithoutValuesInput>
+    where?: EnhancementColumnWhereInput
+  }
+
+  export type EnhancementColumnUpdateToOneWithWhereWithoutValuesInput = {
+    where?: EnhancementColumnWhereInput
+    data: XOR<EnhancementColumnUpdateWithoutValuesInput, EnhancementColumnUncheckedUpdateWithoutValuesInput>
+  }
+
+  export type EnhancementColumnUpdateWithoutValuesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    weight?: FloatFieldUpdateOperationsInput | number
+    order?: IntFieldUpdateOperationsInput | number
+    enhancement?: EnhancementUpdateOneRequiredWithoutColumnsNestedInput
+  }
+
+  export type EnhancementColumnUncheckedUpdateWithoutValuesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enhancementId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    weight?: FloatFieldUpdateOperationsInput | number
+    order?: IntFieldUpdateOperationsInput | number
+  }
+
   export type ScrapeListingCreateManyScrapeInput = {
     listingId: string
     foundAt?: Date | string
@@ -12796,6 +14707,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     error?: NullableStringFieldUpdateOperationsInput | string | null
     enhancement?: EnhancementUpdateOneRequiredWithoutResultsNestedInput
+    individualValues?: EnhancementValueUpdateManyWithoutResultNestedInput
   }
 
   export type EnhancementResultUncheckedUpdateWithoutListingInput = {
@@ -12807,6 +14719,7 @@ export namespace Prisma {
     compositeScore?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     error?: NullableStringFieldUpdateOperationsInput | string | null
+    individualValues?: EnhancementValueUncheckedUpdateManyWithoutResultNestedInput
   }
 
   export type EnhancementResultUncheckedUpdateManyWithoutListingInput = {
@@ -12849,6 +14762,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     weight?: FloatFieldUpdateOperationsInput | number
     order?: IntFieldUpdateOperationsInput | number
+    values?: EnhancementValueUpdateManyWithoutColumnNestedInput
   }
 
   export type EnhancementColumnUncheckedUpdateWithoutEnhancementInput = {
@@ -12859,6 +14773,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     weight?: FloatFieldUpdateOperationsInput | number
     order?: IntFieldUpdateOperationsInput | number
+    values?: EnhancementValueUncheckedUpdateManyWithoutColumnNestedInput
   }
 
   export type EnhancementColumnUncheckedUpdateManyWithoutEnhancementInput = {
@@ -12880,6 +14795,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     error?: NullableStringFieldUpdateOperationsInput | string | null
     listing?: ListingUpdateOneRequiredWithoutEnhancementResultsNestedInput
+    individualValues?: EnhancementValueUpdateManyWithoutResultNestedInput
   }
 
   export type EnhancementResultUncheckedUpdateWithoutEnhancementInput = {
@@ -12891,6 +14807,7 @@ export namespace Prisma {
     compositeScore?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     error?: NullableStringFieldUpdateOperationsInput | string | null
+    individualValues?: EnhancementValueUncheckedUpdateManyWithoutResultNestedInput
   }
 
   export type EnhancementResultUncheckedUpdateManyWithoutEnhancementInput = {
@@ -12902,6 +14819,78 @@ export namespace Prisma {
     compositeScore?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     error?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EnhancementValueCreateManyColumnInput = {
+    id?: string
+    createdAt?: Date | string
+    resultId: string
+    enhancementId: string
+    listingId: string
+    normalizedValue: number
+  }
+
+  export type EnhancementValueUpdateWithoutColumnInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enhancementId?: StringFieldUpdateOperationsInput | string
+    listingId?: StringFieldUpdateOperationsInput | string
+    normalizedValue?: FloatFieldUpdateOperationsInput | number
+    result?: EnhancementResultUpdateOneRequiredWithoutIndividualValuesNestedInput
+  }
+
+  export type EnhancementValueUncheckedUpdateWithoutColumnInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resultId?: StringFieldUpdateOperationsInput | string
+    enhancementId?: StringFieldUpdateOperationsInput | string
+    listingId?: StringFieldUpdateOperationsInput | string
+    normalizedValue?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type EnhancementValueUncheckedUpdateManyWithoutColumnInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resultId?: StringFieldUpdateOperationsInput | string
+    enhancementId?: StringFieldUpdateOperationsInput | string
+    listingId?: StringFieldUpdateOperationsInput | string
+    normalizedValue?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type EnhancementValueCreateManyResultInput = {
+    id?: string
+    createdAt?: Date | string
+    columnId: string
+    enhancementId: string
+    listingId: string
+    normalizedValue: number
+  }
+
+  export type EnhancementValueUpdateWithoutResultInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enhancementId?: StringFieldUpdateOperationsInput | string
+    listingId?: StringFieldUpdateOperationsInput | string
+    normalizedValue?: FloatFieldUpdateOperationsInput | number
+    column?: EnhancementColumnUpdateOneRequiredWithoutValuesNestedInput
+  }
+
+  export type EnhancementValueUncheckedUpdateWithoutResultInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    columnId?: StringFieldUpdateOperationsInput | string
+    enhancementId?: StringFieldUpdateOperationsInput | string
+    listingId?: StringFieldUpdateOperationsInput | string
+    normalizedValue?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type EnhancementValueUncheckedUpdateManyWithoutResultInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    columnId?: StringFieldUpdateOperationsInput | string
+    enhancementId?: StringFieldUpdateOperationsInput | string
+    listingId?: StringFieldUpdateOperationsInput | string
+    normalizedValue?: FloatFieldUpdateOperationsInput | number
   }
 
 
