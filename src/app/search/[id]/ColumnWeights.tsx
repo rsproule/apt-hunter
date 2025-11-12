@@ -3,6 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
+import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -13,6 +14,7 @@ interface Column {
   type: string;
   description: string;
   weight: number;
+  inverted: boolean;
 }
 
 interface ColumnWeightsProps {
@@ -27,11 +29,17 @@ export default function ColumnWeights({
   const router = useRouter();
   const [columns, setColumns] = useState(initialColumns);
   const [isSaving, setIsSaving] = useState(false);
+  const [lastEnhancementIds, setLastEnhancementIds] = useState(enhancementIds.join(','));
 
-  // Update columns when props change (e.g., new enhancement added)
+  // Only update columns when the enhancement IDs change (different enhancement selected)
+  // NOT when the page refreshes with the same data
   useEffect(() => {
-    setColumns(initialColumns);
-  }, [initialColumns]);
+    const currentIds = enhancementIds.join(',');
+    if (currentIds !== lastEnhancementIds) {
+      setColumns(initialColumns);
+      setLastEnhancementIds(currentIds);
+    }
+  }, [enhancementIds, initialColumns, lastEnhancementIds]);
 
   const handleWeightChange = (columnId: string, newWeight: number[]) => {
     setColumns((prev) =>
@@ -78,51 +86,51 @@ export default function ColumnWeights({
   });
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-lg">Adjust Importance</CardTitle>
-        <p className="text-sm text-gray-600 dark:text-gray-400">
-          Set how much each feature matters to you (0-10)
-        </p>
-      </CardHeader>
-      <CardContent className="space-y-6">
-        {columns.map((column) => (
-          <div key={column.id} className="space-y-2">
-            <div className="flex items-center justify-between">
-              <Label
-                htmlFor={`weight-${column.id}`}
-                className="text-sm font-medium capitalize"
-              >
-                {column.name.replace(/_/g, " ")}
-              </Label>
-              <span className="text-sm font-bold text-purple-600 dark:text-purple-400">
-                {column.weight.toFixed(1)}
-              </span>
-            </div>
-            <p className="text-xs text-gray-500">{column.description}</p>
-            <Slider
-              id={`weight-${column.id}`}
-              min={0}
-              max={10}
-              step={0.5}
-              value={[column.weight]}
-              onValueChange={(value) => handleWeightChange(column.id, value)}
-              className="w-full"
-            />
-          </div>
-        ))}
-
+    <div className="border rounded-lg p-4 space-y-3">
+      <div className="flex items-center justify-between mb-3">
+        <h3 className="text-sm font-semibold">Adjust Importance</h3>
         {hasChanges && (
           <Button
             onClick={handleSave}
             disabled={isSaving}
-            className="w-full"
+            size="sm"
           >
-            {isSaving ? "Recalculating..." : "Apply & Re-rank"}
+            {isSaving ? "Saving..." : "Apply"}
           </Button>
         )}
-      </CardContent>
-    </Card>
+      </div>
+
+      <div className="space-y-2">
+        {columns.map((column) => (
+          <div key={column.id} className="flex items-center gap-3 py-1">
+            {/* Column name */}
+            <div className="min-w-[200px]">
+              <p className="text-xs font-medium capitalize leading-tight">
+                {column.name.replace(/_/g, " ")}
+              </p>
+            </div>
+
+            {/* Slider */}
+            <div className="flex-1 min-w-[140px]">
+              <Slider
+                id={`weight-${column.id}`}
+                min={0}
+                max={10}
+                step={1}
+                value={[column.weight]}
+                onValueChange={(value) => handleWeightChange(column.id, value)}
+                className="w-full"
+              />
+            </div>
+
+            {/* Weight value */}
+            <span className="text-xs font-mono w-8 text-right text-gray-700 dark:text-gray-300">
+              {column.weight}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 

@@ -186,7 +186,9 @@ model EnhancementColumn {
   description String // Human-readable description
 
   // User-configurable weight (0-10) for composite scoring
-  weight Float @default(5.0)
+  // Higher weight = more important to you
+  // 0 = don't care, 10 = very important
+  weight Int @default(5)
 
   // Display order
   order Int @default(0)

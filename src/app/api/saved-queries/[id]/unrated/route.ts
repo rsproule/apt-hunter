@@ -93,13 +93,12 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       let totalWeight = 0;
 
       for (const result of listing.enhancementResults) {
-        const values = result.values as Record<string, boolean | number>;
+        const values = result.values as Record<string, number>;
         
         for (const [columnName, value] of Object.entries(values)) {
           const weight = columnWeights[columnName] || 5.0;
-          const normalizedValue = typeof value === "boolean" 
-            ? (value ? 10 : 0) 
-            : value;
+          // All values are now 1-10 scores
+          const normalizedValue = Number(value);
           
           totalScore += normalizedValue * weight;
           totalWeight += weight;

@@ -1,8 +1,7 @@
 import ColumnWeights from "@/app/search/[id]/ColumnWeights";
-import EnhancementChat from "@/app/search/[id]/EnhancementChat";
 import EnhancementPolling from "@/app/search/[id]/EnhancementPolling";
+import EnhancementSelector from "@/app/search/[id]/EnhancementSelector";
 import ListingsTable from "@/app/search/[id]/ListingsTable";
-import SaveQueryButton from "@/app/search/[id]/SaveQueryButton";
 import SearchPageClient from "@/app/search/[id]/SearchPageClient";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -80,6 +79,7 @@ export default async function SearchPage({
   if (activeEnhancementIds.length > 0) {
     // Calculate composite scores dynamically at query time based on current column weights
     // This ensures scores are always fresh and all listings are included
+    // When inverted=true, we flip the score (10 - normalizedValue) for undesirable traits
     const rankedListings = await prisma.$queryRaw<
       Array<{
         listingId: string;
@@ -238,15 +238,6 @@ export default async function SearchPage({
       ? searchQuery?.zipCodes?.join(", ")
       : "URL Search");
 
-  // Get enhancement query and column weights from active enhancements
-  const enhancementQuery = activeEnhancements[0]?.query;
-  const columnWeightsMap: Record<string, number> = {};
-  for (const enhancement of activeEnhancements) {
-    for (const column of enhancement.columns) {
-      columnWeightsMap[column.name] = column.weight;
-    }
-  }
-
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Auto-refresh component for pending/running searches */}
@@ -260,73 +251,61 @@ export default async function SearchPage({
 
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
-        <div>
-          <div className="flex items-center gap-3 mb-2">
-            <h1 className="text-3xl font-bold">{displayName}</h1>
-            <Badge className={`${getStatusColor(scrape.status)} text-white`}>
-              {scrape.status}
-            </Badge>
-            {scrape.status === "completed" &&
-              activeEnhancementIds.length > 0 && (
-                <SaveQueryButton
-                  scrapeId={scrape.id}
-                  searchType={scrape.searchType}
-                  searchQuery={searchQuery}
-                  enhancementQuery={enhancementQuery}
-                  columnWeights={columnWeightsMap}
-                />
-              )}
+        <div className="flex items-start justify-between">
+          <div>
+            <div className="flex items-center gap-3 mb-2">
+              <h1 className="text-3xl font-bold">{displayName}</h1>
+              <Badge className={`${getStatusColor(scrape.status)} text-white`}>
+                {scrape.status}
+              </Badge>
+            </div>
+            <p className="text-gray-600">
+              {scrape.listingsCount} listings found •{" "}
+              {new Date(scrape.createdAt).toLocaleDateString()} at{" "}
+              {new Date(scrape.createdAt).toLocaleTimeString()}
+            </p>
           </div>
-          <p className="text-gray-600">
-            {scrape.listingsCount} listings found •{" "}
-            {new Date(scrape.createdAt).toLocaleDateString()} at{" "}
-            {new Date(scrape.createdAt).toLocaleTimeString()}
-          </p>
+
+          {/* Enhancement Selector - only show if scrape is completed */}
+          {scrape.status === "completed" && (
+            <EnhancementSelector
+              scrapeId={scrape.id}
+              allEnhancements={allEnhancements.map((e) => ({
+                id: e.id,
+                query: e.query,
+                status: e.status,
+                error: e.error,
+                processedCount: e.processedCount,
+                totalCount: e.totalCount,
+                createdAt: e.createdAt.toISOString(),
+                columns: e.columns.map((c) => ({
+                  name: c.name,
+                  type: c.type,
+                  description: c.description,
+                })),
+              }))}
+              activeEnhancementIds={activeEnhancementIds}
+            />
+          )}
         </div>
 
-        {/* Enhancement Chat - only show if scrape is completed */}
-        {scrape.status === "completed" && (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2">
-              <EnhancementChat
-                scrapeId={scrape.id}
-                activeEnhancementIds={activeEnhancementIds}
-                enhancements={allEnhancements.map((e) => ({
-                  id: e.id,
-                  query: e.query,
-                  status: e.status,
-                  error: e.error,
-                  processedCount: e.processedCount,
-                  totalCount: e.totalCount,
-                  createdAt: e.createdAt.toISOString(),
-                  columns: e.columns.map((c) => ({
-                    name: c.name,
-                    type: c.type,
-                    description: c.description,
-                  })),
-                }))}
-              />
-            </div>
-
-            {/* Column Weights - show when enhancements are active */}
-            {activeEnhancementIds.length > 0 &&
-              enhancementColumns.length > 0 && (
-                <div className="lg:col-span-1">
-                  <ColumnWeights
-                    key={activeEnhancementIds.join(",")}
-                    enhancementIds={activeEnhancementIds}
-                    columns={enhancementColumns.map((c) => ({
-                      id: c.id,
-                      name: c.name,
-                      type: c.type,
-                      description: c.description,
-                      weight: c.weight,
-                    }))}
-                  />
-                </div>
-              )}
-          </div>
-        )}
+        {/* Column Weights - show when enhancements are active */}
+        {scrape.status === "completed" &&
+          activeEnhancementIds.length > 0 &&
+          enhancementColumns.length > 0 && (
+            <ColumnWeights
+              key={activeEnhancementIds.join(",")}
+              enhancementIds={activeEnhancementIds}
+              columns={enhancementColumns.map((c) => ({
+                id: c.id,
+                name: c.name,
+                type: c.type,
+                description: c.description,
+                weight: c.weight,
+                inverted: false, // Legacy field, not used
+              }))}
+            />
+          )}
 
         {/* Listings */}
         {scrape.status === "completed" && totalListings > 0 ? (
@@ -340,17 +319,58 @@ export default async function SearchPage({
           />
         ) : scrape.status === "running" || scrape.status === "pending" ? (
           <Card>
-            <CardContent className="py-12 text-center">
-              <div className="flex flex-col items-center gap-4">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 dark:border-white"></div>
-                <p className="text-gray-600">
-                  {scrape.status === "pending"
-                    ? "Starting search..."
-                    : "Searching for listings..."}
-                </p>
-                <p className="text-sm text-gray-500">
-                  This page will automatically refresh when results are ready
-                </p>
+            <CardContent className="py-12">
+              <div className="flex flex-col items-center gap-6">
+                <div className="text-center space-y-2">
+                  <p className="text-lg font-semibold text-gray-900 dark:text-white">
+                    {scrape.status === "pending"
+                      ? "Starting search..."
+                      : "Searching for listings..."}
+                  </p>
+
+                  {/* Show listing count during scraping */}
+                  {totalListings > 0 && (
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      {totalListings} listings found so far
+                    </p>
+                  )}
+                </div>
+
+                {/* Enhancement status during scraping */}
+                {allEnhancements.length > 0 && (
+                  <div className="w-full max-w-md space-y-3 mt-4">
+                    {allEnhancements.map((enhancement) => (
+                      <div
+                        key={enhancement.id}
+                        className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
+                      >
+                        <div className="flex-1">
+                          <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                            AI Analysis
+                          </p>
+                          <p className="text-xs text-gray-500">
+                            {enhancement.status === "pending" &&
+                              "Waiting for listings..."}
+                            {enhancement.status === "processing" &&
+                              enhancement.totalCount > 0 &&
+                              `${Math.round(
+                                (enhancement.processedCount /
+                                  enhancement.totalCount) *
+                                  100,
+                              )}% complete`}
+                          </p>
+                        </div>
+                        <Badge
+                          className={`${getStatusColor(
+                            enhancement.status,
+                          )} text-white text-xs`}
+                        >
+                          {enhancement.status}
+                        </Badge>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </CardContent>
           </Card>

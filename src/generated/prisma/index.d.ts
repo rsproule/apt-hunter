@@ -7613,7 +7613,7 @@ export namespace Prisma {
     readonly name: FieldRef<"EnhancementColumn", 'String'>
     readonly type: FieldRef<"EnhancementColumn", 'String'>
     readonly description: FieldRef<"EnhancementColumn", 'String'>
-    readonly weight: FieldRef<"EnhancementColumn", 'Float'>
+    readonly weight: FieldRef<"EnhancementColumn", 'Int'>
     readonly order: FieldRef<"EnhancementColumn", 'Int'>
   }
     
@@ -13379,7 +13379,7 @@ export namespace Prisma {
     name?: StringFilter<"EnhancementColumn"> | string
     type?: StringFilter<"EnhancementColumn"> | string
     description?: StringFilter<"EnhancementColumn"> | string
-    weight?: FloatFilter<"EnhancementColumn"> | number
+    weight?: IntFilter<"EnhancementColumn"> | number
     order?: IntFilter<"EnhancementColumn"> | number
     enhancement?: XOR<EnhancementScalarRelationFilter, EnhancementWhereInput>
     values?: EnhancementValueListRelationFilter
@@ -13408,7 +13408,7 @@ export namespace Prisma {
     name?: StringFilter<"EnhancementColumn"> | string
     type?: StringFilter<"EnhancementColumn"> | string
     description?: StringFilter<"EnhancementColumn"> | string
-    weight?: FloatFilter<"EnhancementColumn"> | number
+    weight?: IntFilter<"EnhancementColumn"> | number
     order?: IntFilter<"EnhancementColumn"> | number
     enhancement?: XOR<EnhancementScalarRelationFilter, EnhancementWhereInput>
     values?: EnhancementValueListRelationFilter
@@ -13440,7 +13440,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"EnhancementColumn"> | string
     type?: StringWithAggregatesFilter<"EnhancementColumn"> | string
     description?: StringWithAggregatesFilter<"EnhancementColumn"> | string
-    weight?: FloatWithAggregatesFilter<"EnhancementColumn"> | number
+    weight?: IntWithAggregatesFilter<"EnhancementColumn"> | number
     order?: IntWithAggregatesFilter<"EnhancementColumn"> | number
   }
 
@@ -14336,7 +14336,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    weight?: FloatFieldUpdateOperationsInput | number
+    weight?: IntFieldUpdateOperationsInput | number
     order?: IntFieldUpdateOperationsInput | number
     enhancement?: EnhancementUpdateOneRequiredWithoutColumnsNestedInput
     values?: EnhancementValueUpdateManyWithoutColumnNestedInput
@@ -14349,7 +14349,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    weight?: FloatFieldUpdateOperationsInput | number
+    weight?: IntFieldUpdateOperationsInput | number
     order?: IntFieldUpdateOperationsInput | number
     values?: EnhancementValueUncheckedUpdateManyWithoutColumnNestedInput
   }
@@ -14371,7 +14371,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    weight?: FloatFieldUpdateOperationsInput | number
+    weight?: IntFieldUpdateOperationsInput | number
     order?: IntFieldUpdateOperationsInput | number
   }
 
@@ -14382,7 +14382,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    weight?: FloatFieldUpdateOperationsInput | number
+    weight?: IntFieldUpdateOperationsInput | number
     order?: IntFieldUpdateOperationsInput | number
   }
 
@@ -15319,17 +15319,6 @@ export namespace Prisma {
     totalCount?: SortOrder
   }
 
-  export type FloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type EnhancementScalarRelationFilter = {
     is?: EnhancementWhereInput
     isNot?: EnhancementWhereInput
@@ -15388,7 +15377,7 @@ export namespace Prisma {
     order?: SortOrder
   }
 
-  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+  export type FloatFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
     notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -15396,12 +15385,7 @@ export namespace Prisma {
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type EnhancementResultEnhancementIdListingIdCompoundUniqueInput = {
@@ -15449,6 +15433,22 @@ export namespace Prisma {
 
   export type EnhancementResultSumOrderByAggregateInput = {
     compositeScore?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type EnhancementResultScalarRelationFilter = {
@@ -15997,14 +15997,6 @@ export namespace Prisma {
     connect?: EnhancementValueWhereUniqueInput | EnhancementValueWhereUniqueInput[]
   }
 
-  export type FloatFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type EnhancementUpdateOneRequiredWithoutColumnsNestedInput = {
     create?: XOR<EnhancementCreateWithoutColumnsInput, EnhancementUncheckedCreateWithoutColumnsInput>
     connectOrCreate?: EnhancementCreateOrConnectWithoutColumnsInput
@@ -16065,6 +16057,14 @@ export namespace Prisma {
     connectOrCreate?: EnhancementValueCreateOrConnectWithoutResultInput | EnhancementValueCreateOrConnectWithoutResultInput[]
     createMany?: EnhancementValueCreateManyResultInputEnvelope
     connect?: EnhancementValueWhereUniqueInput | EnhancementValueWhereUniqueInput[]
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type EnhancementUpdateOneRequiredWithoutResultsNestedInput = {
@@ -17183,7 +17183,7 @@ export namespace Prisma {
     name?: StringFilter<"EnhancementColumn"> | string
     type?: StringFilter<"EnhancementColumn"> | string
     description?: StringFilter<"EnhancementColumn"> | string
-    weight?: FloatFilter<"EnhancementColumn"> | number
+    weight?: IntFilter<"EnhancementColumn"> | number
     order?: IntFilter<"EnhancementColumn"> | number
   }
 
@@ -17740,7 +17740,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    weight?: FloatFieldUpdateOperationsInput | number
+    weight?: IntFieldUpdateOperationsInput | number
     order?: IntFieldUpdateOperationsInput | number
     enhancement?: EnhancementUpdateOneRequiredWithoutColumnsNestedInput
   }
@@ -17752,7 +17752,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    weight?: FloatFieldUpdateOperationsInput | number
+    weight?: IntFieldUpdateOperationsInput | number
     order?: IntFieldUpdateOperationsInput | number
   }
 
@@ -18259,7 +18259,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    weight?: FloatFieldUpdateOperationsInput | number
+    weight?: IntFieldUpdateOperationsInput | number
     order?: IntFieldUpdateOperationsInput | number
     values?: EnhancementValueUpdateManyWithoutColumnNestedInput
   }
@@ -18270,7 +18270,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    weight?: FloatFieldUpdateOperationsInput | number
+    weight?: IntFieldUpdateOperationsInput | number
     order?: IntFieldUpdateOperationsInput | number
     values?: EnhancementValueUncheckedUpdateManyWithoutColumnNestedInput
   }
@@ -18281,7 +18281,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    weight?: FloatFieldUpdateOperationsInput | number
+    weight?: IntFieldUpdateOperationsInput | number
     order?: IntFieldUpdateOperationsInput | number
   }
 

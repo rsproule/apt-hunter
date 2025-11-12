@@ -37,7 +37,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
         userId,
         name: `${savedQuery.name} - ${new Date().toLocaleDateString()}`,
         searchType: savedQuery.searchType,
-        searchQuery: savedQuery.searchQuery,
+        searchQuery: savedQuery.searchQuery as any,
         apifyRunId: `pending-${Date.now()}`, // Temporary, will be updated by trigger
         status: "pending",
       },

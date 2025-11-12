@@ -1,7 +1,5 @@
 import { prisma } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
-import { tasks } from "@trigger.dev/sdk/v3";
-import type { apifyScraper } from "@/trigger/apify-scraper";
 
 // GET /api/saved-queries - List all saved queries for the user
 export async function GET(request: NextRequest) {

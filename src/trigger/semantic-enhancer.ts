@@ -11,7 +11,7 @@ const openai = createOpenAI({
 
 const ColumnSchema = z.object({
   name: z.string(),
-  type: z.enum(["boolean", "score"]),
+  type: z.literal("score"), // Always use scores, no booleans
   description: z.string(),
 });
 
@@ -27,13 +27,9 @@ function buildListingAnalysisSchema(
 ) {
   const schemaFields: Record<string, z.ZodTypeAny> = {};
 
+  // All columns are now scores (1-10)
   for (const column of columns) {
-    if (column.type === "boolean") {
-      schemaFields[column.name] = z.boolean();
-    } else {
-      // score type
-      schemaFields[column.name] = z.number().min(0).max(10);
-    }
+    schemaFields[column.name] = z.number().min(0).max(10);
   }
 
   return z.object(schemaFields);
@@ -87,15 +83,18 @@ Task:
 
 Column naming rules:
 - Use snake_case
-- For boolean checks: "has_X" or "is_X" (e.g., "has_hardwood_floors", "has_modern_appliances")
-- For scores: "X_score" or "X_quality" (e.g., "natural_light_score", "kitchen_quality")
-- Scores should be 0-10 numeric values
+- ALL columns are match scores (1-10)
+- Name format: "X_score", "X_quality", or "X_match" 
+- CRITICAL: 10 = MATCHES what the user wants, 0 = OPPOSITE of what they want
+- If user wants to AVOID something, name it accordingly so 10 = successfully avoiding it
 
-Examples of VALID visual queries:
-- "hardwood floors" → has_hardwood_floors (boolean)
-- "modern kitchen appliances" → modern_appliances_score (score)
-- "natural lighting" → natural_light_score (score)
-- "outdoor space" → has_outdoor_space (boolean), outdoor_space_size_score (score)
+Examples of VALID visual queries and how to handle them:
+- "hardwood floors" → hardwood_floors_score (10 = has hardwood, 0 = no hardwood)
+- "modern kitchen appliances" → modern_appliances_score (10 = very modern, 0 = outdated)
+- "natural lighting" → natural_light_score (10 = lots of light, 0 = dark)
+- "avoid carpet" → carpet_free_score (10 = no carpet, 0 = lots of carpet)
+- "no carpeting" → carpet_free_score (10 = hardwood/tile, 0 = fully carpeted)
+- "clean, not sloppy" → cleanliness_score (10 = pristine, 0 = messy/sloppy)
 
 Examples of INVALID queries:
 - "safe neighborhood" → Cannot see from photos
@@ -225,6 +224,46 @@ export const processEnhancementListings = task({
     console.log(`Processing listings for enhancement ${enhancementId}`);
 
     try {
+      // Wait for scrape to complete
+      console.log(`Waiting for scrape ${scrapeId} to complete...`);
+      const MAX_WAIT_TIME = 15 * 60 * 1000; // 15 minutes
+      const POLL_INTERVAL = 5000; // 5 seconds
+      const startTime = Date.now();
+
+      let scrape;
+      while (Date.now() - startTime < MAX_WAIT_TIME) {
+        scrape = await prisma.scrape.findUnique({
+          where: { id: scrapeId },
+        });
+
+        if (!scrape) {
+          throw new Error(`Scrape ${scrapeId} not found`);
+        }
+
+        if (scrape.status === "completed") {
+          console.log(
+            `Scrape ${scrapeId} completed with ${scrape.listingsCount} listings`,
+          );
+          break;
+        }
+
+        if (scrape.status === "failed") {
+          throw new Error(
+            `Scrape ${scrapeId} failed: ${scrape.error || "Unknown error"}`,
+          );
+        }
+
+        // Still pending or running, wait before checking again
+        console.log(`Scrape status: ${scrape.status}, waiting...`);
+        await wait.for({ seconds: POLL_INTERVAL / 1000 });
+      }
+
+      if (scrape?.status !== "completed") {
+        throw new Error(
+          `Scrape ${scrapeId} did not complete in time (status: ${scrape?.status})`,
+        );
+      }
+
       // Update status to processing
       await prisma.enhancement.update({
         where: { id: enhancementId },
@@ -317,11 +356,7 @@ export const processEnhancementListings = task({
               // Build the analysis prompt
               const columnDescriptions = columns
                 .map((col) => {
-                  const valueType =
-                    col.type === "boolean"
-                      ? "true/false"
-                      : "0-10 numeric score";
-                  return `- ${col.name} (${valueType}): ${col.description}`;
+                  return `- ${col.name} (1-10 score): ${col.description}`;
                 })
                 .join("\n");
 
@@ -331,17 +366,26 @@ Property Address: ${listing.address}
 Property Type: ${listing.homeType || "Unknown"}
 Beds/Baths: ${listing.beds || "?"} beds, ${listing.baths || "?"} baths
 
-Based on the provided photos, extract the following information:
+Based on the provided photos, rate each feature on a 1-10 scale:
 
 ${columnDescriptions}
 
-For each column:
-- If it's a boolean, return true or false based on what you see
-- If it's a score (0-10), rate objectively based on visibility and quality
-- Be conservative - if you can't see it clearly, return false or a low score
+Scoring guidelines:
+- Rate 1-10 based on how well the listing MATCHES what the user wants
+- 10 = Perfect match for this feature
+- 7-9 = Good match
+- 4-6 = Mediocre/neutral
+- 1-3 = Poor match/opposite of what user wants
+- 0 = Completely opposite of what user wants
+- Be honest - if you can't see it clearly in the photos, rate it conservatively
 
-IMPORTANT: Return ONLY a flat JSON object with column names as keys and their values.
-Example: {"has_hardwood_floors": true, "natural_light_score": 8}
+IMPORTANT: The column names already encode the user's preference. 
+- If column is "hardwood_floors_score", give high scores to hardwood
+- If column is "carpet_free_score", give high scores to NO carpet
+- Always score based on what the column name is asking for
+
+IMPORTANT: Return ONLY a flat JSON object with column names as keys and numeric scores (1-10) as values.
+Example: {"hardwood_floors_score": 8, "natural_light_score": 6, "kitchen_quality": 7}
 Do NOT wrap in a "values" key.`;
 
               // Build dynamic schema for this specific set of columns
@@ -424,13 +468,8 @@ Do NOT wrap in a "values" key.`;
                   const value = values[column.name];
 
                   if (value !== undefined && value !== null) {
-                    // Normalize to 0-10 scale
-                    const normalizedValue =
-                      typeof value === "boolean"
-                        ? value
-                          ? 10
-                          : 0
-                        : Number(value);
+                    // All values are now 1-10 scores
+                    const normalizedValue = Number(value);
 
                     // Get the column ID
                     const columnRecord =

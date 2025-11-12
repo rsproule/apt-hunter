@@ -94,15 +94,15 @@ export default function SearchHistory() {
 
   return (
     <ScrollArea className="h-full">
-      <div className="space-y-2">
+      <div>
         {scrapes.map((scrape) => {
           const isActive = pathname === `/search/${scrape.id}`;
           return (
             <Link key={scrape.id} href={`/search/${scrape.id}`}>
               <div
-                className={`p-3 rounded-lg border cursor-pointer transition-colors hover:bg-gray-50 dark:hover:bg-gray-800 ${
+                className={`p-3 border-b cursor-pointer transition-colors hover:bg-gray-50 dark:hover:bg-gray-800 ${
                   isActive
-                    ? "bg-gray-100 dark:bg-gray-800 border-gray-300"
+                    ? "bg-gray-100 dark:bg-gray-800 border-l-2 border-l-gray-900 dark:border-l-white"
                     : "bg-white dark:bg-gray-900"
                 }`}
               >

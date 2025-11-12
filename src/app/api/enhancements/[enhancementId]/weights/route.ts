@@ -66,35 +66,34 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
       },
     });
 
-    // Create a weight map
-    const weightMap = new Map(weights.map((w) => [w.columnId, w.weight]));
-    const columnsMap = new Map(
-      enhancement.columns.map((c) => [c.id, c]),
-    );
+    // Fetch fresh column data
+    const updatedColumns = await prisma.enhancementColumn.findMany({
+      where: { enhancementId },
+    });
 
     // Recalculate each result
     for (const result of enhancementResults) {
-      const values = result.values as Record<string, boolean | number>;
+      const values = result.values as Record<string, number>;
 
       let compositeScore = 0;
-      let totalWeight = 0;
+      let totalAbsWeight = 0;
 
-      for (const column of enhancement.columns) {
+      for (const column of updatedColumns) {
         const value = values[column.name];
-        const weight = weightMap.get(column.id) ?? column.weight;
+        const weight = column.weight;
 
         if (value !== undefined && value !== null) {
-          // Normalize to 0-10 scale
-          const normalizedValue =
-            typeof value === "boolean" ? (value ? 10 : 0) : Number(value);
+          // All values are now 1-10 scores where 10 = matches user preference
+          const normalizedValue = Number(value);
 
+          // Simple weighted average - no inversion needed
           compositeScore += normalizedValue * weight;
-          totalWeight += weight;
+          totalAbsWeight += weight;
         }
       }
 
       // Average the weighted scores
-      const finalScore = totalWeight > 0 ? compositeScore / totalWeight : 0;
+      const finalScore = totalAbsWeight > 0 ? compositeScore / totalAbsWeight : 0;
 
       // Update the composite score
       await prisma.enhancementResult.update({
