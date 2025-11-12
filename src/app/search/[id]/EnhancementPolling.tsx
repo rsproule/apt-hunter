@@ -68,25 +68,13 @@ export default function EnhancementPolling({
           (e) => e.status === "pending" || e.status === "processing",
         );
 
-        // Check if any need approval
-        const hasPendingApproval = enhancements.some(
-          (e) => e.status === "pending_approval",
-        );
-
-        console.log(`[Poll ${pollCount}] hasActive=${hasActive}, hasPendingApproval=${hasPendingApproval}`);
+        console.log(`[Poll ${pollCount}] hasActive=${hasActive}`);
 
         if (hasActive && isMounted) {
           setIsPolling(true);
           console.log(`[Poll ${pollCount}] Refreshing - active enhancements found`);
           router.refresh();
           onUpdate?.();
-        } else if (hasPendingApproval && isMounted) {
-          // Refresh to show approval UI, but keep polling in case user approves
-          setIsPolling(false);
-          console.log(`[Poll ${pollCount}] Refreshing - pending approval found`);
-          router.refresh();
-          onUpdate?.();
-          // Don't clear interval - keep polling in case status changes again
         } else if (isMounted) {
           setIsPolling(false);
           console.log(`[Poll ${pollCount}] Stopping - no active enhancements`);

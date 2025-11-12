@@ -150,31 +150,40 @@ Examples of INVALID queries:
         });
       }
 
-      // Mark as pending approval and wait for user to approve
+      console.log(
+        `✅ Columns created for enhancement ${enhancementId}:`,
+        columns.map((c) => c.name),
+      );
+
+      // Automatically trigger listing processing (no approval needed)
+      const { tasks } = await import("@trigger.dev/sdk/v3");
+      const handle = await tasks.trigger<typeof processEnhancementListings>(
+        "process-enhancement-listings",
+        {
+          enhancementId,
+          scrapeId,
+        },
+      );
+
+      // Update with task ID
       await prisma.enhancement.update({
         where: { id: enhancementId },
-        data: { status: "pending_approval" },
+        data: {
+          status: "processing",
+          taskId: handle.id,
+        },
       });
 
       console.log(
-        `Enhancement ${enhancementId} ready for approval. Columns generated:`,
-        columns.map((c) => c.name),
+        `🚀 Started processing listings for enhancement ${enhancementId} (task: ${handle.id})`,
       );
 
       return {
         success: true,
-        status: "pending_approval",
+        status: "processing",
         columns: columns.map((c) => c.name),
-        message: "Columns generated. Awaiting user approval.",
-      };
-
-      // ===== PASS 2 will be triggered separately after approval =====
-
-      // This code will not be reached until approval happens
-      // (kept for when we create a separate processing task)
-      return {
-        success: true,
-        status: "pending_approval",
+        taskId: handle.id,
+        message: "Columns generated and processing started automatically.",
       };
     } catch (error) {
       console.error(`Error in semantic enhancement ${enhancementId}:`, error);

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Loader } from "@/components/ai-elements/loader";
-import { Sparkles, Send, AlertCircle, Trash2, RefreshCw, XCircle, Check } from "lucide-react";
+import { Sparkles, Send, AlertCircle, Trash2, RefreshCw, XCircle } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -42,7 +42,6 @@ export default function EnhancementChat({
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [retryingId, setRetryingId] = useState<string | null>(null);
   const [cancelingId, setCancelingId] = useState<string | null>(null);
-  const [approvingId, setApprovingId] = useState<string | null>(null);
   const router = useRouter();
   const searchParams = new URLSearchParams(
     typeof window !== "undefined" ? window.location.search : "",
@@ -165,53 +164,6 @@ export default function EnhancementChat({
     }
   };
 
-  const handleApprove = async (enhancementId: string, e: React.MouseEvent) => {
-    e.stopPropagation();
-    
-    console.log("Approving enhancement:", enhancementId);
-    setApprovingId(enhancementId);
-    
-    try {
-      console.log("Sending approval request...");
-      const response = await fetch(
-        `/api/enhancements/${enhancementId}/approve`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({}),
-        },
-      );
-
-      console.log("Approval response status:", response.status);
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Approval failed:", errorData);
-        throw new Error(errorData.error || "Failed to approve enhancement");
-      }
-
-      const data = await response.json();
-      console.log("Approval successful:", data);
-
-      // Add to active enhancements immediately and refresh
-      const newActiveIds = [...activeEnhancementIds, enhancementId];
-      const params = new URLSearchParams(searchParams);
-      params.set("enhancements", newActiveIds.join(","));
-      params.set("page", "1");
-
-      console.log("Redirecting to:", `?${params.toString()}`);
-
-      // Force a full refresh with the new URL
-      window.location.href = `?${params.toString()}`;
-    } catch (err) {
-      console.error("Error approving enhancement:", err);
-      alert(`Failed to approve enhancement: ${err instanceof Error ? err.message : "Unknown error"}`);
-      setApprovingId(null); // Reset state on error
-    }
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!query.trim() || isSubmitting) return;
@@ -237,13 +189,19 @@ export default function EnhancementChat({
       }
 
       const data = await response.json();
+      const newEnhancementId = data.enhancementId;
 
       // Clear the input
       setQuery("");
 
-      // Just refresh - don't auto-activate until approved
-      // The EnhancementPolling component will handle showing the approval state
-      router.refresh();
+      // Auto-activate the new enhancement so user can see results immediately
+      const newActiveIds = [...activeEnhancementIds, newEnhancementId];
+      const params = new URLSearchParams(searchParams);
+      params.set("enhancements", newActiveIds.join(","));
+      params.set("page", "1");
+
+      // Navigate with the new enhancement active
+      router.push(`?${params.toString()}`);
 
       // Notify parent
       onEnhancementCreated?.();
@@ -260,10 +218,6 @@ export default function EnhancementChat({
   const getStatusBadge = (status: string) => {
     const badges: Record<string, { color: string; text: string }> = {
       pending: { color: "bg-yellow-100 text-yellow-800", text: "Pending" },
-      pending_approval: {
-        color: "bg-purple-100 text-purple-800",
-        text: "Review",
-      },
       processing: {
         color: "bg-blue-100 text-blue-800",
         text: "Processing",
@@ -348,7 +302,8 @@ export default function EnhancementChat({
             <div className="space-y-2">
               {enhancements.map((enhancement) => {
                 const isActive = activeEnhancementIds.includes(enhancement.id);
-                const canToggle = enhancement.status === "completed";
+                // Allow toggling for processing and completed enhancements
+                const canToggle = enhancement.status === "completed" || enhancement.status === "processing";
                 
                 return (
                   <div
@@ -421,61 +376,6 @@ export default function EnhancementChat({
                         </div>
                       </>
                     )}
-
-                    {enhancement.status === "pending_approval" &&
-                      enhancement.columns && (
-                        <>
-                          <div className="bg-purple-50 dark:bg-purple-900/20 p-2 rounded-lg mt-2">
-                            <p className="text-xs font-medium text-purple-900 dark:text-purple-100 mb-2">
-                              Review generated columns:
-                            </p>
-                            <div className="flex flex-wrap gap-1">
-                              {enhancement.columns.map((col) => (
-                                <span
-                                  key={col.name}
-                                  className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-purple-200 dark:bg-purple-800 text-purple-900 dark:text-purple-100"
-                                >
-                                  {col.description}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-                          <div className="flex gap-2 mt-2">
-                            <Button
-                              size="sm"
-                              variant="default"
-                              onClick={(e) => handleApprove(enhancement.id, e)}
-                              disabled={approvingId === enhancement.id}
-                              className="text-xs h-7 flex-1 bg-purple-600 hover:bg-purple-700"
-                            >
-                              {approvingId === enhancement.id ? (
-                                <Loader />
-                              ) : (
-                                <>
-                                  <Check className="w-3 h-3 mr-1" />
-                                  Approve & Start Processing
-                                </>
-                              )}
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="destructive"
-                              onClick={(e) => handleDelete(enhancement.id, e)}
-                              disabled={deletingId === enhancement.id || approvingId === enhancement.id}
-                              className="text-xs h-7"
-                            >
-                              {deletingId === enhancement.id ? (
-                                <Loader />
-                              ) : (
-                                <>
-                                  <Trash2 className="w-3 h-3 mr-1" />
-                                  Reject
-                                </>
-                              )}
-                            </Button>
-                          </div>
-                        </>
-                      )}
 
                     {enhancement.status === "failed" && enhancement.error && (
                       <>
