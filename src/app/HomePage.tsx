@@ -1,13 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2, XCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function HomePage() {
   const router = useRouter();
@@ -55,9 +61,9 @@ export default function HomePage() {
       }
 
       const data = await response.json();
-      
-      // Redirect to the search page with the enhancement ID
-      router.push(`/search/${data.scrape.id}?enhancements=${data.enhancement.id}`);
+
+      // Redirect to the search configuration page
+      router.push(`/search/${data.configuration.id}`);
     } catch (err) {
       console.error("Error starting workflow:", err);
       setError(err instanceof Error ? err.message : "An error occurred");
@@ -72,7 +78,7 @@ export default function HomePage() {
           {/* Header */}
           <div className="text-center space-y-4">
             <h1 className="text-5xl font-bold text-gray-900 dark:text-white">
-              Apartment Hunter
+              Hunter Agent
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-400">
               Find your perfect apartment with AI-powered search
@@ -81,79 +87,82 @@ export default function HomePage() {
 
           {/* Main Form */}
           <Card className="shadow-lg">
-              <CardHeader>
-                <CardTitle>Start Your Search</CardTitle>
-                <CardDescription>
-                  Paste a Zillow search URL and describe what you're looking for
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Search URL */}
-                  <div className="space-y-2">
-                    <Label htmlFor="searchUrl">
-                      Zillow Search URL <span className="text-red-500">*</span>
-                    </Label>
-                    <Input
-                      id="searchUrl"
-                      type="url"
-                      value={searchUrl}
-                      onChange={(e) => setSearchUrl(e.target.value)}
-                      placeholder="https://www.zillow.com/homes/..."
-                      disabled={isSubmitting}
-                      className="font-mono text-sm"
-                    />
-                    <p className="text-xs text-gray-500">
-                      Go to Zillow, search for apartments with your filters, and paste the URL here
-                    </p>
-                  </div>
-
-                  {/* Enhancement Query */}
-                  <div className="space-y-2">
-                    <Label htmlFor="enhancementQuery">
-                      What are you looking for? <span className="text-red-500">*</span>
-                    </Label>
-                    <Textarea
-                      id="enhancementQuery"
-                      value={enhancementQuery}
-                      onChange={(e) => setEnhancementQuery(e.target.value)}
-                      placeholder="e.g., modern kitchen with stainless steel appliances, hardwood floors, lots of natural light, outdoor space"
-                      disabled={isSubmitting}
-                      rows={4}
-                      className="resize-none"
-                    />
-                    <p className="text-xs text-gray-500">
-                      Describe the features you care about. Our AI will analyze photos from each listing.
-                    </p>
-                  </div>
-
-                  {/* Error message */}
-                  {error && (
-                    <div className="p-4 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-lg text-sm flex items-start gap-2">
-                      <XCircle className="h-5 w-5 flex-shrink-0 mt-0.5" />
-                      <span>{error}</span>
-                    </div>
-                  )}
-
-                  {/* Submit Button */}
-                  <Button
-                    type="submit"
+            <CardHeader>
+              <CardTitle>Start Your Search</CardTitle>
+              <CardDescription>
+                Paste a Zillow search URL and describe what you're looking for
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Search URL */}
+                <div className="space-y-2">
+                  <Label htmlFor="searchUrl">
+                    Zillow Search URL <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="searchUrl"
+                    type="url"
+                    value={searchUrl}
+                    onChange={(e) => setSearchUrl(e.target.value)}
+                    placeholder="https://www.zillow.com/homes/..."
                     disabled={isSubmitting}
-                    className="w-full h-12 text-lg"
-                    size="lg"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                        Starting Search...
-                      </>
-                    ) : (
-                      "Find My Apartment"
-                    )}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
+                    className="font-mono text-sm"
+                  />
+                  <p className="text-xs text-gray-500">
+                    Go to Zillow, search for apartments with your filters, and
+                    paste the URL here
+                  </p>
+                </div>
+
+                {/* Enhancement Query */}
+                <div className="space-y-2">
+                  <Label htmlFor="enhancementQuery">
+                    What are you looking for?{" "}
+                    <span className="text-red-500">*</span>
+                  </Label>
+                  <Textarea
+                    id="enhancementQuery"
+                    value={enhancementQuery}
+                    onChange={(e) => setEnhancementQuery(e.target.value)}
+                    placeholder="e.g., modern kitchen with stainless steel appliances, hardwood floors, lots of natural light, outdoor space"
+                    disabled={isSubmitting}
+                    rows={4}
+                    className="resize-none"
+                  />
+                  <p className="text-xs text-gray-500">
+                    Describe the features you care about. Our AI will analyze
+                    photos from each listing.
+                  </p>
+                </div>
+
+                {/* Error message */}
+                {error && (
+                  <div className="p-4 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-lg text-sm flex items-start gap-2">
+                    <XCircle className="h-5 w-5 flex-shrink-0 mt-0.5" />
+                    <span>{error}</span>
+                  </div>
+                )}
+
+                {/* Submit Button */}
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full h-12 text-lg"
+                  size="lg"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                      Starting Search...
+                    </>
+                  ) : (
+                    "Find My Apartment"
+                  )}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
 
           {/* Quick Links */}
           <div className="flex justify-center gap-4 text-sm">
@@ -176,4 +185,3 @@ export default function HomePage() {
     </div>
   );
 }
-

@@ -26,16 +26,16 @@ const Header: FC<HeaderProps> = async ({
             </Link>
             <nav className="flex items-center space-x-4">
               <Link 
-                href="/" 
+                href="/searches" 
                 className="text-gray-600 hover:text-gray-900 text-sm font-medium"
               >
-                Search
+                My Searches
               </Link>
               <Link 
-                href="/saved-queries" 
+                href="/likes" 
                 className="text-gray-600 hover:text-gray-900 text-sm font-medium"
               >
-                Saved Queries
+                ❤️ Likes
               </Link>
             </nav>
           </div>

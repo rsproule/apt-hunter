@@ -53,27 +53,11 @@ Just return the name, nothing else.`,
 
     console.log(`Generated query name: ${queryName}`);
 
-    // Create the saved query
-    const savedQuery = await prisma.savedQuery.create({
-      data: {
-        userId,
-        name: queryName,
-        searchType: "url",
-        searchQuery: {
-          searchUrls: [searchUrl],
-        },
-        enhancementQuery,
-        columnWeights: {},
-      },
-    });
-
-    console.log(`Created saved query: ${savedQuery.id}`);
-
     // Create a scrape record
     const scrape = await prisma.scrape.create({
       data: {
         userId,
-        name: `${queryName} - ${new Date().toLocaleDateString()}`,
+        name: queryName,
         searchType: "url",
         searchQuery: {
           searchUrls: [searchUrl],
@@ -146,19 +130,23 @@ Just return the name, nothing else.`,
       },
     });
 
-    // Update saved query with the scrape reference
-    await prisma.savedQuery.update({
-      where: { id: savedQuery.id },
+    // Create a search configuration that links the scrape and enhancement
+    const configuration = await prisma.searchConfiguration.create({
       data: {
-        lastRunAt: new Date(),
-        lastScrapeId: scrape.id,
+        userId,
+        name: queryName,
+        scrapeId: scrape.id,
+        enhancementId: enhancement.id,
+        columnWeights: {}, // Default empty weights, user will adjust later
       },
     });
 
+    console.log(`Created search configuration: ${configuration.id}`);
+
     return NextResponse.json({
       success: true,
-      savedQuery: {
-        id: savedQuery.id,
+      configuration: {
+        id: configuration.id,
         name: queryName,
       },
       scrape: {

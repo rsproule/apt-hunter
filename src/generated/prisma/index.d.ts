@@ -49,10 +49,10 @@ export type EnhancementResult = $Result.DefaultSelection<Prisma.$EnhancementResu
  */
 export type EnhancementValue = $Result.DefaultSelection<Prisma.$EnhancementValuePayload>
 /**
- * Model SavedQuery
+ * Model SearchConfiguration
  * 
  */
-export type SavedQuery = $Result.DefaultSelection<Prisma.$SavedQueryPayload>
+export type SearchConfiguration = $Result.DefaultSelection<Prisma.$SearchConfigurationPayload>
 /**
  * Model UserListingResponse
  * 
@@ -248,14 +248,14 @@ export class PrismaClient<
   get enhancementValue(): Prisma.EnhancementValueDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.savedQuery`: Exposes CRUD operations for the **SavedQuery** model.
+   * `prisma.searchConfiguration`: Exposes CRUD operations for the **SearchConfiguration** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more SavedQueries
-    * const savedQueries = await prisma.savedQuery.findMany()
+    * // Fetch zero or more SearchConfigurations
+    * const searchConfigurations = await prisma.searchConfiguration.findMany()
     * ```
     */
-  get savedQuery(): Prisma.SavedQueryDelegate<ExtArgs, ClientOptions>;
+  get searchConfiguration(): Prisma.SearchConfigurationDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.userListingResponse`: Exposes CRUD operations for the **UserListingResponse** model.
@@ -714,7 +714,7 @@ export namespace Prisma {
     EnhancementColumn: 'EnhancementColumn',
     EnhancementResult: 'EnhancementResult',
     EnhancementValue: 'EnhancementValue',
-    SavedQuery: 'SavedQuery',
+    SearchConfiguration: 'SearchConfiguration',
     UserListingResponse: 'UserListingResponse'
   };
 
@@ -734,7 +734,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "scrape" | "listing" | "scrapeListing" | "enhancement" | "enhancementColumn" | "enhancementResult" | "enhancementValue" | "savedQuery" | "userListingResponse"
+      modelProps: "scrape" | "listing" | "scrapeListing" | "enhancement" | "enhancementColumn" | "enhancementResult" | "enhancementValue" | "searchConfiguration" | "userListingResponse"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1256,77 +1256,77 @@ export namespace Prisma {
           }
         }
       }
-      SavedQuery: {
-        payload: Prisma.$SavedQueryPayload<ExtArgs>
-        fields: Prisma.SavedQueryFieldRefs
+      SearchConfiguration: {
+        payload: Prisma.$SearchConfigurationPayload<ExtArgs>
+        fields: Prisma.SearchConfigurationFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.SavedQueryFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SavedQueryPayload> | null
+            args: Prisma.SearchConfigurationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SearchConfigurationPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.SavedQueryFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SavedQueryPayload>
+            args: Prisma.SearchConfigurationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SearchConfigurationPayload>
           }
           findFirst: {
-            args: Prisma.SavedQueryFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SavedQueryPayload> | null
+            args: Prisma.SearchConfigurationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SearchConfigurationPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.SavedQueryFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SavedQueryPayload>
+            args: Prisma.SearchConfigurationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SearchConfigurationPayload>
           }
           findMany: {
-            args: Prisma.SavedQueryFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SavedQueryPayload>[]
+            args: Prisma.SearchConfigurationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SearchConfigurationPayload>[]
           }
           create: {
-            args: Prisma.SavedQueryCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SavedQueryPayload>
+            args: Prisma.SearchConfigurationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SearchConfigurationPayload>
           }
           createMany: {
-            args: Prisma.SavedQueryCreateManyArgs<ExtArgs>
+            args: Prisma.SearchConfigurationCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.SavedQueryCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SavedQueryPayload>[]
+            args: Prisma.SearchConfigurationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SearchConfigurationPayload>[]
           }
           delete: {
-            args: Prisma.SavedQueryDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SavedQueryPayload>
+            args: Prisma.SearchConfigurationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SearchConfigurationPayload>
           }
           update: {
-            args: Prisma.SavedQueryUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SavedQueryPayload>
+            args: Prisma.SearchConfigurationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SearchConfigurationPayload>
           }
           deleteMany: {
-            args: Prisma.SavedQueryDeleteManyArgs<ExtArgs>
+            args: Prisma.SearchConfigurationDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.SavedQueryUpdateManyArgs<ExtArgs>
+            args: Prisma.SearchConfigurationUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.SavedQueryUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SavedQueryPayload>[]
+            args: Prisma.SearchConfigurationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SearchConfigurationPayload>[]
           }
           upsert: {
-            args: Prisma.SavedQueryUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SavedQueryPayload>
+            args: Prisma.SearchConfigurationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SearchConfigurationPayload>
           }
           aggregate: {
-            args: Prisma.SavedQueryAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateSavedQuery>
+            args: Prisma.SearchConfigurationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSearchConfiguration>
           }
           groupBy: {
-            args: Prisma.SavedQueryGroupByArgs<ExtArgs>
-            result: $Utils.Optional<SavedQueryGroupByOutputType>[]
+            args: Prisma.SearchConfigurationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SearchConfigurationGroupByOutputType>[]
           }
           count: {
-            args: Prisma.SavedQueryCountArgs<ExtArgs>
-            result: $Utils.Optional<SavedQueryCountAggregateOutputType> | number
+            args: Prisma.SearchConfigurationCountArgs<ExtArgs>
+            result: $Utils.Optional<SearchConfigurationCountAggregateOutputType> | number
           }
         }
       }
@@ -1507,7 +1507,7 @@ export namespace Prisma {
     enhancementColumn?: EnhancementColumnOmit
     enhancementResult?: EnhancementResultOmit
     enhancementValue?: EnhancementValueOmit
-    savedQuery?: SavedQueryOmit
+    searchConfiguration?: SearchConfigurationOmit
     userListingResponse?: UserListingResponseOmit
   }
 
@@ -1591,11 +1591,13 @@ export namespace Prisma {
   export type ScrapeCountOutputType = {
     listings: number
     enhancements: number
+    configurations: number
   }
 
   export type ScrapeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     listings?: boolean | ScrapeCountOutputTypeCountListingsArgs
     enhancements?: boolean | ScrapeCountOutputTypeCountEnhancementsArgs
+    configurations?: boolean | ScrapeCountOutputTypeCountConfigurationsArgs
   }
 
   // Custom InputTypes
@@ -1621,6 +1623,13 @@ export namespace Prisma {
    */
   export type ScrapeCountOutputTypeCountEnhancementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EnhancementWhereInput
+  }
+
+  /**
+   * ScrapeCountOutputType without action
+   */
+  export type ScrapeCountOutputTypeCountConfigurationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SearchConfigurationWhereInput
   }
 
 
@@ -1680,11 +1689,13 @@ export namespace Prisma {
   export type EnhancementCountOutputType = {
     columns: number
     results: number
+    configurations: number
   }
 
   export type EnhancementCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     columns?: boolean | EnhancementCountOutputTypeCountColumnsArgs
     results?: boolean | EnhancementCountOutputTypeCountResultsArgs
+    configurations?: boolean | EnhancementCountOutputTypeCountConfigurationsArgs
   }
 
   // Custom InputTypes
@@ -1710,6 +1721,13 @@ export namespace Prisma {
    */
   export type EnhancementCountOutputTypeCountResultsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EnhancementResultWhereInput
+  }
+
+  /**
+   * EnhancementCountOutputType without action
+   */
+  export type EnhancementCountOutputTypeCountConfigurationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SearchConfigurationWhereInput
   }
 
 
@@ -1776,32 +1794,32 @@ export namespace Prisma {
 
 
   /**
-   * Count Type SavedQueryCountOutputType
+   * Count Type SearchConfigurationCountOutputType
    */
 
-  export type SavedQueryCountOutputType = {
-    responses: number
+  export type SearchConfigurationCountOutputType = {
+    userResponses: number
   }
 
-  export type SavedQueryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    responses?: boolean | SavedQueryCountOutputTypeCountResponsesArgs
+  export type SearchConfigurationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    userResponses?: boolean | SearchConfigurationCountOutputTypeCountUserResponsesArgs
   }
 
   // Custom InputTypes
   /**
-   * SavedQueryCountOutputType without action
+   * SearchConfigurationCountOutputType without action
    */
-  export type SavedQueryCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SearchConfigurationCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the SavedQueryCountOutputType
+     * Select specific fields to fetch from the SearchConfigurationCountOutputType
      */
-    select?: SavedQueryCountOutputTypeSelect<ExtArgs> | null
+    select?: SearchConfigurationCountOutputTypeSelect<ExtArgs> | null
   }
 
   /**
-   * SavedQueryCountOutputType without action
+   * SearchConfigurationCountOutputType without action
    */
-  export type SavedQueryCountOutputTypeCountResponsesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SearchConfigurationCountOutputTypeCountUserResponsesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserListingResponseWhereInput
   }
 
@@ -2082,6 +2100,7 @@ export namespace Prisma {
     listingsCount?: boolean
     listings?: boolean | Scrape$listingsArgs<ExtArgs>
     enhancements?: boolean | Scrape$enhancementsArgs<ExtArgs>
+    configurations?: boolean | Scrape$configurationsArgs<ExtArgs>
     _count?: boolean | ScrapeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["scrape"]>
 
@@ -2140,6 +2159,7 @@ export namespace Prisma {
   export type ScrapeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     listings?: boolean | Scrape$listingsArgs<ExtArgs>
     enhancements?: boolean | Scrape$enhancementsArgs<ExtArgs>
+    configurations?: boolean | Scrape$configurationsArgs<ExtArgs>
     _count?: boolean | ScrapeCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ScrapeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2150,6 +2170,7 @@ export namespace Prisma {
     objects: {
       listings: Prisma.$ScrapeListingPayload<ExtArgs>[]
       enhancements: Prisma.$EnhancementPayload<ExtArgs>[]
+      configurations: Prisma.$SearchConfigurationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2562,6 +2583,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     listings<T extends Scrape$listingsArgs<ExtArgs> = {}>(args?: Subset<T, Scrape$listingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScrapeListingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     enhancements<T extends Scrape$enhancementsArgs<ExtArgs> = {}>(args?: Subset<T, Scrape$enhancementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnhancementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    configurations<T extends Scrape$configurationsArgs<ExtArgs> = {}>(args?: Subset<T, Scrape$configurationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SearchConfigurationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3038,6 +3060,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: EnhancementScalarFieldEnum | EnhancementScalarFieldEnum[]
+  }
+
+  /**
+   * Scrape.configurations
+   */
+  export type Scrape$configurationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SearchConfiguration
+     */
+    select?: SearchConfigurationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SearchConfiguration
+     */
+    omit?: SearchConfigurationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SearchConfigurationInclude<ExtArgs> | null
+    where?: SearchConfigurationWhereInput
+    orderBy?: SearchConfigurationOrderByWithRelationInput | SearchConfigurationOrderByWithRelationInput[]
+    cursor?: SearchConfigurationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SearchConfigurationScalarFieldEnum | SearchConfigurationScalarFieldEnum[]
   }
 
   /**
@@ -5904,6 +5950,7 @@ export namespace Prisma {
     scrape?: boolean | ScrapeDefaultArgs<ExtArgs>
     columns?: boolean | Enhancement$columnsArgs<ExtArgs>
     results?: boolean | Enhancement$resultsArgs<ExtArgs>
+    configurations?: boolean | Enhancement$configurationsArgs<ExtArgs>
     _count?: boolean | EnhancementCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["enhancement"]>
 
@@ -5959,6 +6006,7 @@ export namespace Prisma {
     scrape?: boolean | ScrapeDefaultArgs<ExtArgs>
     columns?: boolean | Enhancement$columnsArgs<ExtArgs>
     results?: boolean | Enhancement$resultsArgs<ExtArgs>
+    configurations?: boolean | Enhancement$configurationsArgs<ExtArgs>
     _count?: boolean | EnhancementCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type EnhancementIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5974,6 +6022,7 @@ export namespace Prisma {
       scrape: Prisma.$ScrapePayload<ExtArgs>
       columns: Prisma.$EnhancementColumnPayload<ExtArgs>[]
       results: Prisma.$EnhancementResultPayload<ExtArgs>[]
+      configurations: Prisma.$SearchConfigurationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6385,6 +6434,7 @@ export namespace Prisma {
     scrape<T extends ScrapeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ScrapeDefaultArgs<ExtArgs>>): Prisma__ScrapeClient<$Result.GetResult<Prisma.$ScrapePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     columns<T extends Enhancement$columnsArgs<ExtArgs> = {}>(args?: Subset<T, Enhancement$columnsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnhancementColumnPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     results<T extends Enhancement$resultsArgs<ExtArgs> = {}>(args?: Subset<T, Enhancement$resultsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnhancementResultPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    configurations<T extends Enhancement$configurationsArgs<ExtArgs> = {}>(args?: Subset<T, Enhancement$configurationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SearchConfigurationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6867,6 +6917,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: EnhancementResultScalarFieldEnum | EnhancementResultScalarFieldEnum[]
+  }
+
+  /**
+   * Enhancement.configurations
+   */
+  export type Enhancement$configurationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SearchConfiguration
+     */
+    select?: SearchConfigurationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SearchConfiguration
+     */
+    omit?: SearchConfigurationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SearchConfigurationInclude<ExtArgs> | null
+    where?: SearchConfigurationWhereInput
+    orderBy?: SearchConfigurationOrderByWithRelationInput | SearchConfigurationOrderByWithRelationInput[]
+    cursor?: SearchConfigurationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SearchConfigurationScalarFieldEnum | SearchConfigurationScalarFieldEnum[]
   }
 
   /**
@@ -10358,422 +10432,406 @@ export namespace Prisma {
 
 
   /**
-   * Model SavedQuery
+   * Model SearchConfiguration
    */
 
-  export type AggregateSavedQuery = {
-    _count: SavedQueryCountAggregateOutputType | null
-    _min: SavedQueryMinAggregateOutputType | null
-    _max: SavedQueryMaxAggregateOutputType | null
+  export type AggregateSearchConfiguration = {
+    _count: SearchConfigurationCountAggregateOutputType | null
+    _min: SearchConfigurationMinAggregateOutputType | null
+    _max: SearchConfigurationMaxAggregateOutputType | null
   }
 
-  export type SavedQueryMinAggregateOutputType = {
+  export type SearchConfigurationMinAggregateOutputType = {
     id: string | null
     createdAt: Date | null
     updatedAt: Date | null
     userId: string | null
     name: string | null
     description: string | null
-    searchType: string | null
-    enhancementQuery: string | null
-    lastRunAt: Date | null
-    lastScrapeId: string | null
+    scrapeId: string | null
+    enhancementId: string | null
   }
 
-  export type SavedQueryMaxAggregateOutputType = {
+  export type SearchConfigurationMaxAggregateOutputType = {
     id: string | null
     createdAt: Date | null
     updatedAt: Date | null
     userId: string | null
     name: string | null
     description: string | null
-    searchType: string | null
-    enhancementQuery: string | null
-    lastRunAt: Date | null
-    lastScrapeId: string | null
+    scrapeId: string | null
+    enhancementId: string | null
   }
 
-  export type SavedQueryCountAggregateOutputType = {
+  export type SearchConfigurationCountAggregateOutputType = {
     id: number
     createdAt: number
     updatedAt: number
     userId: number
     name: number
     description: number
-    searchType: number
-    searchQuery: number
-    enhancementQuery: number
+    scrapeId: number
+    enhancementId: number
     columnWeights: number
-    lastRunAt: number
-    lastScrapeId: number
     _all: number
   }
 
 
-  export type SavedQueryMinAggregateInputType = {
+  export type SearchConfigurationMinAggregateInputType = {
     id?: true
     createdAt?: true
     updatedAt?: true
     userId?: true
     name?: true
     description?: true
-    searchType?: true
-    enhancementQuery?: true
-    lastRunAt?: true
-    lastScrapeId?: true
+    scrapeId?: true
+    enhancementId?: true
   }
 
-  export type SavedQueryMaxAggregateInputType = {
+  export type SearchConfigurationMaxAggregateInputType = {
     id?: true
     createdAt?: true
     updatedAt?: true
     userId?: true
     name?: true
     description?: true
-    searchType?: true
-    enhancementQuery?: true
-    lastRunAt?: true
-    lastScrapeId?: true
+    scrapeId?: true
+    enhancementId?: true
   }
 
-  export type SavedQueryCountAggregateInputType = {
+  export type SearchConfigurationCountAggregateInputType = {
     id?: true
     createdAt?: true
     updatedAt?: true
     userId?: true
     name?: true
     description?: true
-    searchType?: true
-    searchQuery?: true
-    enhancementQuery?: true
+    scrapeId?: true
+    enhancementId?: true
     columnWeights?: true
-    lastRunAt?: true
-    lastScrapeId?: true
     _all?: true
   }
 
-  export type SavedQueryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SearchConfigurationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which SavedQuery to aggregate.
+     * Filter which SearchConfiguration to aggregate.
      */
-    where?: SavedQueryWhereInput
+    where?: SearchConfigurationWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of SavedQueries to fetch.
+     * Determine the order of SearchConfigurations to fetch.
      */
-    orderBy?: SavedQueryOrderByWithRelationInput | SavedQueryOrderByWithRelationInput[]
+    orderBy?: SearchConfigurationOrderByWithRelationInput | SearchConfigurationOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: SavedQueryWhereUniqueInput
+    cursor?: SearchConfigurationWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` SavedQueries from the position of the cursor.
+     * Take `±n` SearchConfigurations from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` SavedQueries.
+     * Skip the first `n` SearchConfigurations.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned SavedQueries
+     * Count returned SearchConfigurations
     **/
-    _count?: true | SavedQueryCountAggregateInputType
+    _count?: true | SearchConfigurationCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: SavedQueryMinAggregateInputType
+    _min?: SearchConfigurationMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: SavedQueryMaxAggregateInputType
+    _max?: SearchConfigurationMaxAggregateInputType
   }
 
-  export type GetSavedQueryAggregateType<T extends SavedQueryAggregateArgs> = {
-        [P in keyof T & keyof AggregateSavedQuery]: P extends '_count' | 'count'
+  export type GetSearchConfigurationAggregateType<T extends SearchConfigurationAggregateArgs> = {
+        [P in keyof T & keyof AggregateSearchConfiguration]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateSavedQuery[P]>
-      : GetScalarType<T[P], AggregateSavedQuery[P]>
+        : GetScalarType<T[P], AggregateSearchConfiguration[P]>
+      : GetScalarType<T[P], AggregateSearchConfiguration[P]>
   }
 
 
 
 
-  export type SavedQueryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SavedQueryWhereInput
-    orderBy?: SavedQueryOrderByWithAggregationInput | SavedQueryOrderByWithAggregationInput[]
-    by: SavedQueryScalarFieldEnum[] | SavedQueryScalarFieldEnum
-    having?: SavedQueryScalarWhereWithAggregatesInput
+  export type SearchConfigurationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SearchConfigurationWhereInput
+    orderBy?: SearchConfigurationOrderByWithAggregationInput | SearchConfigurationOrderByWithAggregationInput[]
+    by: SearchConfigurationScalarFieldEnum[] | SearchConfigurationScalarFieldEnum
+    having?: SearchConfigurationScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: SavedQueryCountAggregateInputType | true
-    _min?: SavedQueryMinAggregateInputType
-    _max?: SavedQueryMaxAggregateInputType
+    _count?: SearchConfigurationCountAggregateInputType | true
+    _min?: SearchConfigurationMinAggregateInputType
+    _max?: SearchConfigurationMaxAggregateInputType
   }
 
-  export type SavedQueryGroupByOutputType = {
+  export type SearchConfigurationGroupByOutputType = {
     id: string
     createdAt: Date
     updatedAt: Date
     userId: string
-    name: string
+    name: string | null
     description: string | null
-    searchType: string
-    searchQuery: JsonValue
-    enhancementQuery: string
+    scrapeId: string
+    enhancementId: string
     columnWeights: JsonValue
-    lastRunAt: Date | null
-    lastScrapeId: string | null
-    _count: SavedQueryCountAggregateOutputType | null
-    _min: SavedQueryMinAggregateOutputType | null
-    _max: SavedQueryMaxAggregateOutputType | null
+    _count: SearchConfigurationCountAggregateOutputType | null
+    _min: SearchConfigurationMinAggregateOutputType | null
+    _max: SearchConfigurationMaxAggregateOutputType | null
   }
 
-  type GetSavedQueryGroupByPayload<T extends SavedQueryGroupByArgs> = Prisma.PrismaPromise<
+  type GetSearchConfigurationGroupByPayload<T extends SearchConfigurationGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<SavedQueryGroupByOutputType, T['by']> &
+      PickEnumerable<SearchConfigurationGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof SavedQueryGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof SearchConfigurationGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], SavedQueryGroupByOutputType[P]>
-            : GetScalarType<T[P], SavedQueryGroupByOutputType[P]>
+              : GetScalarType<T[P], SearchConfigurationGroupByOutputType[P]>
+            : GetScalarType<T[P], SearchConfigurationGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type SavedQuerySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type SearchConfigurationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
     name?: boolean
     description?: boolean
-    searchType?: boolean
-    searchQuery?: boolean
-    enhancementQuery?: boolean
+    scrapeId?: boolean
+    enhancementId?: boolean
     columnWeights?: boolean
-    lastRunAt?: boolean
-    lastScrapeId?: boolean
-    responses?: boolean | SavedQuery$responsesArgs<ExtArgs>
-    _count?: boolean | SavedQueryCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["savedQuery"]>
+    scrape?: boolean | ScrapeDefaultArgs<ExtArgs>
+    enhancement?: boolean | EnhancementDefaultArgs<ExtArgs>
+    userResponses?: boolean | SearchConfiguration$userResponsesArgs<ExtArgs>
+    _count?: boolean | SearchConfigurationCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["searchConfiguration"]>
 
-  export type SavedQuerySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type SearchConfigurationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
     name?: boolean
     description?: boolean
-    searchType?: boolean
-    searchQuery?: boolean
-    enhancementQuery?: boolean
+    scrapeId?: boolean
+    enhancementId?: boolean
     columnWeights?: boolean
-    lastRunAt?: boolean
-    lastScrapeId?: boolean
-  }, ExtArgs["result"]["savedQuery"]>
+    scrape?: boolean | ScrapeDefaultArgs<ExtArgs>
+    enhancement?: boolean | EnhancementDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["searchConfiguration"]>
 
-  export type SavedQuerySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type SearchConfigurationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
     name?: boolean
     description?: boolean
-    searchType?: boolean
-    searchQuery?: boolean
-    enhancementQuery?: boolean
+    scrapeId?: boolean
+    enhancementId?: boolean
     columnWeights?: boolean
-    lastRunAt?: boolean
-    lastScrapeId?: boolean
-  }, ExtArgs["result"]["savedQuery"]>
+    scrape?: boolean | ScrapeDefaultArgs<ExtArgs>
+    enhancement?: boolean | EnhancementDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["searchConfiguration"]>
 
-  export type SavedQuerySelectScalar = {
+  export type SearchConfigurationSelectScalar = {
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
     name?: boolean
     description?: boolean
-    searchType?: boolean
-    searchQuery?: boolean
-    enhancementQuery?: boolean
+    scrapeId?: boolean
+    enhancementId?: boolean
     columnWeights?: boolean
-    lastRunAt?: boolean
-    lastScrapeId?: boolean
   }
 
-  export type SavedQueryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "userId" | "name" | "description" | "searchType" | "searchQuery" | "enhancementQuery" | "columnWeights" | "lastRunAt" | "lastScrapeId", ExtArgs["result"]["savedQuery"]>
-  export type SavedQueryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    responses?: boolean | SavedQuery$responsesArgs<ExtArgs>
-    _count?: boolean | SavedQueryCountOutputTypeDefaultArgs<ExtArgs>
+  export type SearchConfigurationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "userId" | "name" | "description" | "scrapeId" | "enhancementId" | "columnWeights", ExtArgs["result"]["searchConfiguration"]>
+  export type SearchConfigurationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    scrape?: boolean | ScrapeDefaultArgs<ExtArgs>
+    enhancement?: boolean | EnhancementDefaultArgs<ExtArgs>
+    userResponses?: boolean | SearchConfiguration$userResponsesArgs<ExtArgs>
+    _count?: boolean | SearchConfigurationCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type SavedQueryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type SavedQueryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type SearchConfigurationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    scrape?: boolean | ScrapeDefaultArgs<ExtArgs>
+    enhancement?: boolean | EnhancementDefaultArgs<ExtArgs>
+  }
+  export type SearchConfigurationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    scrape?: boolean | ScrapeDefaultArgs<ExtArgs>
+    enhancement?: boolean | EnhancementDefaultArgs<ExtArgs>
+  }
 
-  export type $SavedQueryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "SavedQuery"
+  export type $SearchConfigurationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SearchConfiguration"
     objects: {
-      responses: Prisma.$UserListingResponsePayload<ExtArgs>[]
+      scrape: Prisma.$ScrapePayload<ExtArgs>
+      enhancement: Prisma.$EnhancementPayload<ExtArgs>
+      userResponses: Prisma.$UserListingResponsePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       createdAt: Date
       updatedAt: Date
       userId: string
-      name: string
+      name: string | null
       description: string | null
-      searchType: string
-      searchQuery: Prisma.JsonValue
-      enhancementQuery: string
+      scrapeId: string
+      enhancementId: string
       columnWeights: Prisma.JsonValue
-      lastRunAt: Date | null
-      lastScrapeId: string | null
-    }, ExtArgs["result"]["savedQuery"]>
+    }, ExtArgs["result"]["searchConfiguration"]>
     composites: {}
   }
 
-  type SavedQueryGetPayload<S extends boolean | null | undefined | SavedQueryDefaultArgs> = $Result.GetResult<Prisma.$SavedQueryPayload, S>
+  type SearchConfigurationGetPayload<S extends boolean | null | undefined | SearchConfigurationDefaultArgs> = $Result.GetResult<Prisma.$SearchConfigurationPayload, S>
 
-  type SavedQueryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<SavedQueryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: SavedQueryCountAggregateInputType | true
+  type SearchConfigurationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SearchConfigurationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SearchConfigurationCountAggregateInputType | true
     }
 
-  export interface SavedQueryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SavedQuery'], meta: { name: 'SavedQuery' } }
+  export interface SearchConfigurationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SearchConfiguration'], meta: { name: 'SearchConfiguration' } }
     /**
-     * Find zero or one SavedQuery that matches the filter.
-     * @param {SavedQueryFindUniqueArgs} args - Arguments to find a SavedQuery
+     * Find zero or one SearchConfiguration that matches the filter.
+     * @param {SearchConfigurationFindUniqueArgs} args - Arguments to find a SearchConfiguration
      * @example
-     * // Get one SavedQuery
-     * const savedQuery = await prisma.savedQuery.findUnique({
+     * // Get one SearchConfiguration
+     * const searchConfiguration = await prisma.searchConfiguration.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends SavedQueryFindUniqueArgs>(args: SelectSubset<T, SavedQueryFindUniqueArgs<ExtArgs>>): Prisma__SavedQueryClient<$Result.GetResult<Prisma.$SavedQueryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends SearchConfigurationFindUniqueArgs>(args: SelectSubset<T, SearchConfigurationFindUniqueArgs<ExtArgs>>): Prisma__SearchConfigurationClient<$Result.GetResult<Prisma.$SearchConfigurationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one SavedQuery that matches the filter or throw an error with `error.code='P2025'`
+     * Find one SearchConfiguration that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {SavedQueryFindUniqueOrThrowArgs} args - Arguments to find a SavedQuery
+     * @param {SearchConfigurationFindUniqueOrThrowArgs} args - Arguments to find a SearchConfiguration
      * @example
-     * // Get one SavedQuery
-     * const savedQuery = await prisma.savedQuery.findUniqueOrThrow({
+     * // Get one SearchConfiguration
+     * const searchConfiguration = await prisma.searchConfiguration.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends SavedQueryFindUniqueOrThrowArgs>(args: SelectSubset<T, SavedQueryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SavedQueryClient<$Result.GetResult<Prisma.$SavedQueryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends SearchConfigurationFindUniqueOrThrowArgs>(args: SelectSubset<T, SearchConfigurationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SearchConfigurationClient<$Result.GetResult<Prisma.$SearchConfigurationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first SavedQuery that matches the filter.
+     * Find the first SearchConfiguration that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {SavedQueryFindFirstArgs} args - Arguments to find a SavedQuery
+     * @param {SearchConfigurationFindFirstArgs} args - Arguments to find a SearchConfiguration
      * @example
-     * // Get one SavedQuery
-     * const savedQuery = await prisma.savedQuery.findFirst({
+     * // Get one SearchConfiguration
+     * const searchConfiguration = await prisma.searchConfiguration.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends SavedQueryFindFirstArgs>(args?: SelectSubset<T, SavedQueryFindFirstArgs<ExtArgs>>): Prisma__SavedQueryClient<$Result.GetResult<Prisma.$SavedQueryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends SearchConfigurationFindFirstArgs>(args?: SelectSubset<T, SearchConfigurationFindFirstArgs<ExtArgs>>): Prisma__SearchConfigurationClient<$Result.GetResult<Prisma.$SearchConfigurationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first SavedQuery that matches the filter or
+     * Find the first SearchConfiguration that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {SavedQueryFindFirstOrThrowArgs} args - Arguments to find a SavedQuery
+     * @param {SearchConfigurationFindFirstOrThrowArgs} args - Arguments to find a SearchConfiguration
      * @example
-     * // Get one SavedQuery
-     * const savedQuery = await prisma.savedQuery.findFirstOrThrow({
+     * // Get one SearchConfiguration
+     * const searchConfiguration = await prisma.searchConfiguration.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends SavedQueryFindFirstOrThrowArgs>(args?: SelectSubset<T, SavedQueryFindFirstOrThrowArgs<ExtArgs>>): Prisma__SavedQueryClient<$Result.GetResult<Prisma.$SavedQueryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends SearchConfigurationFindFirstOrThrowArgs>(args?: SelectSubset<T, SearchConfigurationFindFirstOrThrowArgs<ExtArgs>>): Prisma__SearchConfigurationClient<$Result.GetResult<Prisma.$SearchConfigurationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more SavedQueries that matches the filter.
+     * Find zero or more SearchConfigurations that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {SavedQueryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {SearchConfigurationFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all SavedQueries
-     * const savedQueries = await prisma.savedQuery.findMany()
+     * // Get all SearchConfigurations
+     * const searchConfigurations = await prisma.searchConfiguration.findMany()
      * 
-     * // Get first 10 SavedQueries
-     * const savedQueries = await prisma.savedQuery.findMany({ take: 10 })
+     * // Get first 10 SearchConfigurations
+     * const searchConfigurations = await prisma.searchConfiguration.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const savedQueryWithIdOnly = await prisma.savedQuery.findMany({ select: { id: true } })
+     * const searchConfigurationWithIdOnly = await prisma.searchConfiguration.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends SavedQueryFindManyArgs>(args?: SelectSubset<T, SavedQueryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavedQueryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends SearchConfigurationFindManyArgs>(args?: SelectSubset<T, SearchConfigurationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SearchConfigurationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a SavedQuery.
-     * @param {SavedQueryCreateArgs} args - Arguments to create a SavedQuery.
+     * Create a SearchConfiguration.
+     * @param {SearchConfigurationCreateArgs} args - Arguments to create a SearchConfiguration.
      * @example
-     * // Create one SavedQuery
-     * const SavedQuery = await prisma.savedQuery.create({
+     * // Create one SearchConfiguration
+     * const SearchConfiguration = await prisma.searchConfiguration.create({
      *   data: {
-     *     // ... data to create a SavedQuery
+     *     // ... data to create a SearchConfiguration
      *   }
      * })
      * 
      */
-    create<T extends SavedQueryCreateArgs>(args: SelectSubset<T, SavedQueryCreateArgs<ExtArgs>>): Prisma__SavedQueryClient<$Result.GetResult<Prisma.$SavedQueryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends SearchConfigurationCreateArgs>(args: SelectSubset<T, SearchConfigurationCreateArgs<ExtArgs>>): Prisma__SearchConfigurationClient<$Result.GetResult<Prisma.$SearchConfigurationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many SavedQueries.
-     * @param {SavedQueryCreateManyArgs} args - Arguments to create many SavedQueries.
+     * Create many SearchConfigurations.
+     * @param {SearchConfigurationCreateManyArgs} args - Arguments to create many SearchConfigurations.
      * @example
-     * // Create many SavedQueries
-     * const savedQuery = await prisma.savedQuery.createMany({
+     * // Create many SearchConfigurations
+     * const searchConfiguration = await prisma.searchConfiguration.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends SavedQueryCreateManyArgs>(args?: SelectSubset<T, SavedQueryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends SearchConfigurationCreateManyArgs>(args?: SelectSubset<T, SearchConfigurationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many SavedQueries and returns the data saved in the database.
-     * @param {SavedQueryCreateManyAndReturnArgs} args - Arguments to create many SavedQueries.
+     * Create many SearchConfigurations and returns the data saved in the database.
+     * @param {SearchConfigurationCreateManyAndReturnArgs} args - Arguments to create many SearchConfigurations.
      * @example
-     * // Create many SavedQueries
-     * const savedQuery = await prisma.savedQuery.createManyAndReturn({
+     * // Create many SearchConfigurations
+     * const searchConfiguration = await prisma.searchConfiguration.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many SavedQueries and only return the `id`
-     * const savedQueryWithIdOnly = await prisma.savedQuery.createManyAndReturn({
+     * // Create many SearchConfigurations and only return the `id`
+     * const searchConfigurationWithIdOnly = await prisma.searchConfiguration.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -10783,28 +10841,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends SavedQueryCreateManyAndReturnArgs>(args?: SelectSubset<T, SavedQueryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavedQueryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends SearchConfigurationCreateManyAndReturnArgs>(args?: SelectSubset<T, SearchConfigurationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SearchConfigurationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a SavedQuery.
-     * @param {SavedQueryDeleteArgs} args - Arguments to delete one SavedQuery.
+     * Delete a SearchConfiguration.
+     * @param {SearchConfigurationDeleteArgs} args - Arguments to delete one SearchConfiguration.
      * @example
-     * // Delete one SavedQuery
-     * const SavedQuery = await prisma.savedQuery.delete({
+     * // Delete one SearchConfiguration
+     * const SearchConfiguration = await prisma.searchConfiguration.delete({
      *   where: {
-     *     // ... filter to delete one SavedQuery
+     *     // ... filter to delete one SearchConfiguration
      *   }
      * })
      * 
      */
-    delete<T extends SavedQueryDeleteArgs>(args: SelectSubset<T, SavedQueryDeleteArgs<ExtArgs>>): Prisma__SavedQueryClient<$Result.GetResult<Prisma.$SavedQueryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends SearchConfigurationDeleteArgs>(args: SelectSubset<T, SearchConfigurationDeleteArgs<ExtArgs>>): Prisma__SearchConfigurationClient<$Result.GetResult<Prisma.$SearchConfigurationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one SavedQuery.
-     * @param {SavedQueryUpdateArgs} args - Arguments to update one SavedQuery.
+     * Update one SearchConfiguration.
+     * @param {SearchConfigurationUpdateArgs} args - Arguments to update one SearchConfiguration.
      * @example
-     * // Update one SavedQuery
-     * const savedQuery = await prisma.savedQuery.update({
+     * // Update one SearchConfiguration
+     * const searchConfiguration = await prisma.searchConfiguration.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -10814,30 +10872,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends SavedQueryUpdateArgs>(args: SelectSubset<T, SavedQueryUpdateArgs<ExtArgs>>): Prisma__SavedQueryClient<$Result.GetResult<Prisma.$SavedQueryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends SearchConfigurationUpdateArgs>(args: SelectSubset<T, SearchConfigurationUpdateArgs<ExtArgs>>): Prisma__SearchConfigurationClient<$Result.GetResult<Prisma.$SearchConfigurationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more SavedQueries.
-     * @param {SavedQueryDeleteManyArgs} args - Arguments to filter SavedQueries to delete.
+     * Delete zero or more SearchConfigurations.
+     * @param {SearchConfigurationDeleteManyArgs} args - Arguments to filter SearchConfigurations to delete.
      * @example
-     * // Delete a few SavedQueries
-     * const { count } = await prisma.savedQuery.deleteMany({
+     * // Delete a few SearchConfigurations
+     * const { count } = await prisma.searchConfiguration.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends SavedQueryDeleteManyArgs>(args?: SelectSubset<T, SavedQueryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends SearchConfigurationDeleteManyArgs>(args?: SelectSubset<T, SearchConfigurationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more SavedQueries.
+     * Update zero or more SearchConfigurations.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {SavedQueryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {SearchConfigurationUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many SavedQueries
-     * const savedQuery = await prisma.savedQuery.updateMany({
+     * // Update many SearchConfigurations
+     * const searchConfiguration = await prisma.searchConfiguration.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -10847,14 +10905,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends SavedQueryUpdateManyArgs>(args: SelectSubset<T, SavedQueryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends SearchConfigurationUpdateManyArgs>(args: SelectSubset<T, SearchConfigurationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more SavedQueries and returns the data updated in the database.
-     * @param {SavedQueryUpdateManyAndReturnArgs} args - Arguments to update many SavedQueries.
+     * Update zero or more SearchConfigurations and returns the data updated in the database.
+     * @param {SearchConfigurationUpdateManyAndReturnArgs} args - Arguments to update many SearchConfigurations.
      * @example
-     * // Update many SavedQueries
-     * const savedQuery = await prisma.savedQuery.updateManyAndReturn({
+     * // Update many SearchConfigurations
+     * const searchConfiguration = await prisma.searchConfiguration.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -10863,8 +10921,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more SavedQueries and only return the `id`
-     * const savedQueryWithIdOnly = await prisma.savedQuery.updateManyAndReturn({
+     * // Update zero or more SearchConfigurations and only return the `id`
+     * const searchConfigurationWithIdOnly = await prisma.searchConfiguration.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -10877,56 +10935,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends SavedQueryUpdateManyAndReturnArgs>(args: SelectSubset<T, SavedQueryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavedQueryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends SearchConfigurationUpdateManyAndReturnArgs>(args: SelectSubset<T, SearchConfigurationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SearchConfigurationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one SavedQuery.
-     * @param {SavedQueryUpsertArgs} args - Arguments to update or create a SavedQuery.
+     * Create or update one SearchConfiguration.
+     * @param {SearchConfigurationUpsertArgs} args - Arguments to update or create a SearchConfiguration.
      * @example
-     * // Update or create a SavedQuery
-     * const savedQuery = await prisma.savedQuery.upsert({
+     * // Update or create a SearchConfiguration
+     * const searchConfiguration = await prisma.searchConfiguration.upsert({
      *   create: {
-     *     // ... data to create a SavedQuery
+     *     // ... data to create a SearchConfiguration
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the SavedQuery we want to update
+     *     // ... the filter for the SearchConfiguration we want to update
      *   }
      * })
      */
-    upsert<T extends SavedQueryUpsertArgs>(args: SelectSubset<T, SavedQueryUpsertArgs<ExtArgs>>): Prisma__SavedQueryClient<$Result.GetResult<Prisma.$SavedQueryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends SearchConfigurationUpsertArgs>(args: SelectSubset<T, SearchConfigurationUpsertArgs<ExtArgs>>): Prisma__SearchConfigurationClient<$Result.GetResult<Prisma.$SearchConfigurationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of SavedQueries.
+     * Count the number of SearchConfigurations.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {SavedQueryCountArgs} args - Arguments to filter SavedQueries to count.
+     * @param {SearchConfigurationCountArgs} args - Arguments to filter SearchConfigurations to count.
      * @example
-     * // Count the number of SavedQueries
-     * const count = await prisma.savedQuery.count({
+     * // Count the number of SearchConfigurations
+     * const count = await prisma.searchConfiguration.count({
      *   where: {
-     *     // ... the filter for the SavedQueries we want to count
+     *     // ... the filter for the SearchConfigurations we want to count
      *   }
      * })
     **/
-    count<T extends SavedQueryCountArgs>(
-      args?: Subset<T, SavedQueryCountArgs>,
+    count<T extends SearchConfigurationCountArgs>(
+      args?: Subset<T, SearchConfigurationCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], SavedQueryCountAggregateOutputType>
+          : GetScalarType<T['select'], SearchConfigurationCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a SavedQuery.
+     * Allows you to perform aggregations operations on a SearchConfiguration.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {SavedQueryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {SearchConfigurationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -10946,13 +11004,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends SavedQueryAggregateArgs>(args: Subset<T, SavedQueryAggregateArgs>): Prisma.PrismaPromise<GetSavedQueryAggregateType<T>>
+    aggregate<T extends SearchConfigurationAggregateArgs>(args: Subset<T, SearchConfigurationAggregateArgs>): Prisma.PrismaPromise<GetSearchConfigurationAggregateType<T>>
 
     /**
-     * Group by SavedQuery.
+     * Group by SearchConfiguration.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {SavedQueryGroupByArgs} args - Group by arguments.
+     * @param {SearchConfigurationGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -10967,14 +11025,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends SavedQueryGroupByArgs,
+      T extends SearchConfigurationGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: SavedQueryGroupByArgs['orderBy'] }
-        : { orderBy?: SavedQueryGroupByArgs['orderBy'] },
+        ? { orderBy: SearchConfigurationGroupByArgs['orderBy'] }
+        : { orderBy?: SearchConfigurationGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -11023,22 +11081,24 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, SavedQueryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSavedQueryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, SearchConfigurationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSearchConfigurationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the SavedQuery model
+   * Fields of the SearchConfiguration model
    */
-  readonly fields: SavedQueryFieldRefs;
+  readonly fields: SearchConfigurationFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for SavedQuery.
+   * The delegate class that acts as a "Promise-like" for SearchConfiguration.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__SavedQueryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__SearchConfigurationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    responses<T extends SavedQuery$responsesArgs<ExtArgs> = {}>(args?: Subset<T, SavedQuery$responsesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserListingResponsePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    scrape<T extends ScrapeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ScrapeDefaultArgs<ExtArgs>>): Prisma__ScrapeClient<$Result.GetResult<Prisma.$ScrapePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    enhancement<T extends EnhancementDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EnhancementDefaultArgs<ExtArgs>>): Prisma__EnhancementClient<$Result.GetResult<Prisma.$EnhancementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    userResponses<T extends SearchConfiguration$userResponsesArgs<ExtArgs> = {}>(args?: Subset<T, SearchConfiguration$userResponsesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserListingResponsePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11065,412 +11125,417 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the SavedQuery model
+   * Fields of the SearchConfiguration model
    */
-  interface SavedQueryFieldRefs {
-    readonly id: FieldRef<"SavedQuery", 'String'>
-    readonly createdAt: FieldRef<"SavedQuery", 'DateTime'>
-    readonly updatedAt: FieldRef<"SavedQuery", 'DateTime'>
-    readonly userId: FieldRef<"SavedQuery", 'String'>
-    readonly name: FieldRef<"SavedQuery", 'String'>
-    readonly description: FieldRef<"SavedQuery", 'String'>
-    readonly searchType: FieldRef<"SavedQuery", 'String'>
-    readonly searchQuery: FieldRef<"SavedQuery", 'Json'>
-    readonly enhancementQuery: FieldRef<"SavedQuery", 'String'>
-    readonly columnWeights: FieldRef<"SavedQuery", 'Json'>
-    readonly lastRunAt: FieldRef<"SavedQuery", 'DateTime'>
-    readonly lastScrapeId: FieldRef<"SavedQuery", 'String'>
+  interface SearchConfigurationFieldRefs {
+    readonly id: FieldRef<"SearchConfiguration", 'String'>
+    readonly createdAt: FieldRef<"SearchConfiguration", 'DateTime'>
+    readonly updatedAt: FieldRef<"SearchConfiguration", 'DateTime'>
+    readonly userId: FieldRef<"SearchConfiguration", 'String'>
+    readonly name: FieldRef<"SearchConfiguration", 'String'>
+    readonly description: FieldRef<"SearchConfiguration", 'String'>
+    readonly scrapeId: FieldRef<"SearchConfiguration", 'String'>
+    readonly enhancementId: FieldRef<"SearchConfiguration", 'String'>
+    readonly columnWeights: FieldRef<"SearchConfiguration", 'Json'>
   }
     
 
   // Custom InputTypes
   /**
-   * SavedQuery findUnique
+   * SearchConfiguration findUnique
    */
-  export type SavedQueryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SearchConfigurationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the SavedQuery
+     * Select specific fields to fetch from the SearchConfiguration
      */
-    select?: SavedQuerySelect<ExtArgs> | null
+    select?: SearchConfigurationSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the SavedQuery
+     * Omit specific fields from the SearchConfiguration
      */
-    omit?: SavedQueryOmit<ExtArgs> | null
+    omit?: SearchConfigurationOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SavedQueryInclude<ExtArgs> | null
+    include?: SearchConfigurationInclude<ExtArgs> | null
     /**
-     * Filter, which SavedQuery to fetch.
+     * Filter, which SearchConfiguration to fetch.
      */
-    where: SavedQueryWhereUniqueInput
+    where: SearchConfigurationWhereUniqueInput
   }
 
   /**
-   * SavedQuery findUniqueOrThrow
+   * SearchConfiguration findUniqueOrThrow
    */
-  export type SavedQueryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SearchConfigurationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the SavedQuery
+     * Select specific fields to fetch from the SearchConfiguration
      */
-    select?: SavedQuerySelect<ExtArgs> | null
+    select?: SearchConfigurationSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the SavedQuery
+     * Omit specific fields from the SearchConfiguration
      */
-    omit?: SavedQueryOmit<ExtArgs> | null
+    omit?: SearchConfigurationOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SavedQueryInclude<ExtArgs> | null
+    include?: SearchConfigurationInclude<ExtArgs> | null
     /**
-     * Filter, which SavedQuery to fetch.
+     * Filter, which SearchConfiguration to fetch.
      */
-    where: SavedQueryWhereUniqueInput
+    where: SearchConfigurationWhereUniqueInput
   }
 
   /**
-   * SavedQuery findFirst
+   * SearchConfiguration findFirst
    */
-  export type SavedQueryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SearchConfigurationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the SavedQuery
+     * Select specific fields to fetch from the SearchConfiguration
      */
-    select?: SavedQuerySelect<ExtArgs> | null
+    select?: SearchConfigurationSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the SavedQuery
+     * Omit specific fields from the SearchConfiguration
      */
-    omit?: SavedQueryOmit<ExtArgs> | null
+    omit?: SearchConfigurationOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SavedQueryInclude<ExtArgs> | null
+    include?: SearchConfigurationInclude<ExtArgs> | null
     /**
-     * Filter, which SavedQuery to fetch.
+     * Filter, which SearchConfiguration to fetch.
      */
-    where?: SavedQueryWhereInput
+    where?: SearchConfigurationWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of SavedQueries to fetch.
+     * Determine the order of SearchConfigurations to fetch.
      */
-    orderBy?: SavedQueryOrderByWithRelationInput | SavedQueryOrderByWithRelationInput[]
+    orderBy?: SearchConfigurationOrderByWithRelationInput | SearchConfigurationOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for SavedQueries.
+     * Sets the position for searching for SearchConfigurations.
      */
-    cursor?: SavedQueryWhereUniqueInput
+    cursor?: SearchConfigurationWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` SavedQueries from the position of the cursor.
+     * Take `±n` SearchConfigurations from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` SavedQueries.
+     * Skip the first `n` SearchConfigurations.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of SavedQueries.
+     * Filter by unique combinations of SearchConfigurations.
      */
-    distinct?: SavedQueryScalarFieldEnum | SavedQueryScalarFieldEnum[]
+    distinct?: SearchConfigurationScalarFieldEnum | SearchConfigurationScalarFieldEnum[]
   }
 
   /**
-   * SavedQuery findFirstOrThrow
+   * SearchConfiguration findFirstOrThrow
    */
-  export type SavedQueryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SearchConfigurationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the SavedQuery
+     * Select specific fields to fetch from the SearchConfiguration
      */
-    select?: SavedQuerySelect<ExtArgs> | null
+    select?: SearchConfigurationSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the SavedQuery
+     * Omit specific fields from the SearchConfiguration
      */
-    omit?: SavedQueryOmit<ExtArgs> | null
+    omit?: SearchConfigurationOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SavedQueryInclude<ExtArgs> | null
+    include?: SearchConfigurationInclude<ExtArgs> | null
     /**
-     * Filter, which SavedQuery to fetch.
+     * Filter, which SearchConfiguration to fetch.
      */
-    where?: SavedQueryWhereInput
+    where?: SearchConfigurationWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of SavedQueries to fetch.
+     * Determine the order of SearchConfigurations to fetch.
      */
-    orderBy?: SavedQueryOrderByWithRelationInput | SavedQueryOrderByWithRelationInput[]
+    orderBy?: SearchConfigurationOrderByWithRelationInput | SearchConfigurationOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for SavedQueries.
+     * Sets the position for searching for SearchConfigurations.
      */
-    cursor?: SavedQueryWhereUniqueInput
+    cursor?: SearchConfigurationWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` SavedQueries from the position of the cursor.
+     * Take `±n` SearchConfigurations from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` SavedQueries.
+     * Skip the first `n` SearchConfigurations.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of SavedQueries.
+     * Filter by unique combinations of SearchConfigurations.
      */
-    distinct?: SavedQueryScalarFieldEnum | SavedQueryScalarFieldEnum[]
+    distinct?: SearchConfigurationScalarFieldEnum | SearchConfigurationScalarFieldEnum[]
   }
 
   /**
-   * SavedQuery findMany
+   * SearchConfiguration findMany
    */
-  export type SavedQueryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SearchConfigurationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the SavedQuery
+     * Select specific fields to fetch from the SearchConfiguration
      */
-    select?: SavedQuerySelect<ExtArgs> | null
+    select?: SearchConfigurationSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the SavedQuery
+     * Omit specific fields from the SearchConfiguration
      */
-    omit?: SavedQueryOmit<ExtArgs> | null
+    omit?: SearchConfigurationOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SavedQueryInclude<ExtArgs> | null
+    include?: SearchConfigurationInclude<ExtArgs> | null
     /**
-     * Filter, which SavedQueries to fetch.
+     * Filter, which SearchConfigurations to fetch.
      */
-    where?: SavedQueryWhereInput
+    where?: SearchConfigurationWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of SavedQueries to fetch.
+     * Determine the order of SearchConfigurations to fetch.
      */
-    orderBy?: SavedQueryOrderByWithRelationInput | SavedQueryOrderByWithRelationInput[]
+    orderBy?: SearchConfigurationOrderByWithRelationInput | SearchConfigurationOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing SavedQueries.
+     * Sets the position for listing SearchConfigurations.
      */
-    cursor?: SavedQueryWhereUniqueInput
+    cursor?: SearchConfigurationWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` SavedQueries from the position of the cursor.
+     * Take `±n` SearchConfigurations from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` SavedQueries.
+     * Skip the first `n` SearchConfigurations.
      */
     skip?: number
-    distinct?: SavedQueryScalarFieldEnum | SavedQueryScalarFieldEnum[]
+    distinct?: SearchConfigurationScalarFieldEnum | SearchConfigurationScalarFieldEnum[]
   }
 
   /**
-   * SavedQuery create
+   * SearchConfiguration create
    */
-  export type SavedQueryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SearchConfigurationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the SavedQuery
+     * Select specific fields to fetch from the SearchConfiguration
      */
-    select?: SavedQuerySelect<ExtArgs> | null
+    select?: SearchConfigurationSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the SavedQuery
+     * Omit specific fields from the SearchConfiguration
      */
-    omit?: SavedQueryOmit<ExtArgs> | null
+    omit?: SearchConfigurationOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SavedQueryInclude<ExtArgs> | null
+    include?: SearchConfigurationInclude<ExtArgs> | null
     /**
-     * The data needed to create a SavedQuery.
+     * The data needed to create a SearchConfiguration.
      */
-    data: XOR<SavedQueryCreateInput, SavedQueryUncheckedCreateInput>
+    data: XOR<SearchConfigurationCreateInput, SearchConfigurationUncheckedCreateInput>
   }
 
   /**
-   * SavedQuery createMany
+   * SearchConfiguration createMany
    */
-  export type SavedQueryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SearchConfigurationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many SavedQueries.
+     * The data used to create many SearchConfigurations.
      */
-    data: SavedQueryCreateManyInput | SavedQueryCreateManyInput[]
+    data: SearchConfigurationCreateManyInput | SearchConfigurationCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * SavedQuery createManyAndReturn
+   * SearchConfiguration createManyAndReturn
    */
-  export type SavedQueryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SearchConfigurationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the SavedQuery
+     * Select specific fields to fetch from the SearchConfiguration
      */
-    select?: SavedQuerySelectCreateManyAndReturn<ExtArgs> | null
+    select?: SearchConfigurationSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the SavedQuery
+     * Omit specific fields from the SearchConfiguration
      */
-    omit?: SavedQueryOmit<ExtArgs> | null
+    omit?: SearchConfigurationOmit<ExtArgs> | null
     /**
-     * The data used to create many SavedQueries.
+     * The data used to create many SearchConfigurations.
      */
-    data: SavedQueryCreateManyInput | SavedQueryCreateManyInput[]
+    data: SearchConfigurationCreateManyInput | SearchConfigurationCreateManyInput[]
     skipDuplicates?: boolean
-  }
-
-  /**
-   * SavedQuery update
-   */
-  export type SavedQueryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the SavedQuery
-     */
-    select?: SavedQuerySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the SavedQuery
-     */
-    omit?: SavedQueryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SavedQueryInclude<ExtArgs> | null
-    /**
-     * The data needed to update a SavedQuery.
-     */
-    data: XOR<SavedQueryUpdateInput, SavedQueryUncheckedUpdateInput>
-    /**
-     * Choose, which SavedQuery to update.
-     */
-    where: SavedQueryWhereUniqueInput
+    include?: SearchConfigurationIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * SavedQuery updateMany
+   * SearchConfiguration update
    */
-  export type SavedQueryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SearchConfigurationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update SavedQueries.
+     * Select specific fields to fetch from the SearchConfiguration
      */
-    data: XOR<SavedQueryUpdateManyMutationInput, SavedQueryUncheckedUpdateManyInput>
+    select?: SearchConfigurationSelect<ExtArgs> | null
     /**
-     * Filter which SavedQueries to update
+     * Omit specific fields from the SearchConfiguration
      */
-    where?: SavedQueryWhereInput
+    omit?: SearchConfigurationOmit<ExtArgs> | null
     /**
-     * Limit how many SavedQueries to update.
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SearchConfigurationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SearchConfiguration.
+     */
+    data: XOR<SearchConfigurationUpdateInput, SearchConfigurationUncheckedUpdateInput>
+    /**
+     * Choose, which SearchConfiguration to update.
+     */
+    where: SearchConfigurationWhereUniqueInput
+  }
+
+  /**
+   * SearchConfiguration updateMany
+   */
+  export type SearchConfigurationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SearchConfigurations.
+     */
+    data: XOR<SearchConfigurationUpdateManyMutationInput, SearchConfigurationUncheckedUpdateManyInput>
+    /**
+     * Filter which SearchConfigurations to update
+     */
+    where?: SearchConfigurationWhereInput
+    /**
+     * Limit how many SearchConfigurations to update.
      */
     limit?: number
   }
 
   /**
-   * SavedQuery updateManyAndReturn
+   * SearchConfiguration updateManyAndReturn
    */
-  export type SavedQueryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SearchConfigurationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the SavedQuery
+     * Select specific fields to fetch from the SearchConfiguration
      */
-    select?: SavedQuerySelectUpdateManyAndReturn<ExtArgs> | null
+    select?: SearchConfigurationSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the SavedQuery
+     * Omit specific fields from the SearchConfiguration
      */
-    omit?: SavedQueryOmit<ExtArgs> | null
+    omit?: SearchConfigurationOmit<ExtArgs> | null
     /**
-     * The data used to update SavedQueries.
+     * The data used to update SearchConfigurations.
      */
-    data: XOR<SavedQueryUpdateManyMutationInput, SavedQueryUncheckedUpdateManyInput>
+    data: XOR<SearchConfigurationUpdateManyMutationInput, SearchConfigurationUncheckedUpdateManyInput>
     /**
-     * Filter which SavedQueries to update
+     * Filter which SearchConfigurations to update
      */
-    where?: SavedQueryWhereInput
+    where?: SearchConfigurationWhereInput
     /**
-     * Limit how many SavedQueries to update.
+     * Limit how many SearchConfigurations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SearchConfigurationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SearchConfiguration upsert
+   */
+  export type SearchConfigurationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SearchConfiguration
+     */
+    select?: SearchConfigurationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SearchConfiguration
+     */
+    omit?: SearchConfigurationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SearchConfigurationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SearchConfiguration to update in case it exists.
+     */
+    where: SearchConfigurationWhereUniqueInput
+    /**
+     * In case the SearchConfiguration found by the `where` argument doesn't exist, create a new SearchConfiguration with this data.
+     */
+    create: XOR<SearchConfigurationCreateInput, SearchConfigurationUncheckedCreateInput>
+    /**
+     * In case the SearchConfiguration was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SearchConfigurationUpdateInput, SearchConfigurationUncheckedUpdateInput>
+  }
+
+  /**
+   * SearchConfiguration delete
+   */
+  export type SearchConfigurationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SearchConfiguration
+     */
+    select?: SearchConfigurationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SearchConfiguration
+     */
+    omit?: SearchConfigurationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SearchConfigurationInclude<ExtArgs> | null
+    /**
+     * Filter which SearchConfiguration to delete.
+     */
+    where: SearchConfigurationWhereUniqueInput
+  }
+
+  /**
+   * SearchConfiguration deleteMany
+   */
+  export type SearchConfigurationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SearchConfigurations to delete
+     */
+    where?: SearchConfigurationWhereInput
+    /**
+     * Limit how many SearchConfigurations to delete.
      */
     limit?: number
   }
 
   /**
-   * SavedQuery upsert
+   * SearchConfiguration.userResponses
    */
-  export type SavedQueryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the SavedQuery
-     */
-    select?: SavedQuerySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the SavedQuery
-     */
-    omit?: SavedQueryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SavedQueryInclude<ExtArgs> | null
-    /**
-     * The filter to search for the SavedQuery to update in case it exists.
-     */
-    where: SavedQueryWhereUniqueInput
-    /**
-     * In case the SavedQuery found by the `where` argument doesn't exist, create a new SavedQuery with this data.
-     */
-    create: XOR<SavedQueryCreateInput, SavedQueryUncheckedCreateInput>
-    /**
-     * In case the SavedQuery was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<SavedQueryUpdateInput, SavedQueryUncheckedUpdateInput>
-  }
-
-  /**
-   * SavedQuery delete
-   */
-  export type SavedQueryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the SavedQuery
-     */
-    select?: SavedQuerySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the SavedQuery
-     */
-    omit?: SavedQueryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SavedQueryInclude<ExtArgs> | null
-    /**
-     * Filter which SavedQuery to delete.
-     */
-    where: SavedQueryWhereUniqueInput
-  }
-
-  /**
-   * SavedQuery deleteMany
-   */
-  export type SavedQueryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which SavedQueries to delete
-     */
-    where?: SavedQueryWhereInput
-    /**
-     * Limit how many SavedQueries to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * SavedQuery.responses
-   */
-  export type SavedQuery$responsesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SearchConfiguration$userResponsesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the UserListingResponse
      */
@@ -11492,21 +11557,21 @@ export namespace Prisma {
   }
 
   /**
-   * SavedQuery without action
+   * SearchConfiguration without action
    */
-  export type SavedQueryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SearchConfigurationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the SavedQuery
+     * Select specific fields to fetch from the SearchConfiguration
      */
-    select?: SavedQuerySelect<ExtArgs> | null
+    select?: SearchConfigurationSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the SavedQuery
+     * Omit specific fields from the SearchConfiguration
      */
-    omit?: SavedQueryOmit<ExtArgs> | null
+    omit?: SearchConfigurationOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SavedQueryInclude<ExtArgs> | null
+    include?: SearchConfigurationInclude<ExtArgs> | null
   }
 
 
@@ -11525,7 +11590,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     userId: string | null
-    savedQueryId: string | null
+    configurationId: string | null
     listingId: string | null
     response: string | null
     notes: string | null
@@ -11536,7 +11601,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     userId: string | null
-    savedQueryId: string | null
+    configurationId: string | null
     listingId: string | null
     response: string | null
     notes: string | null
@@ -11547,7 +11612,7 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     userId: number
-    savedQueryId: number
+    configurationId: number
     listingId: number
     response: number
     notes: number
@@ -11560,7 +11625,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     userId?: true
-    savedQueryId?: true
+    configurationId?: true
     listingId?: true
     response?: true
     notes?: true
@@ -11571,7 +11636,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     userId?: true
-    savedQueryId?: true
+    configurationId?: true
     listingId?: true
     response?: true
     notes?: true
@@ -11582,7 +11647,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     userId?: true
-    savedQueryId?: true
+    configurationId?: true
     listingId?: true
     response?: true
     notes?: true
@@ -11666,7 +11731,7 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     userId: string
-    savedQueryId: string
+    configurationId: string
     listingId: string
     response: string
     notes: string | null
@@ -11694,11 +11759,11 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
-    savedQueryId?: boolean
+    configurationId?: boolean
     listingId?: boolean
     response?: boolean
     notes?: boolean
-    savedQuery?: boolean | SavedQueryDefaultArgs<ExtArgs>
+    configuration?: boolean | SearchConfigurationDefaultArgs<ExtArgs>
     listing?: boolean | ListingDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userListingResponse"]>
 
@@ -11707,11 +11772,11 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
-    savedQueryId?: boolean
+    configurationId?: boolean
     listingId?: boolean
     response?: boolean
     notes?: boolean
-    savedQuery?: boolean | SavedQueryDefaultArgs<ExtArgs>
+    configuration?: boolean | SearchConfigurationDefaultArgs<ExtArgs>
     listing?: boolean | ListingDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userListingResponse"]>
 
@@ -11720,11 +11785,11 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
-    savedQueryId?: boolean
+    configurationId?: boolean
     listingId?: boolean
     response?: boolean
     notes?: boolean
-    savedQuery?: boolean | SavedQueryDefaultArgs<ExtArgs>
+    configuration?: boolean | SearchConfigurationDefaultArgs<ExtArgs>
     listing?: boolean | ListingDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userListingResponse"]>
 
@@ -11733,30 +11798,30 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
-    savedQueryId?: boolean
+    configurationId?: boolean
     listingId?: boolean
     response?: boolean
     notes?: boolean
   }
 
-  export type UserListingResponseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "userId" | "savedQueryId" | "listingId" | "response" | "notes", ExtArgs["result"]["userListingResponse"]>
+  export type UserListingResponseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "userId" | "configurationId" | "listingId" | "response" | "notes", ExtArgs["result"]["userListingResponse"]>
   export type UserListingResponseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    savedQuery?: boolean | SavedQueryDefaultArgs<ExtArgs>
+    configuration?: boolean | SearchConfigurationDefaultArgs<ExtArgs>
     listing?: boolean | ListingDefaultArgs<ExtArgs>
   }
   export type UserListingResponseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    savedQuery?: boolean | SavedQueryDefaultArgs<ExtArgs>
+    configuration?: boolean | SearchConfigurationDefaultArgs<ExtArgs>
     listing?: boolean | ListingDefaultArgs<ExtArgs>
   }
   export type UserListingResponseIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    savedQuery?: boolean | SavedQueryDefaultArgs<ExtArgs>
+    configuration?: boolean | SearchConfigurationDefaultArgs<ExtArgs>
     listing?: boolean | ListingDefaultArgs<ExtArgs>
   }
 
   export type $UserListingResponsePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "UserListingResponse"
     objects: {
-      savedQuery: Prisma.$SavedQueryPayload<ExtArgs>
+      configuration: Prisma.$SearchConfigurationPayload<ExtArgs>
       listing: Prisma.$ListingPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -11764,7 +11829,7 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       userId: string
-      savedQueryId: string
+      configurationId: string
       listingId: string
       response: string
       notes: string | null
@@ -12162,7 +12227,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserListingResponseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    savedQuery<T extends SavedQueryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SavedQueryDefaultArgs<ExtArgs>>): Prisma__SavedQueryClient<$Result.GetResult<Prisma.$SavedQueryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    configuration<T extends SearchConfigurationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SearchConfigurationDefaultArgs<ExtArgs>>): Prisma__SearchConfigurationClient<$Result.GetResult<Prisma.$SearchConfigurationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     listing<T extends ListingDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ListingDefaultArgs<ExtArgs>>): Prisma__ListingClient<$Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -12197,7 +12262,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"UserListingResponse", 'DateTime'>
     readonly updatedAt: FieldRef<"UserListingResponse", 'DateTime'>
     readonly userId: FieldRef<"UserListingResponse", 'String'>
-    readonly savedQueryId: FieldRef<"UserListingResponse", 'String'>
+    readonly configurationId: FieldRef<"UserListingResponse", 'String'>
     readonly listingId: FieldRef<"UserListingResponse", 'String'>
     readonly response: FieldRef<"UserListingResponse", 'String'>
     readonly notes: FieldRef<"UserListingResponse", 'String'>
@@ -12757,22 +12822,19 @@ export namespace Prisma {
   export type EnhancementValueScalarFieldEnum = (typeof EnhancementValueScalarFieldEnum)[keyof typeof EnhancementValueScalarFieldEnum]
 
 
-  export const SavedQueryScalarFieldEnum: {
+  export const SearchConfigurationScalarFieldEnum: {
     id: 'id',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     userId: 'userId',
     name: 'name',
     description: 'description',
-    searchType: 'searchType',
-    searchQuery: 'searchQuery',
-    enhancementQuery: 'enhancementQuery',
-    columnWeights: 'columnWeights',
-    lastRunAt: 'lastRunAt',
-    lastScrapeId: 'lastScrapeId'
+    scrapeId: 'scrapeId',
+    enhancementId: 'enhancementId',
+    columnWeights: 'columnWeights'
   };
 
-  export type SavedQueryScalarFieldEnum = (typeof SavedQueryScalarFieldEnum)[keyof typeof SavedQueryScalarFieldEnum]
+  export type SearchConfigurationScalarFieldEnum = (typeof SearchConfigurationScalarFieldEnum)[keyof typeof SearchConfigurationScalarFieldEnum]
 
 
   export const UserListingResponseScalarFieldEnum: {
@@ -12780,7 +12842,7 @@ export namespace Prisma {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     userId: 'userId',
-    savedQueryId: 'savedQueryId',
+    configurationId: 'configurationId',
     listingId: 'listingId',
     response: 'response',
     notes: 'notes'
@@ -12934,6 +12996,7 @@ export namespace Prisma {
     listingsCount?: IntFilter<"Scrape"> | number
     listings?: ScrapeListingListRelationFilter
     enhancements?: EnhancementListRelationFilter
+    configurations?: SearchConfigurationListRelationFilter
   }
 
   export type ScrapeOrderByWithRelationInput = {
@@ -12953,6 +13016,7 @@ export namespace Prisma {
     listingsCount?: SortOrder
     listings?: ScrapeListingOrderByRelationAggregateInput
     enhancements?: EnhancementOrderByRelationAggregateInput
+    configurations?: SearchConfigurationOrderByRelationAggregateInput
   }
 
   export type ScrapeWhereUniqueInput = Prisma.AtLeast<{
@@ -12975,6 +13039,7 @@ export namespace Prisma {
     listingsCount?: IntFilter<"Scrape"> | number
     listings?: ScrapeListingListRelationFilter
     enhancements?: EnhancementListRelationFilter
+    configurations?: SearchConfigurationListRelationFilter
   }, "id" | "apifyRunId">
 
   export type ScrapeOrderByWithAggregationInput = {
@@ -13290,6 +13355,7 @@ export namespace Prisma {
     scrape?: XOR<ScrapeScalarRelationFilter, ScrapeWhereInput>
     columns?: EnhancementColumnListRelationFilter
     results?: EnhancementResultListRelationFilter
+    configurations?: SearchConfigurationListRelationFilter
   }
 
   export type EnhancementOrderByWithRelationInput = {
@@ -13308,6 +13374,7 @@ export namespace Prisma {
     scrape?: ScrapeOrderByWithRelationInput
     columns?: EnhancementColumnOrderByRelationAggregateInput
     results?: EnhancementResultOrderByRelationAggregateInput
+    configurations?: SearchConfigurationOrderByRelationAggregateInput
   }
 
   export type EnhancementWhereUniqueInput = Prisma.AtLeast<{
@@ -13329,6 +13396,7 @@ export namespace Prisma {
     scrape?: XOR<ScrapeScalarRelationFilter, ScrapeWhereInput>
     columns?: EnhancementColumnListRelationFilter
     results?: EnhancementResultListRelationFilter
+    configurations?: SearchConfigurationListRelationFilter
   }, "id">
 
   export type EnhancementOrderByWithAggregationInput = {
@@ -13599,94 +13667,85 @@ export namespace Prisma {
     normalizedValue?: FloatWithAggregatesFilter<"EnhancementValue"> | number
   }
 
-  export type SavedQueryWhereInput = {
-    AND?: SavedQueryWhereInput | SavedQueryWhereInput[]
-    OR?: SavedQueryWhereInput[]
-    NOT?: SavedQueryWhereInput | SavedQueryWhereInput[]
-    id?: StringFilter<"SavedQuery"> | string
-    createdAt?: DateTimeFilter<"SavedQuery"> | Date | string
-    updatedAt?: DateTimeFilter<"SavedQuery"> | Date | string
-    userId?: StringFilter<"SavedQuery"> | string
-    name?: StringFilter<"SavedQuery"> | string
-    description?: StringNullableFilter<"SavedQuery"> | string | null
-    searchType?: StringFilter<"SavedQuery"> | string
-    searchQuery?: JsonFilter<"SavedQuery">
-    enhancementQuery?: StringFilter<"SavedQuery"> | string
-    columnWeights?: JsonFilter<"SavedQuery">
-    lastRunAt?: DateTimeNullableFilter<"SavedQuery"> | Date | string | null
-    lastScrapeId?: StringNullableFilter<"SavedQuery"> | string | null
-    responses?: UserListingResponseListRelationFilter
+  export type SearchConfigurationWhereInput = {
+    AND?: SearchConfigurationWhereInput | SearchConfigurationWhereInput[]
+    OR?: SearchConfigurationWhereInput[]
+    NOT?: SearchConfigurationWhereInput | SearchConfigurationWhereInput[]
+    id?: StringFilter<"SearchConfiguration"> | string
+    createdAt?: DateTimeFilter<"SearchConfiguration"> | Date | string
+    updatedAt?: DateTimeFilter<"SearchConfiguration"> | Date | string
+    userId?: StringFilter<"SearchConfiguration"> | string
+    name?: StringNullableFilter<"SearchConfiguration"> | string | null
+    description?: StringNullableFilter<"SearchConfiguration"> | string | null
+    scrapeId?: StringFilter<"SearchConfiguration"> | string
+    enhancementId?: StringFilter<"SearchConfiguration"> | string
+    columnWeights?: JsonFilter<"SearchConfiguration">
+    scrape?: XOR<ScrapeScalarRelationFilter, ScrapeWhereInput>
+    enhancement?: XOR<EnhancementScalarRelationFilter, EnhancementWhereInput>
+    userResponses?: UserListingResponseListRelationFilter
   }
 
-  export type SavedQueryOrderByWithRelationInput = {
+  export type SearchConfigurationOrderByWithRelationInput = {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
-    name?: SortOrder
+    name?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
-    searchType?: SortOrder
-    searchQuery?: SortOrder
-    enhancementQuery?: SortOrder
+    scrapeId?: SortOrder
+    enhancementId?: SortOrder
     columnWeights?: SortOrder
-    lastRunAt?: SortOrderInput | SortOrder
-    lastScrapeId?: SortOrderInput | SortOrder
-    responses?: UserListingResponseOrderByRelationAggregateInput
+    scrape?: ScrapeOrderByWithRelationInput
+    enhancement?: EnhancementOrderByWithRelationInput
+    userResponses?: UserListingResponseOrderByRelationAggregateInput
   }
 
-  export type SavedQueryWhereUniqueInput = Prisma.AtLeast<{
+  export type SearchConfigurationWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: SavedQueryWhereInput | SavedQueryWhereInput[]
-    OR?: SavedQueryWhereInput[]
-    NOT?: SavedQueryWhereInput | SavedQueryWhereInput[]
-    createdAt?: DateTimeFilter<"SavedQuery"> | Date | string
-    updatedAt?: DateTimeFilter<"SavedQuery"> | Date | string
-    userId?: StringFilter<"SavedQuery"> | string
-    name?: StringFilter<"SavedQuery"> | string
-    description?: StringNullableFilter<"SavedQuery"> | string | null
-    searchType?: StringFilter<"SavedQuery"> | string
-    searchQuery?: JsonFilter<"SavedQuery">
-    enhancementQuery?: StringFilter<"SavedQuery"> | string
-    columnWeights?: JsonFilter<"SavedQuery">
-    lastRunAt?: DateTimeNullableFilter<"SavedQuery"> | Date | string | null
-    lastScrapeId?: StringNullableFilter<"SavedQuery"> | string | null
-    responses?: UserListingResponseListRelationFilter
+    AND?: SearchConfigurationWhereInput | SearchConfigurationWhereInput[]
+    OR?: SearchConfigurationWhereInput[]
+    NOT?: SearchConfigurationWhereInput | SearchConfigurationWhereInput[]
+    createdAt?: DateTimeFilter<"SearchConfiguration"> | Date | string
+    updatedAt?: DateTimeFilter<"SearchConfiguration"> | Date | string
+    userId?: StringFilter<"SearchConfiguration"> | string
+    name?: StringNullableFilter<"SearchConfiguration"> | string | null
+    description?: StringNullableFilter<"SearchConfiguration"> | string | null
+    scrapeId?: StringFilter<"SearchConfiguration"> | string
+    enhancementId?: StringFilter<"SearchConfiguration"> | string
+    columnWeights?: JsonFilter<"SearchConfiguration">
+    scrape?: XOR<ScrapeScalarRelationFilter, ScrapeWhereInput>
+    enhancement?: XOR<EnhancementScalarRelationFilter, EnhancementWhereInput>
+    userResponses?: UserListingResponseListRelationFilter
   }, "id">
 
-  export type SavedQueryOrderByWithAggregationInput = {
+  export type SearchConfigurationOrderByWithAggregationInput = {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
-    name?: SortOrder
+    name?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
-    searchType?: SortOrder
-    searchQuery?: SortOrder
-    enhancementQuery?: SortOrder
+    scrapeId?: SortOrder
+    enhancementId?: SortOrder
     columnWeights?: SortOrder
-    lastRunAt?: SortOrderInput | SortOrder
-    lastScrapeId?: SortOrderInput | SortOrder
-    _count?: SavedQueryCountOrderByAggregateInput
-    _max?: SavedQueryMaxOrderByAggregateInput
-    _min?: SavedQueryMinOrderByAggregateInput
+    _count?: SearchConfigurationCountOrderByAggregateInput
+    _max?: SearchConfigurationMaxOrderByAggregateInput
+    _min?: SearchConfigurationMinOrderByAggregateInput
   }
 
-  export type SavedQueryScalarWhereWithAggregatesInput = {
-    AND?: SavedQueryScalarWhereWithAggregatesInput | SavedQueryScalarWhereWithAggregatesInput[]
-    OR?: SavedQueryScalarWhereWithAggregatesInput[]
-    NOT?: SavedQueryScalarWhereWithAggregatesInput | SavedQueryScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"SavedQuery"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"SavedQuery"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"SavedQuery"> | Date | string
-    userId?: StringWithAggregatesFilter<"SavedQuery"> | string
-    name?: StringWithAggregatesFilter<"SavedQuery"> | string
-    description?: StringNullableWithAggregatesFilter<"SavedQuery"> | string | null
-    searchType?: StringWithAggregatesFilter<"SavedQuery"> | string
-    searchQuery?: JsonWithAggregatesFilter<"SavedQuery">
-    enhancementQuery?: StringWithAggregatesFilter<"SavedQuery"> | string
-    columnWeights?: JsonWithAggregatesFilter<"SavedQuery">
-    lastRunAt?: DateTimeNullableWithAggregatesFilter<"SavedQuery"> | Date | string | null
-    lastScrapeId?: StringNullableWithAggregatesFilter<"SavedQuery"> | string | null
+  export type SearchConfigurationScalarWhereWithAggregatesInput = {
+    AND?: SearchConfigurationScalarWhereWithAggregatesInput | SearchConfigurationScalarWhereWithAggregatesInput[]
+    OR?: SearchConfigurationScalarWhereWithAggregatesInput[]
+    NOT?: SearchConfigurationScalarWhereWithAggregatesInput | SearchConfigurationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SearchConfiguration"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"SearchConfiguration"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SearchConfiguration"> | Date | string
+    userId?: StringWithAggregatesFilter<"SearchConfiguration"> | string
+    name?: StringNullableWithAggregatesFilter<"SearchConfiguration"> | string | null
+    description?: StringNullableWithAggregatesFilter<"SearchConfiguration"> | string | null
+    scrapeId?: StringWithAggregatesFilter<"SearchConfiguration"> | string
+    enhancementId?: StringWithAggregatesFilter<"SearchConfiguration"> | string
+    columnWeights?: JsonWithAggregatesFilter<"SearchConfiguration">
   }
 
   export type UserListingResponseWhereInput = {
@@ -13697,11 +13756,11 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"UserListingResponse"> | Date | string
     updatedAt?: DateTimeFilter<"UserListingResponse"> | Date | string
     userId?: StringFilter<"UserListingResponse"> | string
-    savedQueryId?: StringFilter<"UserListingResponse"> | string
+    configurationId?: StringFilter<"UserListingResponse"> | string
     listingId?: StringFilter<"UserListingResponse"> | string
     response?: StringFilter<"UserListingResponse"> | string
     notes?: StringNullableFilter<"UserListingResponse"> | string | null
-    savedQuery?: XOR<SavedQueryScalarRelationFilter, SavedQueryWhereInput>
+    configuration?: XOR<SearchConfigurationScalarRelationFilter, SearchConfigurationWhereInput>
     listing?: XOR<ListingScalarRelationFilter, ListingWhereInput>
   }
 
@@ -13710,37 +13769,37 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
-    savedQueryId?: SortOrder
+    configurationId?: SortOrder
     listingId?: SortOrder
     response?: SortOrder
     notes?: SortOrderInput | SortOrder
-    savedQuery?: SavedQueryOrderByWithRelationInput
+    configuration?: SearchConfigurationOrderByWithRelationInput
     listing?: ListingOrderByWithRelationInput
   }
 
   export type UserListingResponseWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    savedQueryId_listingId?: UserListingResponseSavedQueryIdListingIdCompoundUniqueInput
+    configurationId_listingId?: UserListingResponseConfigurationIdListingIdCompoundUniqueInput
     AND?: UserListingResponseWhereInput | UserListingResponseWhereInput[]
     OR?: UserListingResponseWhereInput[]
     NOT?: UserListingResponseWhereInput | UserListingResponseWhereInput[]
     createdAt?: DateTimeFilter<"UserListingResponse"> | Date | string
     updatedAt?: DateTimeFilter<"UserListingResponse"> | Date | string
     userId?: StringFilter<"UserListingResponse"> | string
-    savedQueryId?: StringFilter<"UserListingResponse"> | string
+    configurationId?: StringFilter<"UserListingResponse"> | string
     listingId?: StringFilter<"UserListingResponse"> | string
     response?: StringFilter<"UserListingResponse"> | string
     notes?: StringNullableFilter<"UserListingResponse"> | string | null
-    savedQuery?: XOR<SavedQueryScalarRelationFilter, SavedQueryWhereInput>
+    configuration?: XOR<SearchConfigurationScalarRelationFilter, SearchConfigurationWhereInput>
     listing?: XOR<ListingScalarRelationFilter, ListingWhereInput>
-  }, "id" | "savedQueryId_listingId">
+  }, "id" | "configurationId_listingId">
 
   export type UserListingResponseOrderByWithAggregationInput = {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
-    savedQueryId?: SortOrder
+    configurationId?: SortOrder
     listingId?: SortOrder
     response?: SortOrder
     notes?: SortOrderInput | SortOrder
@@ -13757,7 +13816,7 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"UserListingResponse"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"UserListingResponse"> | Date | string
     userId?: StringWithAggregatesFilter<"UserListingResponse"> | string
-    savedQueryId?: StringWithAggregatesFilter<"UserListingResponse"> | string
+    configurationId?: StringWithAggregatesFilter<"UserListingResponse"> | string
     listingId?: StringWithAggregatesFilter<"UserListingResponse"> | string
     response?: StringWithAggregatesFilter<"UserListingResponse"> | string
     notes?: StringNullableWithAggregatesFilter<"UserListingResponse"> | string | null
@@ -13780,6 +13839,7 @@ export namespace Prisma {
     listingsCount?: number
     listings?: ScrapeListingCreateNestedManyWithoutScrapeInput
     enhancements?: EnhancementCreateNestedManyWithoutScrapeInput
+    configurations?: SearchConfigurationCreateNestedManyWithoutScrapeInput
   }
 
   export type ScrapeUncheckedCreateInput = {
@@ -13799,6 +13859,7 @@ export namespace Prisma {
     listingsCount?: number
     listings?: ScrapeListingUncheckedCreateNestedManyWithoutScrapeInput
     enhancements?: EnhancementUncheckedCreateNestedManyWithoutScrapeInput
+    configurations?: SearchConfigurationUncheckedCreateNestedManyWithoutScrapeInput
   }
 
   export type ScrapeUpdateInput = {
@@ -13818,6 +13879,7 @@ export namespace Prisma {
     listingsCount?: IntFieldUpdateOperationsInput | number
     listings?: ScrapeListingUpdateManyWithoutScrapeNestedInput
     enhancements?: EnhancementUpdateManyWithoutScrapeNestedInput
+    configurations?: SearchConfigurationUpdateManyWithoutScrapeNestedInput
   }
 
   export type ScrapeUncheckedUpdateInput = {
@@ -13837,6 +13899,7 @@ export namespace Prisma {
     listingsCount?: IntFieldUpdateOperationsInput | number
     listings?: ScrapeListingUncheckedUpdateManyWithoutScrapeNestedInput
     enhancements?: EnhancementUncheckedUpdateManyWithoutScrapeNestedInput
+    configurations?: SearchConfigurationUncheckedUpdateManyWithoutScrapeNestedInput
   }
 
   export type ScrapeCreateManyInput = {
@@ -14209,6 +14272,7 @@ export namespace Prisma {
     scrape: ScrapeCreateNestedOneWithoutEnhancementsInput
     columns?: EnhancementColumnCreateNestedManyWithoutEnhancementInput
     results?: EnhancementResultCreateNestedManyWithoutEnhancementInput
+    configurations?: SearchConfigurationCreateNestedManyWithoutEnhancementInput
   }
 
   export type EnhancementUncheckedCreateInput = {
@@ -14226,6 +14290,7 @@ export namespace Prisma {
     totalCount?: number
     columns?: EnhancementColumnUncheckedCreateNestedManyWithoutEnhancementInput
     results?: EnhancementResultUncheckedCreateNestedManyWithoutEnhancementInput
+    configurations?: SearchConfigurationUncheckedCreateNestedManyWithoutEnhancementInput
   }
 
   export type EnhancementUpdateInput = {
@@ -14243,6 +14308,7 @@ export namespace Prisma {
     scrape?: ScrapeUpdateOneRequiredWithoutEnhancementsNestedInput
     columns?: EnhancementColumnUpdateManyWithoutEnhancementNestedInput
     results?: EnhancementResultUpdateManyWithoutEnhancementNestedInput
+    configurations?: SearchConfigurationUpdateManyWithoutEnhancementNestedInput
   }
 
   export type EnhancementUncheckedUpdateInput = {
@@ -14260,6 +14326,7 @@ export namespace Prisma {
     totalCount?: IntFieldUpdateOperationsInput | number
     columns?: EnhancementColumnUncheckedUpdateManyWithoutEnhancementNestedInput
     results?: EnhancementResultUncheckedUpdateManyWithoutEnhancementNestedInput
+    configurations?: SearchConfigurationUncheckedUpdateManyWithoutEnhancementNestedInput
   }
 
   export type EnhancementCreateManyInput = {
@@ -14540,113 +14607,90 @@ export namespace Prisma {
     normalizedValue?: FloatFieldUpdateOperationsInput | number
   }
 
-  export type SavedQueryCreateInput = {
+  export type SearchConfigurationCreateInput = {
     id?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: string
-    name: string
+    name?: string | null
     description?: string | null
-    searchType: string
-    searchQuery: JsonNullValueInput | InputJsonValue
-    enhancementQuery: string
     columnWeights?: JsonNullValueInput | InputJsonValue
-    lastRunAt?: Date | string | null
-    lastScrapeId?: string | null
-    responses?: UserListingResponseCreateNestedManyWithoutSavedQueryInput
+    scrape: ScrapeCreateNestedOneWithoutConfigurationsInput
+    enhancement: EnhancementCreateNestedOneWithoutConfigurationsInput
+    userResponses?: UserListingResponseCreateNestedManyWithoutConfigurationInput
   }
 
-  export type SavedQueryUncheckedCreateInput = {
+  export type SearchConfigurationUncheckedCreateInput = {
     id?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: string
-    name: string
+    name?: string | null
     description?: string | null
-    searchType: string
-    searchQuery: JsonNullValueInput | InputJsonValue
-    enhancementQuery: string
+    scrapeId: string
+    enhancementId: string
     columnWeights?: JsonNullValueInput | InputJsonValue
-    lastRunAt?: Date | string | null
-    lastScrapeId?: string | null
-    responses?: UserListingResponseUncheckedCreateNestedManyWithoutSavedQueryInput
+    userResponses?: UserListingResponseUncheckedCreateNestedManyWithoutConfigurationInput
   }
 
-  export type SavedQueryUpdateInput = {
+  export type SearchConfigurationUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    searchType?: StringFieldUpdateOperationsInput | string
-    searchQuery?: JsonNullValueInput | InputJsonValue
-    enhancementQuery?: StringFieldUpdateOperationsInput | string
     columnWeights?: JsonNullValueInput | InputJsonValue
-    lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastScrapeId?: NullableStringFieldUpdateOperationsInput | string | null
-    responses?: UserListingResponseUpdateManyWithoutSavedQueryNestedInput
+    scrape?: ScrapeUpdateOneRequiredWithoutConfigurationsNestedInput
+    enhancement?: EnhancementUpdateOneRequiredWithoutConfigurationsNestedInput
+    userResponses?: UserListingResponseUpdateManyWithoutConfigurationNestedInput
   }
 
-  export type SavedQueryUncheckedUpdateInput = {
+  export type SearchConfigurationUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    searchType?: StringFieldUpdateOperationsInput | string
-    searchQuery?: JsonNullValueInput | InputJsonValue
-    enhancementQuery?: StringFieldUpdateOperationsInput | string
+    scrapeId?: StringFieldUpdateOperationsInput | string
+    enhancementId?: StringFieldUpdateOperationsInput | string
     columnWeights?: JsonNullValueInput | InputJsonValue
-    lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastScrapeId?: NullableStringFieldUpdateOperationsInput | string | null
-    responses?: UserListingResponseUncheckedUpdateManyWithoutSavedQueryNestedInput
+    userResponses?: UserListingResponseUncheckedUpdateManyWithoutConfigurationNestedInput
   }
 
-  export type SavedQueryCreateManyInput = {
+  export type SearchConfigurationCreateManyInput = {
     id?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: string
-    name: string
+    name?: string | null
     description?: string | null
-    searchType: string
-    searchQuery: JsonNullValueInput | InputJsonValue
-    enhancementQuery: string
+    scrapeId: string
+    enhancementId: string
     columnWeights?: JsonNullValueInput | InputJsonValue
-    lastRunAt?: Date | string | null
-    lastScrapeId?: string | null
   }
 
-  export type SavedQueryUpdateManyMutationInput = {
+  export type SearchConfigurationUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    searchType?: StringFieldUpdateOperationsInput | string
-    searchQuery?: JsonNullValueInput | InputJsonValue
-    enhancementQuery?: StringFieldUpdateOperationsInput | string
     columnWeights?: JsonNullValueInput | InputJsonValue
-    lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastScrapeId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type SavedQueryUncheckedUpdateManyInput = {
+  export type SearchConfigurationUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    searchType?: StringFieldUpdateOperationsInput | string
-    searchQuery?: JsonNullValueInput | InputJsonValue
-    enhancementQuery?: StringFieldUpdateOperationsInput | string
+    scrapeId?: StringFieldUpdateOperationsInput | string
+    enhancementId?: StringFieldUpdateOperationsInput | string
     columnWeights?: JsonNullValueInput | InputJsonValue
-    lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastScrapeId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserListingResponseCreateInput = {
@@ -14656,7 +14700,7 @@ export namespace Prisma {
     userId: string
     response: string
     notes?: string | null
-    savedQuery: SavedQueryCreateNestedOneWithoutResponsesInput
+    configuration: SearchConfigurationCreateNestedOneWithoutUserResponsesInput
     listing: ListingCreateNestedOneWithoutUserResponsesInput
   }
 
@@ -14665,7 +14709,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: string
-    savedQueryId: string
+    configurationId: string
     listingId: string
     response: string
     notes?: string | null
@@ -14678,7 +14722,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     response?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    savedQuery?: SavedQueryUpdateOneRequiredWithoutResponsesNestedInput
+    configuration?: SearchConfigurationUpdateOneRequiredWithoutUserResponsesNestedInput
     listing?: ListingUpdateOneRequiredWithoutUserResponsesNestedInput
   }
 
@@ -14687,7 +14731,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
-    savedQueryId?: StringFieldUpdateOperationsInput | string
+    configurationId?: StringFieldUpdateOperationsInput | string
     listingId?: StringFieldUpdateOperationsInput | string
     response?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14698,7 +14742,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: string
-    savedQueryId: string
+    configurationId: string
     listingId: string
     response: string
     notes?: string | null
@@ -14718,7 +14762,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
-    savedQueryId?: StringFieldUpdateOperationsInput | string
+    configurationId?: StringFieldUpdateOperationsInput | string
     listingId?: StringFieldUpdateOperationsInput | string
     response?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14833,6 +14877,12 @@ export namespace Prisma {
     none?: EnhancementWhereInput
   }
 
+  export type SearchConfigurationListRelationFilter = {
+    every?: SearchConfigurationWhereInput
+    some?: SearchConfigurationWhereInput
+    none?: SearchConfigurationWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -14843,6 +14893,10 @@ export namespace Prisma {
   }
 
   export type EnhancementOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SearchConfigurationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -15504,54 +15558,47 @@ export namespace Prisma {
     normalizedValue?: SortOrder
   }
 
-  export type SavedQueryCountOrderByAggregateInput = {
+  export type SearchConfigurationCountOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
     name?: SortOrder
     description?: SortOrder
-    searchType?: SortOrder
-    searchQuery?: SortOrder
-    enhancementQuery?: SortOrder
+    scrapeId?: SortOrder
+    enhancementId?: SortOrder
     columnWeights?: SortOrder
-    lastRunAt?: SortOrder
-    lastScrapeId?: SortOrder
   }
 
-  export type SavedQueryMaxOrderByAggregateInput = {
+  export type SearchConfigurationMaxOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
     name?: SortOrder
     description?: SortOrder
-    searchType?: SortOrder
-    enhancementQuery?: SortOrder
-    lastRunAt?: SortOrder
-    lastScrapeId?: SortOrder
+    scrapeId?: SortOrder
+    enhancementId?: SortOrder
   }
 
-  export type SavedQueryMinOrderByAggregateInput = {
+  export type SearchConfigurationMinOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
     name?: SortOrder
     description?: SortOrder
-    searchType?: SortOrder
-    enhancementQuery?: SortOrder
-    lastRunAt?: SortOrder
-    lastScrapeId?: SortOrder
+    scrapeId?: SortOrder
+    enhancementId?: SortOrder
   }
 
-  export type SavedQueryScalarRelationFilter = {
-    is?: SavedQueryWhereInput
-    isNot?: SavedQueryWhereInput
+  export type SearchConfigurationScalarRelationFilter = {
+    is?: SearchConfigurationWhereInput
+    isNot?: SearchConfigurationWhereInput
   }
 
-  export type UserListingResponseSavedQueryIdListingIdCompoundUniqueInput = {
-    savedQueryId: string
+  export type UserListingResponseConfigurationIdListingIdCompoundUniqueInput = {
+    configurationId: string
     listingId: string
   }
 
@@ -15560,7 +15607,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
-    savedQueryId?: SortOrder
+    configurationId?: SortOrder
     listingId?: SortOrder
     response?: SortOrder
     notes?: SortOrder
@@ -15571,7 +15618,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
-    savedQueryId?: SortOrder
+    configurationId?: SortOrder
     listingId?: SortOrder
     response?: SortOrder
     notes?: SortOrder
@@ -15582,7 +15629,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
-    savedQueryId?: SortOrder
+    configurationId?: SortOrder
     listingId?: SortOrder
     response?: SortOrder
     notes?: SortOrder
@@ -15602,6 +15649,13 @@ export namespace Prisma {
     connect?: EnhancementWhereUniqueInput | EnhancementWhereUniqueInput[]
   }
 
+  export type SearchConfigurationCreateNestedManyWithoutScrapeInput = {
+    create?: XOR<SearchConfigurationCreateWithoutScrapeInput, SearchConfigurationUncheckedCreateWithoutScrapeInput> | SearchConfigurationCreateWithoutScrapeInput[] | SearchConfigurationUncheckedCreateWithoutScrapeInput[]
+    connectOrCreate?: SearchConfigurationCreateOrConnectWithoutScrapeInput | SearchConfigurationCreateOrConnectWithoutScrapeInput[]
+    createMany?: SearchConfigurationCreateManyScrapeInputEnvelope
+    connect?: SearchConfigurationWhereUniqueInput | SearchConfigurationWhereUniqueInput[]
+  }
+
   export type ScrapeListingUncheckedCreateNestedManyWithoutScrapeInput = {
     create?: XOR<ScrapeListingCreateWithoutScrapeInput, ScrapeListingUncheckedCreateWithoutScrapeInput> | ScrapeListingCreateWithoutScrapeInput[] | ScrapeListingUncheckedCreateWithoutScrapeInput[]
     connectOrCreate?: ScrapeListingCreateOrConnectWithoutScrapeInput | ScrapeListingCreateOrConnectWithoutScrapeInput[]
@@ -15614,6 +15668,13 @@ export namespace Prisma {
     connectOrCreate?: EnhancementCreateOrConnectWithoutScrapeInput | EnhancementCreateOrConnectWithoutScrapeInput[]
     createMany?: EnhancementCreateManyScrapeInputEnvelope
     connect?: EnhancementWhereUniqueInput | EnhancementWhereUniqueInput[]
+  }
+
+  export type SearchConfigurationUncheckedCreateNestedManyWithoutScrapeInput = {
+    create?: XOR<SearchConfigurationCreateWithoutScrapeInput, SearchConfigurationUncheckedCreateWithoutScrapeInput> | SearchConfigurationCreateWithoutScrapeInput[] | SearchConfigurationUncheckedCreateWithoutScrapeInput[]
+    connectOrCreate?: SearchConfigurationCreateOrConnectWithoutScrapeInput | SearchConfigurationCreateOrConnectWithoutScrapeInput[]
+    createMany?: SearchConfigurationCreateManyScrapeInputEnvelope
+    connect?: SearchConfigurationWhereUniqueInput | SearchConfigurationWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -15676,6 +15737,20 @@ export namespace Prisma {
     deleteMany?: EnhancementScalarWhereInput | EnhancementScalarWhereInput[]
   }
 
+  export type SearchConfigurationUpdateManyWithoutScrapeNestedInput = {
+    create?: XOR<SearchConfigurationCreateWithoutScrapeInput, SearchConfigurationUncheckedCreateWithoutScrapeInput> | SearchConfigurationCreateWithoutScrapeInput[] | SearchConfigurationUncheckedCreateWithoutScrapeInput[]
+    connectOrCreate?: SearchConfigurationCreateOrConnectWithoutScrapeInput | SearchConfigurationCreateOrConnectWithoutScrapeInput[]
+    upsert?: SearchConfigurationUpsertWithWhereUniqueWithoutScrapeInput | SearchConfigurationUpsertWithWhereUniqueWithoutScrapeInput[]
+    createMany?: SearchConfigurationCreateManyScrapeInputEnvelope
+    set?: SearchConfigurationWhereUniqueInput | SearchConfigurationWhereUniqueInput[]
+    disconnect?: SearchConfigurationWhereUniqueInput | SearchConfigurationWhereUniqueInput[]
+    delete?: SearchConfigurationWhereUniqueInput | SearchConfigurationWhereUniqueInput[]
+    connect?: SearchConfigurationWhereUniqueInput | SearchConfigurationWhereUniqueInput[]
+    update?: SearchConfigurationUpdateWithWhereUniqueWithoutScrapeInput | SearchConfigurationUpdateWithWhereUniqueWithoutScrapeInput[]
+    updateMany?: SearchConfigurationUpdateManyWithWhereWithoutScrapeInput | SearchConfigurationUpdateManyWithWhereWithoutScrapeInput[]
+    deleteMany?: SearchConfigurationScalarWhereInput | SearchConfigurationScalarWhereInput[]
+  }
+
   export type ScrapeListingUncheckedUpdateManyWithoutScrapeNestedInput = {
     create?: XOR<ScrapeListingCreateWithoutScrapeInput, ScrapeListingUncheckedCreateWithoutScrapeInput> | ScrapeListingCreateWithoutScrapeInput[] | ScrapeListingUncheckedCreateWithoutScrapeInput[]
     connectOrCreate?: ScrapeListingCreateOrConnectWithoutScrapeInput | ScrapeListingCreateOrConnectWithoutScrapeInput[]
@@ -15702,6 +15777,20 @@ export namespace Prisma {
     update?: EnhancementUpdateWithWhereUniqueWithoutScrapeInput | EnhancementUpdateWithWhereUniqueWithoutScrapeInput[]
     updateMany?: EnhancementUpdateManyWithWhereWithoutScrapeInput | EnhancementUpdateManyWithWhereWithoutScrapeInput[]
     deleteMany?: EnhancementScalarWhereInput | EnhancementScalarWhereInput[]
+  }
+
+  export type SearchConfigurationUncheckedUpdateManyWithoutScrapeNestedInput = {
+    create?: XOR<SearchConfigurationCreateWithoutScrapeInput, SearchConfigurationUncheckedCreateWithoutScrapeInput> | SearchConfigurationCreateWithoutScrapeInput[] | SearchConfigurationUncheckedCreateWithoutScrapeInput[]
+    connectOrCreate?: SearchConfigurationCreateOrConnectWithoutScrapeInput | SearchConfigurationCreateOrConnectWithoutScrapeInput[]
+    upsert?: SearchConfigurationUpsertWithWhereUniqueWithoutScrapeInput | SearchConfigurationUpsertWithWhereUniqueWithoutScrapeInput[]
+    createMany?: SearchConfigurationCreateManyScrapeInputEnvelope
+    set?: SearchConfigurationWhereUniqueInput | SearchConfigurationWhereUniqueInput[]
+    disconnect?: SearchConfigurationWhereUniqueInput | SearchConfigurationWhereUniqueInput[]
+    delete?: SearchConfigurationWhereUniqueInput | SearchConfigurationWhereUniqueInput[]
+    connect?: SearchConfigurationWhereUniqueInput | SearchConfigurationWhereUniqueInput[]
+    update?: SearchConfigurationUpdateWithWhereUniqueWithoutScrapeInput | SearchConfigurationUpdateWithWhereUniqueWithoutScrapeInput[]
+    updateMany?: SearchConfigurationUpdateManyWithWhereWithoutScrapeInput | SearchConfigurationUpdateManyWithWhereWithoutScrapeInput[]
+    deleteMany?: SearchConfigurationScalarWhereInput | SearchConfigurationScalarWhereInput[]
   }
 
   export type ListingCreatephotosInput = {
@@ -15899,6 +15988,13 @@ export namespace Prisma {
     connect?: EnhancementResultWhereUniqueInput | EnhancementResultWhereUniqueInput[]
   }
 
+  export type SearchConfigurationCreateNestedManyWithoutEnhancementInput = {
+    create?: XOR<SearchConfigurationCreateWithoutEnhancementInput, SearchConfigurationUncheckedCreateWithoutEnhancementInput> | SearchConfigurationCreateWithoutEnhancementInput[] | SearchConfigurationUncheckedCreateWithoutEnhancementInput[]
+    connectOrCreate?: SearchConfigurationCreateOrConnectWithoutEnhancementInput | SearchConfigurationCreateOrConnectWithoutEnhancementInput[]
+    createMany?: SearchConfigurationCreateManyEnhancementInputEnvelope
+    connect?: SearchConfigurationWhereUniqueInput | SearchConfigurationWhereUniqueInput[]
+  }
+
   export type EnhancementColumnUncheckedCreateNestedManyWithoutEnhancementInput = {
     create?: XOR<EnhancementColumnCreateWithoutEnhancementInput, EnhancementColumnUncheckedCreateWithoutEnhancementInput> | EnhancementColumnCreateWithoutEnhancementInput[] | EnhancementColumnUncheckedCreateWithoutEnhancementInput[]
     connectOrCreate?: EnhancementColumnCreateOrConnectWithoutEnhancementInput | EnhancementColumnCreateOrConnectWithoutEnhancementInput[]
@@ -15911,6 +16007,13 @@ export namespace Prisma {
     connectOrCreate?: EnhancementResultCreateOrConnectWithoutEnhancementInput | EnhancementResultCreateOrConnectWithoutEnhancementInput[]
     createMany?: EnhancementResultCreateManyEnhancementInputEnvelope
     connect?: EnhancementResultWhereUniqueInput | EnhancementResultWhereUniqueInput[]
+  }
+
+  export type SearchConfigurationUncheckedCreateNestedManyWithoutEnhancementInput = {
+    create?: XOR<SearchConfigurationCreateWithoutEnhancementInput, SearchConfigurationUncheckedCreateWithoutEnhancementInput> | SearchConfigurationCreateWithoutEnhancementInput[] | SearchConfigurationUncheckedCreateWithoutEnhancementInput[]
+    connectOrCreate?: SearchConfigurationCreateOrConnectWithoutEnhancementInput | SearchConfigurationCreateOrConnectWithoutEnhancementInput[]
+    createMany?: SearchConfigurationCreateManyEnhancementInputEnvelope
+    connect?: SearchConfigurationWhereUniqueInput | SearchConfigurationWhereUniqueInput[]
   }
 
   export type ScrapeUpdateOneRequiredWithoutEnhancementsNestedInput = {
@@ -15949,6 +16052,20 @@ export namespace Prisma {
     deleteMany?: EnhancementResultScalarWhereInput | EnhancementResultScalarWhereInput[]
   }
 
+  export type SearchConfigurationUpdateManyWithoutEnhancementNestedInput = {
+    create?: XOR<SearchConfigurationCreateWithoutEnhancementInput, SearchConfigurationUncheckedCreateWithoutEnhancementInput> | SearchConfigurationCreateWithoutEnhancementInput[] | SearchConfigurationUncheckedCreateWithoutEnhancementInput[]
+    connectOrCreate?: SearchConfigurationCreateOrConnectWithoutEnhancementInput | SearchConfigurationCreateOrConnectWithoutEnhancementInput[]
+    upsert?: SearchConfigurationUpsertWithWhereUniqueWithoutEnhancementInput | SearchConfigurationUpsertWithWhereUniqueWithoutEnhancementInput[]
+    createMany?: SearchConfigurationCreateManyEnhancementInputEnvelope
+    set?: SearchConfigurationWhereUniqueInput | SearchConfigurationWhereUniqueInput[]
+    disconnect?: SearchConfigurationWhereUniqueInput | SearchConfigurationWhereUniqueInput[]
+    delete?: SearchConfigurationWhereUniqueInput | SearchConfigurationWhereUniqueInput[]
+    connect?: SearchConfigurationWhereUniqueInput | SearchConfigurationWhereUniqueInput[]
+    update?: SearchConfigurationUpdateWithWhereUniqueWithoutEnhancementInput | SearchConfigurationUpdateWithWhereUniqueWithoutEnhancementInput[]
+    updateMany?: SearchConfigurationUpdateManyWithWhereWithoutEnhancementInput | SearchConfigurationUpdateManyWithWhereWithoutEnhancementInput[]
+    deleteMany?: SearchConfigurationScalarWhereInput | SearchConfigurationScalarWhereInput[]
+  }
+
   export type EnhancementColumnUncheckedUpdateManyWithoutEnhancementNestedInput = {
     create?: XOR<EnhancementColumnCreateWithoutEnhancementInput, EnhancementColumnUncheckedCreateWithoutEnhancementInput> | EnhancementColumnCreateWithoutEnhancementInput[] | EnhancementColumnUncheckedCreateWithoutEnhancementInput[]
     connectOrCreate?: EnhancementColumnCreateOrConnectWithoutEnhancementInput | EnhancementColumnCreateOrConnectWithoutEnhancementInput[]
@@ -15975,6 +16092,20 @@ export namespace Prisma {
     update?: EnhancementResultUpdateWithWhereUniqueWithoutEnhancementInput | EnhancementResultUpdateWithWhereUniqueWithoutEnhancementInput[]
     updateMany?: EnhancementResultUpdateManyWithWhereWithoutEnhancementInput | EnhancementResultUpdateManyWithWhereWithoutEnhancementInput[]
     deleteMany?: EnhancementResultScalarWhereInput | EnhancementResultScalarWhereInput[]
+  }
+
+  export type SearchConfigurationUncheckedUpdateManyWithoutEnhancementNestedInput = {
+    create?: XOR<SearchConfigurationCreateWithoutEnhancementInput, SearchConfigurationUncheckedCreateWithoutEnhancementInput> | SearchConfigurationCreateWithoutEnhancementInput[] | SearchConfigurationUncheckedCreateWithoutEnhancementInput[]
+    connectOrCreate?: SearchConfigurationCreateOrConnectWithoutEnhancementInput | SearchConfigurationCreateOrConnectWithoutEnhancementInput[]
+    upsert?: SearchConfigurationUpsertWithWhereUniqueWithoutEnhancementInput | SearchConfigurationUpsertWithWhereUniqueWithoutEnhancementInput[]
+    createMany?: SearchConfigurationCreateManyEnhancementInputEnvelope
+    set?: SearchConfigurationWhereUniqueInput | SearchConfigurationWhereUniqueInput[]
+    disconnect?: SearchConfigurationWhereUniqueInput | SearchConfigurationWhereUniqueInput[]
+    delete?: SearchConfigurationWhereUniqueInput | SearchConfigurationWhereUniqueInput[]
+    connect?: SearchConfigurationWhereUniqueInput | SearchConfigurationWhereUniqueInput[]
+    update?: SearchConfigurationUpdateWithWhereUniqueWithoutEnhancementInput | SearchConfigurationUpdateWithWhereUniqueWithoutEnhancementInput[]
+    updateMany?: SearchConfigurationUpdateManyWithWhereWithoutEnhancementInput | SearchConfigurationUpdateManyWithWhereWithoutEnhancementInput[]
+    deleteMany?: SearchConfigurationScalarWhereInput | SearchConfigurationScalarWhereInput[]
   }
 
   export type EnhancementCreateNestedOneWithoutColumnsInput = {
@@ -16139,52 +16270,80 @@ export namespace Prisma {
     update?: XOR<XOR<EnhancementColumnUpdateToOneWithWhereWithoutValuesInput, EnhancementColumnUpdateWithoutValuesInput>, EnhancementColumnUncheckedUpdateWithoutValuesInput>
   }
 
-  export type UserListingResponseCreateNestedManyWithoutSavedQueryInput = {
-    create?: XOR<UserListingResponseCreateWithoutSavedQueryInput, UserListingResponseUncheckedCreateWithoutSavedQueryInput> | UserListingResponseCreateWithoutSavedQueryInput[] | UserListingResponseUncheckedCreateWithoutSavedQueryInput[]
-    connectOrCreate?: UserListingResponseCreateOrConnectWithoutSavedQueryInput | UserListingResponseCreateOrConnectWithoutSavedQueryInput[]
-    createMany?: UserListingResponseCreateManySavedQueryInputEnvelope
+  export type ScrapeCreateNestedOneWithoutConfigurationsInput = {
+    create?: XOR<ScrapeCreateWithoutConfigurationsInput, ScrapeUncheckedCreateWithoutConfigurationsInput>
+    connectOrCreate?: ScrapeCreateOrConnectWithoutConfigurationsInput
+    connect?: ScrapeWhereUniqueInput
+  }
+
+  export type EnhancementCreateNestedOneWithoutConfigurationsInput = {
+    create?: XOR<EnhancementCreateWithoutConfigurationsInput, EnhancementUncheckedCreateWithoutConfigurationsInput>
+    connectOrCreate?: EnhancementCreateOrConnectWithoutConfigurationsInput
+    connect?: EnhancementWhereUniqueInput
+  }
+
+  export type UserListingResponseCreateNestedManyWithoutConfigurationInput = {
+    create?: XOR<UserListingResponseCreateWithoutConfigurationInput, UserListingResponseUncheckedCreateWithoutConfigurationInput> | UserListingResponseCreateWithoutConfigurationInput[] | UserListingResponseUncheckedCreateWithoutConfigurationInput[]
+    connectOrCreate?: UserListingResponseCreateOrConnectWithoutConfigurationInput | UserListingResponseCreateOrConnectWithoutConfigurationInput[]
+    createMany?: UserListingResponseCreateManyConfigurationInputEnvelope
     connect?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
   }
 
-  export type UserListingResponseUncheckedCreateNestedManyWithoutSavedQueryInput = {
-    create?: XOR<UserListingResponseCreateWithoutSavedQueryInput, UserListingResponseUncheckedCreateWithoutSavedQueryInput> | UserListingResponseCreateWithoutSavedQueryInput[] | UserListingResponseUncheckedCreateWithoutSavedQueryInput[]
-    connectOrCreate?: UserListingResponseCreateOrConnectWithoutSavedQueryInput | UserListingResponseCreateOrConnectWithoutSavedQueryInput[]
-    createMany?: UserListingResponseCreateManySavedQueryInputEnvelope
+  export type UserListingResponseUncheckedCreateNestedManyWithoutConfigurationInput = {
+    create?: XOR<UserListingResponseCreateWithoutConfigurationInput, UserListingResponseUncheckedCreateWithoutConfigurationInput> | UserListingResponseCreateWithoutConfigurationInput[] | UserListingResponseUncheckedCreateWithoutConfigurationInput[]
+    connectOrCreate?: UserListingResponseCreateOrConnectWithoutConfigurationInput | UserListingResponseCreateOrConnectWithoutConfigurationInput[]
+    createMany?: UserListingResponseCreateManyConfigurationInputEnvelope
     connect?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
   }
 
-  export type UserListingResponseUpdateManyWithoutSavedQueryNestedInput = {
-    create?: XOR<UserListingResponseCreateWithoutSavedQueryInput, UserListingResponseUncheckedCreateWithoutSavedQueryInput> | UserListingResponseCreateWithoutSavedQueryInput[] | UserListingResponseUncheckedCreateWithoutSavedQueryInput[]
-    connectOrCreate?: UserListingResponseCreateOrConnectWithoutSavedQueryInput | UserListingResponseCreateOrConnectWithoutSavedQueryInput[]
-    upsert?: UserListingResponseUpsertWithWhereUniqueWithoutSavedQueryInput | UserListingResponseUpsertWithWhereUniqueWithoutSavedQueryInput[]
-    createMany?: UserListingResponseCreateManySavedQueryInputEnvelope
+  export type ScrapeUpdateOneRequiredWithoutConfigurationsNestedInput = {
+    create?: XOR<ScrapeCreateWithoutConfigurationsInput, ScrapeUncheckedCreateWithoutConfigurationsInput>
+    connectOrCreate?: ScrapeCreateOrConnectWithoutConfigurationsInput
+    upsert?: ScrapeUpsertWithoutConfigurationsInput
+    connect?: ScrapeWhereUniqueInput
+    update?: XOR<XOR<ScrapeUpdateToOneWithWhereWithoutConfigurationsInput, ScrapeUpdateWithoutConfigurationsInput>, ScrapeUncheckedUpdateWithoutConfigurationsInput>
+  }
+
+  export type EnhancementUpdateOneRequiredWithoutConfigurationsNestedInput = {
+    create?: XOR<EnhancementCreateWithoutConfigurationsInput, EnhancementUncheckedCreateWithoutConfigurationsInput>
+    connectOrCreate?: EnhancementCreateOrConnectWithoutConfigurationsInput
+    upsert?: EnhancementUpsertWithoutConfigurationsInput
+    connect?: EnhancementWhereUniqueInput
+    update?: XOR<XOR<EnhancementUpdateToOneWithWhereWithoutConfigurationsInput, EnhancementUpdateWithoutConfigurationsInput>, EnhancementUncheckedUpdateWithoutConfigurationsInput>
+  }
+
+  export type UserListingResponseUpdateManyWithoutConfigurationNestedInput = {
+    create?: XOR<UserListingResponseCreateWithoutConfigurationInput, UserListingResponseUncheckedCreateWithoutConfigurationInput> | UserListingResponseCreateWithoutConfigurationInput[] | UserListingResponseUncheckedCreateWithoutConfigurationInput[]
+    connectOrCreate?: UserListingResponseCreateOrConnectWithoutConfigurationInput | UserListingResponseCreateOrConnectWithoutConfigurationInput[]
+    upsert?: UserListingResponseUpsertWithWhereUniqueWithoutConfigurationInput | UserListingResponseUpsertWithWhereUniqueWithoutConfigurationInput[]
+    createMany?: UserListingResponseCreateManyConfigurationInputEnvelope
     set?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
     disconnect?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
     delete?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
     connect?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
-    update?: UserListingResponseUpdateWithWhereUniqueWithoutSavedQueryInput | UserListingResponseUpdateWithWhereUniqueWithoutSavedQueryInput[]
-    updateMany?: UserListingResponseUpdateManyWithWhereWithoutSavedQueryInput | UserListingResponseUpdateManyWithWhereWithoutSavedQueryInput[]
+    update?: UserListingResponseUpdateWithWhereUniqueWithoutConfigurationInput | UserListingResponseUpdateWithWhereUniqueWithoutConfigurationInput[]
+    updateMany?: UserListingResponseUpdateManyWithWhereWithoutConfigurationInput | UserListingResponseUpdateManyWithWhereWithoutConfigurationInput[]
     deleteMany?: UserListingResponseScalarWhereInput | UserListingResponseScalarWhereInput[]
   }
 
-  export type UserListingResponseUncheckedUpdateManyWithoutSavedQueryNestedInput = {
-    create?: XOR<UserListingResponseCreateWithoutSavedQueryInput, UserListingResponseUncheckedCreateWithoutSavedQueryInput> | UserListingResponseCreateWithoutSavedQueryInput[] | UserListingResponseUncheckedCreateWithoutSavedQueryInput[]
-    connectOrCreate?: UserListingResponseCreateOrConnectWithoutSavedQueryInput | UserListingResponseCreateOrConnectWithoutSavedQueryInput[]
-    upsert?: UserListingResponseUpsertWithWhereUniqueWithoutSavedQueryInput | UserListingResponseUpsertWithWhereUniqueWithoutSavedQueryInput[]
-    createMany?: UserListingResponseCreateManySavedQueryInputEnvelope
+  export type UserListingResponseUncheckedUpdateManyWithoutConfigurationNestedInput = {
+    create?: XOR<UserListingResponseCreateWithoutConfigurationInput, UserListingResponseUncheckedCreateWithoutConfigurationInput> | UserListingResponseCreateWithoutConfigurationInput[] | UserListingResponseUncheckedCreateWithoutConfigurationInput[]
+    connectOrCreate?: UserListingResponseCreateOrConnectWithoutConfigurationInput | UserListingResponseCreateOrConnectWithoutConfigurationInput[]
+    upsert?: UserListingResponseUpsertWithWhereUniqueWithoutConfigurationInput | UserListingResponseUpsertWithWhereUniqueWithoutConfigurationInput[]
+    createMany?: UserListingResponseCreateManyConfigurationInputEnvelope
     set?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
     disconnect?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
     delete?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
     connect?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
-    update?: UserListingResponseUpdateWithWhereUniqueWithoutSavedQueryInput | UserListingResponseUpdateWithWhereUniqueWithoutSavedQueryInput[]
-    updateMany?: UserListingResponseUpdateManyWithWhereWithoutSavedQueryInput | UserListingResponseUpdateManyWithWhereWithoutSavedQueryInput[]
+    update?: UserListingResponseUpdateWithWhereUniqueWithoutConfigurationInput | UserListingResponseUpdateWithWhereUniqueWithoutConfigurationInput[]
+    updateMany?: UserListingResponseUpdateManyWithWhereWithoutConfigurationInput | UserListingResponseUpdateManyWithWhereWithoutConfigurationInput[]
     deleteMany?: UserListingResponseScalarWhereInput | UserListingResponseScalarWhereInput[]
   }
 
-  export type SavedQueryCreateNestedOneWithoutResponsesInput = {
-    create?: XOR<SavedQueryCreateWithoutResponsesInput, SavedQueryUncheckedCreateWithoutResponsesInput>
-    connectOrCreate?: SavedQueryCreateOrConnectWithoutResponsesInput
-    connect?: SavedQueryWhereUniqueInput
+  export type SearchConfigurationCreateNestedOneWithoutUserResponsesInput = {
+    create?: XOR<SearchConfigurationCreateWithoutUserResponsesInput, SearchConfigurationUncheckedCreateWithoutUserResponsesInput>
+    connectOrCreate?: SearchConfigurationCreateOrConnectWithoutUserResponsesInput
+    connect?: SearchConfigurationWhereUniqueInput
   }
 
   export type ListingCreateNestedOneWithoutUserResponsesInput = {
@@ -16193,12 +16352,12 @@ export namespace Prisma {
     connect?: ListingWhereUniqueInput
   }
 
-  export type SavedQueryUpdateOneRequiredWithoutResponsesNestedInput = {
-    create?: XOR<SavedQueryCreateWithoutResponsesInput, SavedQueryUncheckedCreateWithoutResponsesInput>
-    connectOrCreate?: SavedQueryCreateOrConnectWithoutResponsesInput
-    upsert?: SavedQueryUpsertWithoutResponsesInput
-    connect?: SavedQueryWhereUniqueInput
-    update?: XOR<XOR<SavedQueryUpdateToOneWithWhereWithoutResponsesInput, SavedQueryUpdateWithoutResponsesInput>, SavedQueryUncheckedUpdateWithoutResponsesInput>
+  export type SearchConfigurationUpdateOneRequiredWithoutUserResponsesNestedInput = {
+    create?: XOR<SearchConfigurationCreateWithoutUserResponsesInput, SearchConfigurationUncheckedCreateWithoutUserResponsesInput>
+    connectOrCreate?: SearchConfigurationCreateOrConnectWithoutUserResponsesInput
+    upsert?: SearchConfigurationUpsertWithoutUserResponsesInput
+    connect?: SearchConfigurationWhereUniqueInput
+    update?: XOR<XOR<SearchConfigurationUpdateToOneWithWhereWithoutUserResponsesInput, SearchConfigurationUpdateWithoutUserResponsesInput>, SearchConfigurationUncheckedUpdateWithoutUserResponsesInput>
   }
 
   export type ListingUpdateOneRequiredWithoutUserResponsesNestedInput = {
@@ -16499,6 +16658,7 @@ export namespace Prisma {
     totalCount?: number
     columns?: EnhancementColumnCreateNestedManyWithoutEnhancementInput
     results?: EnhancementResultCreateNestedManyWithoutEnhancementInput
+    configurations?: SearchConfigurationCreateNestedManyWithoutEnhancementInput
   }
 
   export type EnhancementUncheckedCreateWithoutScrapeInput = {
@@ -16515,6 +16675,7 @@ export namespace Prisma {
     totalCount?: number
     columns?: EnhancementColumnUncheckedCreateNestedManyWithoutEnhancementInput
     results?: EnhancementResultUncheckedCreateNestedManyWithoutEnhancementInput
+    configurations?: SearchConfigurationUncheckedCreateNestedManyWithoutEnhancementInput
   }
 
   export type EnhancementCreateOrConnectWithoutScrapeInput = {
@@ -16524,6 +16685,40 @@ export namespace Prisma {
 
   export type EnhancementCreateManyScrapeInputEnvelope = {
     data: EnhancementCreateManyScrapeInput | EnhancementCreateManyScrapeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SearchConfigurationCreateWithoutScrapeInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    name?: string | null
+    description?: string | null
+    columnWeights?: JsonNullValueInput | InputJsonValue
+    enhancement: EnhancementCreateNestedOneWithoutConfigurationsInput
+    userResponses?: UserListingResponseCreateNestedManyWithoutConfigurationInput
+  }
+
+  export type SearchConfigurationUncheckedCreateWithoutScrapeInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    name?: string | null
+    description?: string | null
+    enhancementId: string
+    columnWeights?: JsonNullValueInput | InputJsonValue
+    userResponses?: UserListingResponseUncheckedCreateNestedManyWithoutConfigurationInput
+  }
+
+  export type SearchConfigurationCreateOrConnectWithoutScrapeInput = {
+    where: SearchConfigurationWhereUniqueInput
+    create: XOR<SearchConfigurationCreateWithoutScrapeInput, SearchConfigurationUncheckedCreateWithoutScrapeInput>
+  }
+
+  export type SearchConfigurationCreateManyScrapeInputEnvelope = {
+    data: SearchConfigurationCreateManyScrapeInput | SearchConfigurationCreateManyScrapeInput[]
     skipDuplicates?: boolean
   }
 
@@ -16584,6 +16779,37 @@ export namespace Prisma {
     completedAt?: DateTimeNullableFilter<"Enhancement"> | Date | string | null
     processedCount?: IntFilter<"Enhancement"> | number
     totalCount?: IntFilter<"Enhancement"> | number
+  }
+
+  export type SearchConfigurationUpsertWithWhereUniqueWithoutScrapeInput = {
+    where: SearchConfigurationWhereUniqueInput
+    update: XOR<SearchConfigurationUpdateWithoutScrapeInput, SearchConfigurationUncheckedUpdateWithoutScrapeInput>
+    create: XOR<SearchConfigurationCreateWithoutScrapeInput, SearchConfigurationUncheckedCreateWithoutScrapeInput>
+  }
+
+  export type SearchConfigurationUpdateWithWhereUniqueWithoutScrapeInput = {
+    where: SearchConfigurationWhereUniqueInput
+    data: XOR<SearchConfigurationUpdateWithoutScrapeInput, SearchConfigurationUncheckedUpdateWithoutScrapeInput>
+  }
+
+  export type SearchConfigurationUpdateManyWithWhereWithoutScrapeInput = {
+    where: SearchConfigurationScalarWhereInput
+    data: XOR<SearchConfigurationUpdateManyMutationInput, SearchConfigurationUncheckedUpdateManyWithoutScrapeInput>
+  }
+
+  export type SearchConfigurationScalarWhereInput = {
+    AND?: SearchConfigurationScalarWhereInput | SearchConfigurationScalarWhereInput[]
+    OR?: SearchConfigurationScalarWhereInput[]
+    NOT?: SearchConfigurationScalarWhereInput | SearchConfigurationScalarWhereInput[]
+    id?: StringFilter<"SearchConfiguration"> | string
+    createdAt?: DateTimeFilter<"SearchConfiguration"> | Date | string
+    updatedAt?: DateTimeFilter<"SearchConfiguration"> | Date | string
+    userId?: StringFilter<"SearchConfiguration"> | string
+    name?: StringNullableFilter<"SearchConfiguration"> | string | null
+    description?: StringNullableFilter<"SearchConfiguration"> | string | null
+    scrapeId?: StringFilter<"SearchConfiguration"> | string
+    enhancementId?: StringFilter<"SearchConfiguration"> | string
+    columnWeights?: JsonFilter<"SearchConfiguration">
   }
 
   export type ScrapeListingCreateWithoutListingInput = {
@@ -16647,7 +16873,7 @@ export namespace Prisma {
     userId: string
     response: string
     notes?: string | null
-    savedQuery: SavedQueryCreateNestedOneWithoutResponsesInput
+    configuration: SearchConfigurationCreateNestedOneWithoutUserResponsesInput
   }
 
   export type UserListingResponseUncheckedCreateWithoutListingInput = {
@@ -16655,7 +16881,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: string
-    savedQueryId: string
+    configurationId: string
     response: string
     notes?: string | null
   }
@@ -16741,7 +16967,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"UserListingResponse"> | Date | string
     updatedAt?: DateTimeFilter<"UserListingResponse"> | Date | string
     userId?: StringFilter<"UserListingResponse"> | string
-    savedQueryId?: StringFilter<"UserListingResponse"> | string
+    configurationId?: StringFilter<"UserListingResponse"> | string
     listingId?: StringFilter<"UserListingResponse"> | string
     response?: StringFilter<"UserListingResponse"> | string
     notes?: StringNullableFilter<"UserListingResponse"> | string | null
@@ -16763,6 +16989,7 @@ export namespace Prisma {
     durationMs?: number | null
     listingsCount?: number
     enhancements?: EnhancementCreateNestedManyWithoutScrapeInput
+    configurations?: SearchConfigurationCreateNestedManyWithoutScrapeInput
   }
 
   export type ScrapeUncheckedCreateWithoutListingsInput = {
@@ -16781,6 +17008,7 @@ export namespace Prisma {
     durationMs?: number | null
     listingsCount?: number
     enhancements?: EnhancementUncheckedCreateNestedManyWithoutScrapeInput
+    configurations?: SearchConfigurationUncheckedCreateNestedManyWithoutScrapeInput
   }
 
   export type ScrapeCreateOrConnectWithoutListingsInput = {
@@ -16896,6 +17124,7 @@ export namespace Prisma {
     durationMs?: NullableIntFieldUpdateOperationsInput | number | null
     listingsCount?: IntFieldUpdateOperationsInput | number
     enhancements?: EnhancementUpdateManyWithoutScrapeNestedInput
+    configurations?: SearchConfigurationUpdateManyWithoutScrapeNestedInput
   }
 
   export type ScrapeUncheckedUpdateWithoutListingsInput = {
@@ -16914,6 +17143,7 @@ export namespace Prisma {
     durationMs?: NullableIntFieldUpdateOperationsInput | number | null
     listingsCount?: IntFieldUpdateOperationsInput | number
     enhancements?: EnhancementUncheckedUpdateManyWithoutScrapeNestedInput
+    configurations?: SearchConfigurationUncheckedUpdateManyWithoutScrapeNestedInput
   }
 
   export type ListingUpsertWithoutScrapesInput = {
@@ -17019,6 +17249,7 @@ export namespace Prisma {
     durationMs?: number | null
     listingsCount?: number
     listings?: ScrapeListingCreateNestedManyWithoutScrapeInput
+    configurations?: SearchConfigurationCreateNestedManyWithoutScrapeInput
   }
 
   export type ScrapeUncheckedCreateWithoutEnhancementsInput = {
@@ -17037,6 +17268,7 @@ export namespace Prisma {
     durationMs?: number | null
     listingsCount?: number
     listings?: ScrapeListingUncheckedCreateNestedManyWithoutScrapeInput
+    configurations?: SearchConfigurationUncheckedCreateNestedManyWithoutScrapeInput
   }
 
   export type ScrapeCreateOrConnectWithoutEnhancementsInput = {
@@ -17110,6 +17342,40 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SearchConfigurationCreateWithoutEnhancementInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    name?: string | null
+    description?: string | null
+    columnWeights?: JsonNullValueInput | InputJsonValue
+    scrape: ScrapeCreateNestedOneWithoutConfigurationsInput
+    userResponses?: UserListingResponseCreateNestedManyWithoutConfigurationInput
+  }
+
+  export type SearchConfigurationUncheckedCreateWithoutEnhancementInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    name?: string | null
+    description?: string | null
+    scrapeId: string
+    columnWeights?: JsonNullValueInput | InputJsonValue
+    userResponses?: UserListingResponseUncheckedCreateNestedManyWithoutConfigurationInput
+  }
+
+  export type SearchConfigurationCreateOrConnectWithoutEnhancementInput = {
+    where: SearchConfigurationWhereUniqueInput
+    create: XOR<SearchConfigurationCreateWithoutEnhancementInput, SearchConfigurationUncheckedCreateWithoutEnhancementInput>
+  }
+
+  export type SearchConfigurationCreateManyEnhancementInputEnvelope = {
+    data: SearchConfigurationCreateManyEnhancementInput | SearchConfigurationCreateManyEnhancementInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ScrapeUpsertWithoutEnhancementsInput = {
     update: XOR<ScrapeUpdateWithoutEnhancementsInput, ScrapeUncheckedUpdateWithoutEnhancementsInput>
     create: XOR<ScrapeCreateWithoutEnhancementsInput, ScrapeUncheckedCreateWithoutEnhancementsInput>
@@ -17137,6 +17403,7 @@ export namespace Prisma {
     durationMs?: NullableIntFieldUpdateOperationsInput | number | null
     listingsCount?: IntFieldUpdateOperationsInput | number
     listings?: ScrapeListingUpdateManyWithoutScrapeNestedInput
+    configurations?: SearchConfigurationUpdateManyWithoutScrapeNestedInput
   }
 
   export type ScrapeUncheckedUpdateWithoutEnhancementsInput = {
@@ -17155,6 +17422,7 @@ export namespace Prisma {
     durationMs?: NullableIntFieldUpdateOperationsInput | number | null
     listingsCount?: IntFieldUpdateOperationsInput | number
     listings?: ScrapeListingUncheckedUpdateManyWithoutScrapeNestedInput
+    configurations?: SearchConfigurationUncheckedUpdateManyWithoutScrapeNestedInput
   }
 
   export type EnhancementColumnUpsertWithWhereUniqueWithoutEnhancementInput = {
@@ -17203,6 +17471,22 @@ export namespace Prisma {
     data: XOR<EnhancementResultUpdateManyMutationInput, EnhancementResultUncheckedUpdateManyWithoutEnhancementInput>
   }
 
+  export type SearchConfigurationUpsertWithWhereUniqueWithoutEnhancementInput = {
+    where: SearchConfigurationWhereUniqueInput
+    update: XOR<SearchConfigurationUpdateWithoutEnhancementInput, SearchConfigurationUncheckedUpdateWithoutEnhancementInput>
+    create: XOR<SearchConfigurationCreateWithoutEnhancementInput, SearchConfigurationUncheckedCreateWithoutEnhancementInput>
+  }
+
+  export type SearchConfigurationUpdateWithWhereUniqueWithoutEnhancementInput = {
+    where: SearchConfigurationWhereUniqueInput
+    data: XOR<SearchConfigurationUpdateWithoutEnhancementInput, SearchConfigurationUncheckedUpdateWithoutEnhancementInput>
+  }
+
+  export type SearchConfigurationUpdateManyWithWhereWithoutEnhancementInput = {
+    where: SearchConfigurationScalarWhereInput
+    data: XOR<SearchConfigurationUpdateManyMutationInput, SearchConfigurationUncheckedUpdateManyWithoutEnhancementInput>
+  }
+
   export type EnhancementCreateWithoutColumnsInput = {
     id?: string
     createdAt?: Date | string
@@ -17217,6 +17501,7 @@ export namespace Prisma {
     totalCount?: number
     scrape: ScrapeCreateNestedOneWithoutEnhancementsInput
     results?: EnhancementResultCreateNestedManyWithoutEnhancementInput
+    configurations?: SearchConfigurationCreateNestedManyWithoutEnhancementInput
   }
 
   export type EnhancementUncheckedCreateWithoutColumnsInput = {
@@ -17233,6 +17518,7 @@ export namespace Prisma {
     processedCount?: number
     totalCount?: number
     results?: EnhancementResultUncheckedCreateNestedManyWithoutEnhancementInput
+    configurations?: SearchConfigurationUncheckedCreateNestedManyWithoutEnhancementInput
   }
 
   export type EnhancementCreateOrConnectWithoutColumnsInput = {
@@ -17293,6 +17579,7 @@ export namespace Prisma {
     totalCount?: IntFieldUpdateOperationsInput | number
     scrape?: ScrapeUpdateOneRequiredWithoutEnhancementsNestedInput
     results?: EnhancementResultUpdateManyWithoutEnhancementNestedInput
+    configurations?: SearchConfigurationUpdateManyWithoutEnhancementNestedInput
   }
 
   export type EnhancementUncheckedUpdateWithoutColumnsInput = {
@@ -17309,6 +17596,7 @@ export namespace Prisma {
     processedCount?: IntFieldUpdateOperationsInput | number
     totalCount?: IntFieldUpdateOperationsInput | number
     results?: EnhancementResultUncheckedUpdateManyWithoutEnhancementNestedInput
+    configurations?: SearchConfigurationUncheckedUpdateManyWithoutEnhancementNestedInput
   }
 
   export type EnhancementValueUpsertWithWhereUniqueWithoutColumnInput = {
@@ -17354,6 +17642,7 @@ export namespace Prisma {
     totalCount?: number
     scrape: ScrapeCreateNestedOneWithoutEnhancementsInput
     columns?: EnhancementColumnCreateNestedManyWithoutEnhancementInput
+    configurations?: SearchConfigurationCreateNestedManyWithoutEnhancementInput
   }
 
   export type EnhancementUncheckedCreateWithoutResultsInput = {
@@ -17370,6 +17659,7 @@ export namespace Prisma {
     processedCount?: number
     totalCount?: number
     columns?: EnhancementColumnUncheckedCreateNestedManyWithoutEnhancementInput
+    configurations?: SearchConfigurationUncheckedCreateNestedManyWithoutEnhancementInput
   }
 
   export type EnhancementCreateOrConnectWithoutResultsInput = {
@@ -17511,6 +17801,7 @@ export namespace Prisma {
     totalCount?: IntFieldUpdateOperationsInput | number
     scrape?: ScrapeUpdateOneRequiredWithoutEnhancementsNestedInput
     columns?: EnhancementColumnUpdateManyWithoutEnhancementNestedInput
+    configurations?: SearchConfigurationUpdateManyWithoutEnhancementNestedInput
   }
 
   export type EnhancementUncheckedUpdateWithoutResultsInput = {
@@ -17527,6 +17818,7 @@ export namespace Prisma {
     processedCount?: IntFieldUpdateOperationsInput | number
     totalCount?: IntFieldUpdateOperationsInput | number
     columns?: EnhancementColumnUncheckedUpdateManyWithoutEnhancementNestedInput
+    configurations?: SearchConfigurationUncheckedUpdateManyWithoutEnhancementNestedInput
   }
 
   export type ListingUpsertWithoutEnhancementResultsInput = {
@@ -17756,7 +18048,89 @@ export namespace Prisma {
     order?: IntFieldUpdateOperationsInput | number
   }
 
-  export type UserListingResponseCreateWithoutSavedQueryInput = {
+  export type ScrapeCreateWithoutConfigurationsInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    name?: string | null
+    searchType: string
+    searchQuery: JsonNullValueInput | InputJsonValue
+    apifyRunId: string
+    taskId?: string | null
+    status: string
+    error?: string | null
+    completedAt?: Date | string | null
+    durationMs?: number | null
+    listingsCount?: number
+    listings?: ScrapeListingCreateNestedManyWithoutScrapeInput
+    enhancements?: EnhancementCreateNestedManyWithoutScrapeInput
+  }
+
+  export type ScrapeUncheckedCreateWithoutConfigurationsInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    name?: string | null
+    searchType: string
+    searchQuery: JsonNullValueInput | InputJsonValue
+    apifyRunId: string
+    taskId?: string | null
+    status: string
+    error?: string | null
+    completedAt?: Date | string | null
+    durationMs?: number | null
+    listingsCount?: number
+    listings?: ScrapeListingUncheckedCreateNestedManyWithoutScrapeInput
+    enhancements?: EnhancementUncheckedCreateNestedManyWithoutScrapeInput
+  }
+
+  export type ScrapeCreateOrConnectWithoutConfigurationsInput = {
+    where: ScrapeWhereUniqueInput
+    create: XOR<ScrapeCreateWithoutConfigurationsInput, ScrapeUncheckedCreateWithoutConfigurationsInput>
+  }
+
+  export type EnhancementCreateWithoutConfigurationsInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    query: string
+    taskId?: string | null
+    status: string
+    error?: string | null
+    completedAt?: Date | string | null
+    processedCount?: number
+    totalCount?: number
+    scrape: ScrapeCreateNestedOneWithoutEnhancementsInput
+    columns?: EnhancementColumnCreateNestedManyWithoutEnhancementInput
+    results?: EnhancementResultCreateNestedManyWithoutEnhancementInput
+  }
+
+  export type EnhancementUncheckedCreateWithoutConfigurationsInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    scrapeId: string
+    userId: string
+    query: string
+    taskId?: string | null
+    status: string
+    error?: string | null
+    completedAt?: Date | string | null
+    processedCount?: number
+    totalCount?: number
+    columns?: EnhancementColumnUncheckedCreateNestedManyWithoutEnhancementInput
+    results?: EnhancementResultUncheckedCreateNestedManyWithoutEnhancementInput
+  }
+
+  export type EnhancementCreateOrConnectWithoutConfigurationsInput = {
+    where: EnhancementWhereUniqueInput
+    create: XOR<EnhancementCreateWithoutConfigurationsInput, EnhancementUncheckedCreateWithoutConfigurationsInput>
+  }
+
+  export type UserListingResponseCreateWithoutConfigurationInput = {
     id?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -17766,7 +18140,7 @@ export namespace Prisma {
     listing: ListingCreateNestedOneWithoutUserResponsesInput
   }
 
-  export type UserListingResponseUncheckedCreateWithoutSavedQueryInput = {
+  export type UserListingResponseUncheckedCreateWithoutConfigurationInput = {
     id?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -17776,65 +18150,153 @@ export namespace Prisma {
     notes?: string | null
   }
 
-  export type UserListingResponseCreateOrConnectWithoutSavedQueryInput = {
+  export type UserListingResponseCreateOrConnectWithoutConfigurationInput = {
     where: UserListingResponseWhereUniqueInput
-    create: XOR<UserListingResponseCreateWithoutSavedQueryInput, UserListingResponseUncheckedCreateWithoutSavedQueryInput>
+    create: XOR<UserListingResponseCreateWithoutConfigurationInput, UserListingResponseUncheckedCreateWithoutConfigurationInput>
   }
 
-  export type UserListingResponseCreateManySavedQueryInputEnvelope = {
-    data: UserListingResponseCreateManySavedQueryInput | UserListingResponseCreateManySavedQueryInput[]
+  export type UserListingResponseCreateManyConfigurationInputEnvelope = {
+    data: UserListingResponseCreateManyConfigurationInput | UserListingResponseCreateManyConfigurationInput[]
     skipDuplicates?: boolean
   }
 
-  export type UserListingResponseUpsertWithWhereUniqueWithoutSavedQueryInput = {
-    where: UserListingResponseWhereUniqueInput
-    update: XOR<UserListingResponseUpdateWithoutSavedQueryInput, UserListingResponseUncheckedUpdateWithoutSavedQueryInput>
-    create: XOR<UserListingResponseCreateWithoutSavedQueryInput, UserListingResponseUncheckedCreateWithoutSavedQueryInput>
+  export type ScrapeUpsertWithoutConfigurationsInput = {
+    update: XOR<ScrapeUpdateWithoutConfigurationsInput, ScrapeUncheckedUpdateWithoutConfigurationsInput>
+    create: XOR<ScrapeCreateWithoutConfigurationsInput, ScrapeUncheckedCreateWithoutConfigurationsInput>
+    where?: ScrapeWhereInput
   }
 
-  export type UserListingResponseUpdateWithWhereUniqueWithoutSavedQueryInput = {
-    where: UserListingResponseWhereUniqueInput
-    data: XOR<UserListingResponseUpdateWithoutSavedQueryInput, UserListingResponseUncheckedUpdateWithoutSavedQueryInput>
+  export type ScrapeUpdateToOneWithWhereWithoutConfigurationsInput = {
+    where?: ScrapeWhereInput
+    data: XOR<ScrapeUpdateWithoutConfigurationsInput, ScrapeUncheckedUpdateWithoutConfigurationsInput>
   }
 
-  export type UserListingResponseUpdateManyWithWhereWithoutSavedQueryInput = {
+  export type ScrapeUpdateWithoutConfigurationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    searchType?: StringFieldUpdateOperationsInput | string
+    searchQuery?: JsonNullValueInput | InputJsonValue
+    apifyRunId?: StringFieldUpdateOperationsInput | string
+    taskId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMs?: NullableIntFieldUpdateOperationsInput | number | null
+    listingsCount?: IntFieldUpdateOperationsInput | number
+    listings?: ScrapeListingUpdateManyWithoutScrapeNestedInput
+    enhancements?: EnhancementUpdateManyWithoutScrapeNestedInput
+  }
+
+  export type ScrapeUncheckedUpdateWithoutConfigurationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    searchType?: StringFieldUpdateOperationsInput | string
+    searchQuery?: JsonNullValueInput | InputJsonValue
+    apifyRunId?: StringFieldUpdateOperationsInput | string
+    taskId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMs?: NullableIntFieldUpdateOperationsInput | number | null
+    listingsCount?: IntFieldUpdateOperationsInput | number
+    listings?: ScrapeListingUncheckedUpdateManyWithoutScrapeNestedInput
+    enhancements?: EnhancementUncheckedUpdateManyWithoutScrapeNestedInput
+  }
+
+  export type EnhancementUpsertWithoutConfigurationsInput = {
+    update: XOR<EnhancementUpdateWithoutConfigurationsInput, EnhancementUncheckedUpdateWithoutConfigurationsInput>
+    create: XOR<EnhancementCreateWithoutConfigurationsInput, EnhancementUncheckedCreateWithoutConfigurationsInput>
+    where?: EnhancementWhereInput
+  }
+
+  export type EnhancementUpdateToOneWithWhereWithoutConfigurationsInput = {
+    where?: EnhancementWhereInput
+    data: XOR<EnhancementUpdateWithoutConfigurationsInput, EnhancementUncheckedUpdateWithoutConfigurationsInput>
+  }
+
+  export type EnhancementUpdateWithoutConfigurationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    query?: StringFieldUpdateOperationsInput | string
+    taskId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    processedCount?: IntFieldUpdateOperationsInput | number
+    totalCount?: IntFieldUpdateOperationsInput | number
+    scrape?: ScrapeUpdateOneRequiredWithoutEnhancementsNestedInput
+    columns?: EnhancementColumnUpdateManyWithoutEnhancementNestedInput
+    results?: EnhancementResultUpdateManyWithoutEnhancementNestedInput
+  }
+
+  export type EnhancementUncheckedUpdateWithoutConfigurationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    scrapeId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    query?: StringFieldUpdateOperationsInput | string
+    taskId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    processedCount?: IntFieldUpdateOperationsInput | number
+    totalCount?: IntFieldUpdateOperationsInput | number
+    columns?: EnhancementColumnUncheckedUpdateManyWithoutEnhancementNestedInput
+    results?: EnhancementResultUncheckedUpdateManyWithoutEnhancementNestedInput
+  }
+
+  export type UserListingResponseUpsertWithWhereUniqueWithoutConfigurationInput = {
+    where: UserListingResponseWhereUniqueInput
+    update: XOR<UserListingResponseUpdateWithoutConfigurationInput, UserListingResponseUncheckedUpdateWithoutConfigurationInput>
+    create: XOR<UserListingResponseCreateWithoutConfigurationInput, UserListingResponseUncheckedCreateWithoutConfigurationInput>
+  }
+
+  export type UserListingResponseUpdateWithWhereUniqueWithoutConfigurationInput = {
+    where: UserListingResponseWhereUniqueInput
+    data: XOR<UserListingResponseUpdateWithoutConfigurationInput, UserListingResponseUncheckedUpdateWithoutConfigurationInput>
+  }
+
+  export type UserListingResponseUpdateManyWithWhereWithoutConfigurationInput = {
     where: UserListingResponseScalarWhereInput
-    data: XOR<UserListingResponseUpdateManyMutationInput, UserListingResponseUncheckedUpdateManyWithoutSavedQueryInput>
+    data: XOR<UserListingResponseUpdateManyMutationInput, UserListingResponseUncheckedUpdateManyWithoutConfigurationInput>
   }
 
-  export type SavedQueryCreateWithoutResponsesInput = {
+  export type SearchConfigurationCreateWithoutUserResponsesInput = {
     id?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: string
-    name: string
+    name?: string | null
     description?: string | null
-    searchType: string
-    searchQuery: JsonNullValueInput | InputJsonValue
-    enhancementQuery: string
     columnWeights?: JsonNullValueInput | InputJsonValue
-    lastRunAt?: Date | string | null
-    lastScrapeId?: string | null
+    scrape: ScrapeCreateNestedOneWithoutConfigurationsInput
+    enhancement: EnhancementCreateNestedOneWithoutConfigurationsInput
   }
 
-  export type SavedQueryUncheckedCreateWithoutResponsesInput = {
+  export type SearchConfigurationUncheckedCreateWithoutUserResponsesInput = {
     id?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: string
-    name: string
+    name?: string | null
     description?: string | null
-    searchType: string
-    searchQuery: JsonNullValueInput | InputJsonValue
-    enhancementQuery: string
+    scrapeId: string
+    enhancementId: string
     columnWeights?: JsonNullValueInput | InputJsonValue
-    lastRunAt?: Date | string | null
-    lastScrapeId?: string | null
   }
 
-  export type SavedQueryCreateOrConnectWithoutResponsesInput = {
-    where: SavedQueryWhereUniqueInput
-    create: XOR<SavedQueryCreateWithoutResponsesInput, SavedQueryUncheckedCreateWithoutResponsesInput>
+  export type SearchConfigurationCreateOrConnectWithoutUserResponsesInput = {
+    where: SearchConfigurationWhereUniqueInput
+    create: XOR<SearchConfigurationCreateWithoutUserResponsesInput, SearchConfigurationUncheckedCreateWithoutUserResponsesInput>
   }
 
   export type ListingCreateWithoutUserResponsesInput = {
@@ -17918,45 +18380,39 @@ export namespace Prisma {
     create: XOR<ListingCreateWithoutUserResponsesInput, ListingUncheckedCreateWithoutUserResponsesInput>
   }
 
-  export type SavedQueryUpsertWithoutResponsesInput = {
-    update: XOR<SavedQueryUpdateWithoutResponsesInput, SavedQueryUncheckedUpdateWithoutResponsesInput>
-    create: XOR<SavedQueryCreateWithoutResponsesInput, SavedQueryUncheckedCreateWithoutResponsesInput>
-    where?: SavedQueryWhereInput
+  export type SearchConfigurationUpsertWithoutUserResponsesInput = {
+    update: XOR<SearchConfigurationUpdateWithoutUserResponsesInput, SearchConfigurationUncheckedUpdateWithoutUserResponsesInput>
+    create: XOR<SearchConfigurationCreateWithoutUserResponsesInput, SearchConfigurationUncheckedCreateWithoutUserResponsesInput>
+    where?: SearchConfigurationWhereInput
   }
 
-  export type SavedQueryUpdateToOneWithWhereWithoutResponsesInput = {
-    where?: SavedQueryWhereInput
-    data: XOR<SavedQueryUpdateWithoutResponsesInput, SavedQueryUncheckedUpdateWithoutResponsesInput>
+  export type SearchConfigurationUpdateToOneWithWhereWithoutUserResponsesInput = {
+    where?: SearchConfigurationWhereInput
+    data: XOR<SearchConfigurationUpdateWithoutUserResponsesInput, SearchConfigurationUncheckedUpdateWithoutUserResponsesInput>
   }
 
-  export type SavedQueryUpdateWithoutResponsesInput = {
+  export type SearchConfigurationUpdateWithoutUserResponsesInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    searchType?: StringFieldUpdateOperationsInput | string
-    searchQuery?: JsonNullValueInput | InputJsonValue
-    enhancementQuery?: StringFieldUpdateOperationsInput | string
     columnWeights?: JsonNullValueInput | InputJsonValue
-    lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastScrapeId?: NullableStringFieldUpdateOperationsInput | string | null
+    scrape?: ScrapeUpdateOneRequiredWithoutConfigurationsNestedInput
+    enhancement?: EnhancementUpdateOneRequiredWithoutConfigurationsNestedInput
   }
 
-  export type SavedQueryUncheckedUpdateWithoutResponsesInput = {
+  export type SearchConfigurationUncheckedUpdateWithoutUserResponsesInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    searchType?: StringFieldUpdateOperationsInput | string
-    searchQuery?: JsonNullValueInput | InputJsonValue
-    enhancementQuery?: StringFieldUpdateOperationsInput | string
+    scrapeId?: StringFieldUpdateOperationsInput | string
+    enhancementId?: StringFieldUpdateOperationsInput | string
     columnWeights?: JsonNullValueInput | InputJsonValue
-    lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastScrapeId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ListingUpsertWithoutUserResponsesInput = {
@@ -18065,6 +18521,17 @@ export namespace Prisma {
     totalCount?: number
   }
 
+  export type SearchConfigurationCreateManyScrapeInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    name?: string | null
+    description?: string | null
+    enhancementId: string
+    columnWeights?: JsonNullValueInput | InputJsonValue
+  }
+
   export type ScrapeListingUpdateWithoutScrapeInput = {
     foundAt?: DateTimeFieldUpdateOperationsInput | Date | string
     listing?: ListingUpdateOneRequiredWithoutScrapesNestedInput
@@ -18094,6 +18561,7 @@ export namespace Prisma {
     totalCount?: IntFieldUpdateOperationsInput | number
     columns?: EnhancementColumnUpdateManyWithoutEnhancementNestedInput
     results?: EnhancementResultUpdateManyWithoutEnhancementNestedInput
+    configurations?: SearchConfigurationUpdateManyWithoutEnhancementNestedInput
   }
 
   export type EnhancementUncheckedUpdateWithoutScrapeInput = {
@@ -18110,6 +18578,7 @@ export namespace Prisma {
     totalCount?: IntFieldUpdateOperationsInput | number
     columns?: EnhancementColumnUncheckedUpdateManyWithoutEnhancementNestedInput
     results?: EnhancementResultUncheckedUpdateManyWithoutEnhancementNestedInput
+    configurations?: SearchConfigurationUncheckedUpdateManyWithoutEnhancementNestedInput
   }
 
   export type EnhancementUncheckedUpdateManyWithoutScrapeInput = {
@@ -18124,6 +18593,41 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     processedCount?: IntFieldUpdateOperationsInput | number
     totalCount?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type SearchConfigurationUpdateWithoutScrapeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    columnWeights?: JsonNullValueInput | InputJsonValue
+    enhancement?: EnhancementUpdateOneRequiredWithoutConfigurationsNestedInput
+    userResponses?: UserListingResponseUpdateManyWithoutConfigurationNestedInput
+  }
+
+  export type SearchConfigurationUncheckedUpdateWithoutScrapeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    enhancementId?: StringFieldUpdateOperationsInput | string
+    columnWeights?: JsonNullValueInput | InputJsonValue
+    userResponses?: UserListingResponseUncheckedUpdateManyWithoutConfigurationNestedInput
+  }
+
+  export type SearchConfigurationUncheckedUpdateManyWithoutScrapeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    enhancementId?: StringFieldUpdateOperationsInput | string
+    columnWeights?: JsonNullValueInput | InputJsonValue
   }
 
   export type ScrapeListingCreateManyListingInput = {
@@ -18147,7 +18651,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: string
-    savedQueryId: string
+    configurationId: string
     response: string
     notes?: string | null
   }
@@ -18209,7 +18713,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     response?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
-    savedQuery?: SavedQueryUpdateOneRequiredWithoutResponsesNestedInput
+    configuration?: SearchConfigurationUpdateOneRequiredWithoutUserResponsesNestedInput
   }
 
   export type UserListingResponseUncheckedUpdateWithoutListingInput = {
@@ -18217,7 +18721,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
-    savedQueryId?: StringFieldUpdateOperationsInput | string
+    configurationId?: StringFieldUpdateOperationsInput | string
     response?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -18227,7 +18731,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
-    savedQueryId?: StringFieldUpdateOperationsInput | string
+    configurationId?: StringFieldUpdateOperationsInput | string
     response?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -18251,6 +18755,17 @@ export namespace Prisma {
     compositeScore?: number
     status?: string
     error?: string | null
+  }
+
+  export type SearchConfigurationCreateManyEnhancementInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    name?: string | null
+    description?: string | null
+    scrapeId: string
+    columnWeights?: JsonNullValueInput | InputJsonValue
   }
 
   export type EnhancementColumnUpdateWithoutEnhancementInput = {
@@ -18318,6 +18833,41 @@ export namespace Prisma {
     compositeScore?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     error?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SearchConfigurationUpdateWithoutEnhancementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    columnWeights?: JsonNullValueInput | InputJsonValue
+    scrape?: ScrapeUpdateOneRequiredWithoutConfigurationsNestedInput
+    userResponses?: UserListingResponseUpdateManyWithoutConfigurationNestedInput
+  }
+
+  export type SearchConfigurationUncheckedUpdateWithoutEnhancementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    scrapeId?: StringFieldUpdateOperationsInput | string
+    columnWeights?: JsonNullValueInput | InputJsonValue
+    userResponses?: UserListingResponseUncheckedUpdateManyWithoutConfigurationNestedInput
+  }
+
+  export type SearchConfigurationUncheckedUpdateManyWithoutEnhancementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    scrapeId?: StringFieldUpdateOperationsInput | string
+    columnWeights?: JsonNullValueInput | InputJsonValue
   }
 
   export type EnhancementValueCreateManyColumnInput = {
@@ -18392,7 +18942,7 @@ export namespace Prisma {
     normalizedValue?: FloatFieldUpdateOperationsInput | number
   }
 
-  export type UserListingResponseCreateManySavedQueryInput = {
+  export type UserListingResponseCreateManyConfigurationInput = {
     id?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -18402,7 +18952,7 @@ export namespace Prisma {
     notes?: string | null
   }
 
-  export type UserListingResponseUpdateWithoutSavedQueryInput = {
+  export type UserListingResponseUpdateWithoutConfigurationInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18412,7 +18962,7 @@ export namespace Prisma {
     listing?: ListingUpdateOneRequiredWithoutUserResponsesNestedInput
   }
 
-  export type UserListingResponseUncheckedUpdateWithoutSavedQueryInput = {
+  export type UserListingResponseUncheckedUpdateWithoutConfigurationInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18422,7 +18972,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type UserListingResponseUncheckedUpdateManyWithoutSavedQueryInput = {
+  export type UserListingResponseUncheckedUpdateManyWithoutConfigurationInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

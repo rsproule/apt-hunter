@@ -20,11 +20,15 @@ interface Column {
 interface ColumnWeightsProps {
   enhancementIds: string[];
   columns: Column[];
+  scrapeId: string;
+  onConfigurationCreated?: (configId: string) => void;
 }
 
 export default function ColumnWeights({
   enhancementIds,
   columns: initialColumns,
+  scrapeId,
+  onConfigurationCreated,
 }: ColumnWeightsProps) {
   const router = useRouter();
   const [columns, setColumns] = useState(initialColumns);
@@ -70,6 +74,32 @@ export default function ColumnWeights({
           }),
         ),
       );
+
+      // Auto-save to configuration with updated column weights
+      const columnWeights: Record<string, number> = {};
+      columns.forEach((col) => {
+        columnWeights[col.name] = col.weight;
+      });
+
+      // Create/update configuration for each enhancement
+      for (const enhancementId of enhancementIds) {
+        const response = await fetch(`/api/configurations/sync`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            scrapeId,
+            enhancementId,
+            columnWeights,
+          }),
+        });
+
+        if (response.ok && onConfigurationCreated) {
+          const data = await response.json();
+          onConfigurationCreated(data.configuration.id);
+        }
+      }
 
       // Refresh the page to recalculate composite scores
       router.refresh();

@@ -1,19 +1,20 @@
 import { prisma } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
+import { getUserId } from "@/echo";
 
 // POST /api/listings/respond - Save user response to a listing
 export async function POST(request: NextRequest) {
   try {
-    const userId = request.headers.get("x-echo-user-id");
+    const userId = await getUserId();
     if (!userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const body = await request.json();
-    const { savedQueryId, listingId, response, notes } = body;
+    const { configurationId, listingId, response, notes } = body;
 
     // Validate required fields
-    if (!savedQueryId || !listingId || !response) {
+    if (!configurationId || !listingId || !response) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 },
@@ -21,21 +22,21 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate response value
-    if (!["like", "dislike"].includes(response)) {
+    if (!["like", "dislike", "pass"].includes(response)) {
       return NextResponse.json(
-        { error: 'Response must be "like" or "dislike"' },
+        { error: 'Response must be "like", "dislike", or "pass"' },
         { status: 400 },
       );
     }
 
-    // Verify saved query belongs to user
-    const savedQuery = await prisma.savedQuery.findFirst({
-      where: { id: savedQueryId, userId },
+    // Verify configuration belongs to user
+    const configuration = await prisma.searchConfiguration.findFirst({
+      where: { id: configurationId, userId },
     });
 
-    if (!savedQuery) {
+    if (!configuration) {
       return NextResponse.json(
-        { error: "Saved query not found" },
+        { error: "Configuration not found" },
         { status: 404 },
       );
     }
@@ -55,8 +56,8 @@ export async function POST(request: NextRequest) {
     // Upsert the response (update if exists, create if not)
     const userResponse = await prisma.userListingResponse.upsert({
       where: {
-        savedQueryId_listingId: {
-          savedQueryId,
+        configurationId_listingId: {
+          configurationId,
           listingId,
         },
       },
@@ -66,7 +67,7 @@ export async function POST(request: NextRequest) {
       },
       create: {
         userId,
-        savedQueryId,
+        configurationId,
         listingId,
         response,
         notes,
