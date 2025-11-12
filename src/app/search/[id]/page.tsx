@@ -2,6 +2,7 @@ import ColumnWeights from "@/app/search/[id]/ColumnWeights";
 import EnhancementChat from "@/app/search/[id]/EnhancementChat";
 import EnhancementPolling from "@/app/search/[id]/EnhancementPolling";
 import ListingsTable from "@/app/search/[id]/ListingsTable";
+import SaveQueryButton from "@/app/search/[id]/SaveQueryButton";
 import SearchPageClient from "@/app/search/[id]/SearchPageClient";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -237,6 +238,15 @@ export default async function SearchPage({
       ? searchQuery?.zipCodes?.join(", ")
       : "URL Search");
 
+  // Get enhancement query and column weights from active enhancements
+  const enhancementQuery = activeEnhancements[0]?.query;
+  const columnWeightsMap: Record<string, number> = {};
+  for (const enhancement of activeEnhancements) {
+    for (const column of enhancement.columns) {
+      columnWeightsMap[column.name] = column.weight;
+    }
+  }
+
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Auto-refresh component for pending/running searches */}
@@ -256,6 +266,16 @@ export default async function SearchPage({
             <Badge className={`${getStatusColor(scrape.status)} text-white`}>
               {scrape.status}
             </Badge>
+            {scrape.status === "completed" &&
+              activeEnhancementIds.length > 0 && (
+                <SaveQueryButton
+                  scrapeId={scrape.id}
+                  searchType={scrape.searchType}
+                  searchQuery={searchQuery}
+                  enhancementQuery={enhancementQuery}
+                  columnWeights={columnWeightsMap}
+                />
+              )}
           </div>
           <p className="text-gray-600">
             {scrape.listingsCount} listings found •{" "}

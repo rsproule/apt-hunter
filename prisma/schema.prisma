@@ -107,6 +107,7 @@ model Listing {
     // Relations
     scrapes            ScrapeListing[]
     enhancementResults EnhancementResult[]
+    userResponses      UserListingResponse[]
 
     @@index([zpid])
     @@index([addressZipcode])
@@ -235,12 +236,12 @@ model EnhancementValue {
     createdAt DateTime @default(now())
 
     // Links
-    result            EnhancementResult  @relation(fields: [resultId], references: [id], onDelete: Cascade)
-    resultId          String
-    column            EnhancementColumn  @relation(fields: [columnId], references: [id], onDelete: Cascade)
-    columnId          String
-    enhancementId     String
-    listingId         String
+    result        EnhancementResult @relation(fields: [resultId], references: [id], onDelete: Cascade)
+    resultId      String
+    column        EnhancementColumn @relation(fields: [columnId], references: [id], onDelete: Cascade)
+    columnId      String
+    enhancementId String
+    listingId     String
 
     // Normalized value (boolean as 0 or 10, scores as 0-10)
     normalizedValue Float
@@ -248,4 +249,70 @@ model EnhancementValue {
     @@unique([resultId, columnId])
     @@index([enhancementId, columnId, normalizedValue]) // For efficient sorting by any column
     @@index([listingId, columnId])
+}
+
+// Saved search query with enhancement preferences
+model SavedQuery {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // Echo user who created this saved query
+    userId String
+
+    // Query metadata
+    name        String // User-provided name for the saved query
+    description String? // Optional description
+
+    // Search parameters (same format as Scrape.searchQuery)
+    searchType  String // "zipcode" or "url"
+    searchQuery Json // Store the search parameters as JSON
+
+    // Enhancement configuration
+    enhancementQuery String // The semantic enhancement query text
+
+    // Column weights stored as JSON
+    // Structure: { "columnName1": 5.0, "columnName2": 8.5, ... }
+    columnWeights Json @default("{}")
+
+    // Track the most recent execution
+    lastRunAt    DateTime?
+    lastScrapeId String? // Reference to most recent scrape (not FK to allow scrape deletion)
+
+    // Relations
+    responses UserListingResponse[]
+
+    @@index([userId])
+    @@index([createdAt])
+    @@index([lastRunAt])
+}
+
+// User's response to a listing (like/dislike)
+model UserListingResponse {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // User who made the response
+    userId String
+
+    // Which saved query this response is for
+    savedQuery   SavedQuery @relation(fields: [savedQueryId], references: [id], onDelete: Cascade)
+    savedQueryId String
+
+    // Which listing was responded to
+    listing   Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+    listingId String
+
+    // Response: "like" or "dislike"
+    response String
+
+    // Optional notes
+    notes String?
+
+    @@unique([savedQueryId, listingId]) // One response per listing per saved query
+    @@index([userId])
+    @@index([savedQueryId])
+    @@index([listingId])
+    @@index([savedQueryId, response]) // Efficiently find liked/disliked
 }

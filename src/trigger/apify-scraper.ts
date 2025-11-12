@@ -33,8 +33,11 @@ export const runApifyTask = task({
   run: async (payload: ApifyTaskPayload): Promise<ApifyTaskResult> => {
     const startTime = Date.now();
 
-    // Validate the payload
-    const validatedRequest = ApifyWorkflowRequestSchema.parse(payload);
+    // Validate the actorId and input part of the payload
+    const validatedRequest = ApifyWorkflowRequestSchema.parse({
+      actorId: payload.actorId,
+      input: payload.input,
+    });
     const { actorId, input, userId, searchType, searchQuery, scrapeId } =
       payload;
 

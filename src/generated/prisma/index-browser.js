@@ -228,6 +228,32 @@ exports.Prisma.EnhancementValueScalarFieldEnum = {
   normalizedValue: 'normalizedValue'
 };
 
+exports.Prisma.SavedQueryScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId',
+  name: 'name',
+  description: 'description',
+  searchType: 'searchType',
+  searchQuery: 'searchQuery',
+  enhancementQuery: 'enhancementQuery',
+  columnWeights: 'columnWeights',
+  lastRunAt: 'lastRunAt',
+  lastScrapeId: 'lastScrapeId'
+};
+
+exports.Prisma.UserListingResponseScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId',
+  savedQueryId: 'savedQueryId',
+  listingId: 'listingId',
+  response: 'response',
+  notes: 'notes'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -261,7 +287,9 @@ exports.Prisma.ModelName = {
   Enhancement: 'Enhancement',
   EnhancementColumn: 'EnhancementColumn',
   EnhancementResult: 'EnhancementResult',
-  EnhancementValue: 'EnhancementValue'
+  EnhancementValue: 'EnhancementValue',
+  SavedQuery: 'SavedQuery',
+  UserListingResponse: 'UserListingResponse'
 };
 
 /**

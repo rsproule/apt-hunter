@@ -48,6 +48,16 @@ export type EnhancementResult = $Result.DefaultSelection<Prisma.$EnhancementResu
  * 
  */
 export type EnhancementValue = $Result.DefaultSelection<Prisma.$EnhancementValuePayload>
+/**
+ * Model SavedQuery
+ * 
+ */
+export type SavedQuery = $Result.DefaultSelection<Prisma.$SavedQueryPayload>
+/**
+ * Model UserListingResponse
+ * 
+ */
+export type UserListingResponse = $Result.DefaultSelection<Prisma.$UserListingResponsePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -236,6 +246,26 @@ export class PrismaClient<
     * ```
     */
   get enhancementValue(): Prisma.EnhancementValueDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.savedQuery`: Exposes CRUD operations for the **SavedQuery** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SavedQueries
+    * const savedQueries = await prisma.savedQuery.findMany()
+    * ```
+    */
+  get savedQuery(): Prisma.SavedQueryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userListingResponse`: Exposes CRUD operations for the **UserListingResponse** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserListingResponses
+    * const userListingResponses = await prisma.userListingResponse.findMany()
+    * ```
+    */
+  get userListingResponse(): Prisma.UserListingResponseDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -683,7 +713,9 @@ export namespace Prisma {
     Enhancement: 'Enhancement',
     EnhancementColumn: 'EnhancementColumn',
     EnhancementResult: 'EnhancementResult',
-    EnhancementValue: 'EnhancementValue'
+    EnhancementValue: 'EnhancementValue',
+    SavedQuery: 'SavedQuery',
+    UserListingResponse: 'UserListingResponse'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -702,7 +734,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "scrape" | "listing" | "scrapeListing" | "enhancement" | "enhancementColumn" | "enhancementResult" | "enhancementValue"
+      modelProps: "scrape" | "listing" | "scrapeListing" | "enhancement" | "enhancementColumn" | "enhancementResult" | "enhancementValue" | "savedQuery" | "userListingResponse"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1224,6 +1256,154 @@ export namespace Prisma {
           }
         }
       }
+      SavedQuery: {
+        payload: Prisma.$SavedQueryPayload<ExtArgs>
+        fields: Prisma.SavedQueryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SavedQueryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedQueryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SavedQueryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedQueryPayload>
+          }
+          findFirst: {
+            args: Prisma.SavedQueryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedQueryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SavedQueryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedQueryPayload>
+          }
+          findMany: {
+            args: Prisma.SavedQueryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedQueryPayload>[]
+          }
+          create: {
+            args: Prisma.SavedQueryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedQueryPayload>
+          }
+          createMany: {
+            args: Prisma.SavedQueryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SavedQueryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedQueryPayload>[]
+          }
+          delete: {
+            args: Prisma.SavedQueryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedQueryPayload>
+          }
+          update: {
+            args: Prisma.SavedQueryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedQueryPayload>
+          }
+          deleteMany: {
+            args: Prisma.SavedQueryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SavedQueryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SavedQueryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedQueryPayload>[]
+          }
+          upsert: {
+            args: Prisma.SavedQueryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedQueryPayload>
+          }
+          aggregate: {
+            args: Prisma.SavedQueryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSavedQuery>
+          }
+          groupBy: {
+            args: Prisma.SavedQueryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SavedQueryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SavedQueryCountArgs<ExtArgs>
+            result: $Utils.Optional<SavedQueryCountAggregateOutputType> | number
+          }
+        }
+      }
+      UserListingResponse: {
+        payload: Prisma.$UserListingResponsePayload<ExtArgs>
+        fields: Prisma.UserListingResponseFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserListingResponseFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserListingResponsePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserListingResponseFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserListingResponsePayload>
+          }
+          findFirst: {
+            args: Prisma.UserListingResponseFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserListingResponsePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserListingResponseFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserListingResponsePayload>
+          }
+          findMany: {
+            args: Prisma.UserListingResponseFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserListingResponsePayload>[]
+          }
+          create: {
+            args: Prisma.UserListingResponseCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserListingResponsePayload>
+          }
+          createMany: {
+            args: Prisma.UserListingResponseCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserListingResponseCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserListingResponsePayload>[]
+          }
+          delete: {
+            args: Prisma.UserListingResponseDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserListingResponsePayload>
+          }
+          update: {
+            args: Prisma.UserListingResponseUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserListingResponsePayload>
+          }
+          deleteMany: {
+            args: Prisma.UserListingResponseDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserListingResponseUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserListingResponseUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserListingResponsePayload>[]
+          }
+          upsert: {
+            args: Prisma.UserListingResponseUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserListingResponsePayload>
+          }
+          aggregate: {
+            args: Prisma.UserListingResponseAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserListingResponse>
+          }
+          groupBy: {
+            args: Prisma.UserListingResponseGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserListingResponseGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserListingResponseCountArgs<ExtArgs>
+            result: $Utils.Optional<UserListingResponseCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1327,6 +1507,8 @@ export namespace Prisma {
     enhancementColumn?: EnhancementColumnOmit
     enhancementResult?: EnhancementResultOmit
     enhancementValue?: EnhancementValueOmit
+    savedQuery?: SavedQueryOmit
+    userListingResponse?: UserListingResponseOmit
   }
 
   /* Types for Logging */
@@ -1449,11 +1631,13 @@ export namespace Prisma {
   export type ListingCountOutputType = {
     scrapes: number
     enhancementResults: number
+    userResponses: number
   }
 
   export type ListingCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     scrapes?: boolean | ListingCountOutputTypeCountScrapesArgs
     enhancementResults?: boolean | ListingCountOutputTypeCountEnhancementResultsArgs
+    userResponses?: boolean | ListingCountOutputTypeCountUserResponsesArgs
   }
 
   // Custom InputTypes
@@ -1479,6 +1663,13 @@ export namespace Prisma {
    */
   export type ListingCountOutputTypeCountEnhancementResultsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EnhancementResultWhereInput
+  }
+
+  /**
+   * ListingCountOutputType without action
+   */
+  export type ListingCountOutputTypeCountUserResponsesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserListingResponseWhereInput
   }
 
 
@@ -1581,6 +1772,37 @@ export namespace Prisma {
    */
   export type EnhancementResultCountOutputTypeCountIndividualValuesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EnhancementValueWhereInput
+  }
+
+
+  /**
+   * Count Type SavedQueryCountOutputType
+   */
+
+  export type SavedQueryCountOutputType = {
+    responses: number
+  }
+
+  export type SavedQueryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    responses?: boolean | SavedQueryCountOutputTypeCountResponsesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SavedQueryCountOutputType without action
+   */
+  export type SavedQueryCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedQueryCountOutputType
+     */
+    select?: SavedQueryCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SavedQueryCountOutputType without action
+   */
+  export type SavedQueryCountOutputTypeCountResponsesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserListingResponseWhereInput
   }
 
 
@@ -3281,6 +3503,7 @@ export namespace Prisma {
     rawData?: boolean
     scrapes?: boolean | Listing$scrapesArgs<ExtArgs>
     enhancementResults?: boolean | Listing$enhancementResultsArgs<ExtArgs>
+    userResponses?: boolean | Listing$userResponsesArgs<ExtArgs>
     _count?: boolean | ListingCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["listing"]>
 
@@ -3396,6 +3619,7 @@ export namespace Prisma {
   export type ListingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     scrapes?: boolean | Listing$scrapesArgs<ExtArgs>
     enhancementResults?: boolean | Listing$enhancementResultsArgs<ExtArgs>
+    userResponses?: boolean | Listing$userResponsesArgs<ExtArgs>
     _count?: boolean | ListingCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ListingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3406,6 +3630,7 @@ export namespace Prisma {
     objects: {
       scrapes: Prisma.$ScrapeListingPayload<ExtArgs>[]
       enhancementResults: Prisma.$EnhancementResultPayload<ExtArgs>[]
+      userResponses: Prisma.$UserListingResponsePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3837,6 +4062,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     scrapes<T extends Listing$scrapesArgs<ExtArgs> = {}>(args?: Subset<T, Listing$scrapesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScrapeListingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     enhancementResults<T extends Listing$enhancementResultsArgs<ExtArgs> = {}>(args?: Subset<T, Listing$enhancementResultsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnhancementResultPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    userResponses<T extends Listing$userResponsesArgs<ExtArgs> = {}>(args?: Subset<T, Listing$userResponsesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserListingResponsePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4332,6 +4558,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: EnhancementResultScalarFieldEnum | EnhancementResultScalarFieldEnum[]
+  }
+
+  /**
+   * Listing.userResponses
+   */
+  export type Listing$userResponsesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserListingResponse
+     */
+    select?: UserListingResponseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserListingResponse
+     */
+    omit?: UserListingResponseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserListingResponseInclude<ExtArgs> | null
+    where?: UserListingResponseWhereInput
+    orderBy?: UserListingResponseOrderByWithRelationInput | UserListingResponseOrderByWithRelationInput[]
+    cursor?: UserListingResponseWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserListingResponseScalarFieldEnum | UserListingResponseScalarFieldEnum[]
   }
 
   /**
@@ -10108,6 +10358,2264 @@ export namespace Prisma {
 
 
   /**
+   * Model SavedQuery
+   */
+
+  export type AggregateSavedQuery = {
+    _count: SavedQueryCountAggregateOutputType | null
+    _min: SavedQueryMinAggregateOutputType | null
+    _max: SavedQueryMaxAggregateOutputType | null
+  }
+
+  export type SavedQueryMinAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    userId: string | null
+    name: string | null
+    description: string | null
+    searchType: string | null
+    enhancementQuery: string | null
+    lastRunAt: Date | null
+    lastScrapeId: string | null
+  }
+
+  export type SavedQueryMaxAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    userId: string | null
+    name: string | null
+    description: string | null
+    searchType: string | null
+    enhancementQuery: string | null
+    lastRunAt: Date | null
+    lastScrapeId: string | null
+  }
+
+  export type SavedQueryCountAggregateOutputType = {
+    id: number
+    createdAt: number
+    updatedAt: number
+    userId: number
+    name: number
+    description: number
+    searchType: number
+    searchQuery: number
+    enhancementQuery: number
+    columnWeights: number
+    lastRunAt: number
+    lastScrapeId: number
+    _all: number
+  }
+
+
+  export type SavedQueryMinAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    userId?: true
+    name?: true
+    description?: true
+    searchType?: true
+    enhancementQuery?: true
+    lastRunAt?: true
+    lastScrapeId?: true
+  }
+
+  export type SavedQueryMaxAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    userId?: true
+    name?: true
+    description?: true
+    searchType?: true
+    enhancementQuery?: true
+    lastRunAt?: true
+    lastScrapeId?: true
+  }
+
+  export type SavedQueryCountAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    userId?: true
+    name?: true
+    description?: true
+    searchType?: true
+    searchQuery?: true
+    enhancementQuery?: true
+    columnWeights?: true
+    lastRunAt?: true
+    lastScrapeId?: true
+    _all?: true
+  }
+
+  export type SavedQueryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SavedQuery to aggregate.
+     */
+    where?: SavedQueryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SavedQueries to fetch.
+     */
+    orderBy?: SavedQueryOrderByWithRelationInput | SavedQueryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SavedQueryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SavedQueries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SavedQueries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SavedQueries
+    **/
+    _count?: true | SavedQueryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SavedQueryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SavedQueryMaxAggregateInputType
+  }
+
+  export type GetSavedQueryAggregateType<T extends SavedQueryAggregateArgs> = {
+        [P in keyof T & keyof AggregateSavedQuery]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSavedQuery[P]>
+      : GetScalarType<T[P], AggregateSavedQuery[P]>
+  }
+
+
+
+
+  export type SavedQueryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SavedQueryWhereInput
+    orderBy?: SavedQueryOrderByWithAggregationInput | SavedQueryOrderByWithAggregationInput[]
+    by: SavedQueryScalarFieldEnum[] | SavedQueryScalarFieldEnum
+    having?: SavedQueryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SavedQueryCountAggregateInputType | true
+    _min?: SavedQueryMinAggregateInputType
+    _max?: SavedQueryMaxAggregateInputType
+  }
+
+  export type SavedQueryGroupByOutputType = {
+    id: string
+    createdAt: Date
+    updatedAt: Date
+    userId: string
+    name: string
+    description: string | null
+    searchType: string
+    searchQuery: JsonValue
+    enhancementQuery: string
+    columnWeights: JsonValue
+    lastRunAt: Date | null
+    lastScrapeId: string | null
+    _count: SavedQueryCountAggregateOutputType | null
+    _min: SavedQueryMinAggregateOutputType | null
+    _max: SavedQueryMaxAggregateOutputType | null
+  }
+
+  type GetSavedQueryGroupByPayload<T extends SavedQueryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SavedQueryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SavedQueryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SavedQueryGroupByOutputType[P]>
+            : GetScalarType<T[P], SavedQueryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SavedQuerySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+    name?: boolean
+    description?: boolean
+    searchType?: boolean
+    searchQuery?: boolean
+    enhancementQuery?: boolean
+    columnWeights?: boolean
+    lastRunAt?: boolean
+    lastScrapeId?: boolean
+    responses?: boolean | SavedQuery$responsesArgs<ExtArgs>
+    _count?: boolean | SavedQueryCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["savedQuery"]>
+
+  export type SavedQuerySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+    name?: boolean
+    description?: boolean
+    searchType?: boolean
+    searchQuery?: boolean
+    enhancementQuery?: boolean
+    columnWeights?: boolean
+    lastRunAt?: boolean
+    lastScrapeId?: boolean
+  }, ExtArgs["result"]["savedQuery"]>
+
+  export type SavedQuerySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+    name?: boolean
+    description?: boolean
+    searchType?: boolean
+    searchQuery?: boolean
+    enhancementQuery?: boolean
+    columnWeights?: boolean
+    lastRunAt?: boolean
+    lastScrapeId?: boolean
+  }, ExtArgs["result"]["savedQuery"]>
+
+  export type SavedQuerySelectScalar = {
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+    name?: boolean
+    description?: boolean
+    searchType?: boolean
+    searchQuery?: boolean
+    enhancementQuery?: boolean
+    columnWeights?: boolean
+    lastRunAt?: boolean
+    lastScrapeId?: boolean
+  }
+
+  export type SavedQueryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "userId" | "name" | "description" | "searchType" | "searchQuery" | "enhancementQuery" | "columnWeights" | "lastRunAt" | "lastScrapeId", ExtArgs["result"]["savedQuery"]>
+  export type SavedQueryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    responses?: boolean | SavedQuery$responsesArgs<ExtArgs>
+    _count?: boolean | SavedQueryCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SavedQueryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type SavedQueryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $SavedQueryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SavedQuery"
+    objects: {
+      responses: Prisma.$UserListingResponsePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      createdAt: Date
+      updatedAt: Date
+      userId: string
+      name: string
+      description: string | null
+      searchType: string
+      searchQuery: Prisma.JsonValue
+      enhancementQuery: string
+      columnWeights: Prisma.JsonValue
+      lastRunAt: Date | null
+      lastScrapeId: string | null
+    }, ExtArgs["result"]["savedQuery"]>
+    composites: {}
+  }
+
+  type SavedQueryGetPayload<S extends boolean | null | undefined | SavedQueryDefaultArgs> = $Result.GetResult<Prisma.$SavedQueryPayload, S>
+
+  type SavedQueryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SavedQueryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SavedQueryCountAggregateInputType | true
+    }
+
+  export interface SavedQueryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SavedQuery'], meta: { name: 'SavedQuery' } }
+    /**
+     * Find zero or one SavedQuery that matches the filter.
+     * @param {SavedQueryFindUniqueArgs} args - Arguments to find a SavedQuery
+     * @example
+     * // Get one SavedQuery
+     * const savedQuery = await prisma.savedQuery.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SavedQueryFindUniqueArgs>(args: SelectSubset<T, SavedQueryFindUniqueArgs<ExtArgs>>): Prisma__SavedQueryClient<$Result.GetResult<Prisma.$SavedQueryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SavedQuery that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SavedQueryFindUniqueOrThrowArgs} args - Arguments to find a SavedQuery
+     * @example
+     * // Get one SavedQuery
+     * const savedQuery = await prisma.savedQuery.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SavedQueryFindUniqueOrThrowArgs>(args: SelectSubset<T, SavedQueryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SavedQueryClient<$Result.GetResult<Prisma.$SavedQueryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SavedQuery that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedQueryFindFirstArgs} args - Arguments to find a SavedQuery
+     * @example
+     * // Get one SavedQuery
+     * const savedQuery = await prisma.savedQuery.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SavedQueryFindFirstArgs>(args?: SelectSubset<T, SavedQueryFindFirstArgs<ExtArgs>>): Prisma__SavedQueryClient<$Result.GetResult<Prisma.$SavedQueryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SavedQuery that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedQueryFindFirstOrThrowArgs} args - Arguments to find a SavedQuery
+     * @example
+     * // Get one SavedQuery
+     * const savedQuery = await prisma.savedQuery.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SavedQueryFindFirstOrThrowArgs>(args?: SelectSubset<T, SavedQueryFindFirstOrThrowArgs<ExtArgs>>): Prisma__SavedQueryClient<$Result.GetResult<Prisma.$SavedQueryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SavedQueries that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedQueryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SavedQueries
+     * const savedQueries = await prisma.savedQuery.findMany()
+     * 
+     * // Get first 10 SavedQueries
+     * const savedQueries = await prisma.savedQuery.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const savedQueryWithIdOnly = await prisma.savedQuery.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SavedQueryFindManyArgs>(args?: SelectSubset<T, SavedQueryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavedQueryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SavedQuery.
+     * @param {SavedQueryCreateArgs} args - Arguments to create a SavedQuery.
+     * @example
+     * // Create one SavedQuery
+     * const SavedQuery = await prisma.savedQuery.create({
+     *   data: {
+     *     // ... data to create a SavedQuery
+     *   }
+     * })
+     * 
+     */
+    create<T extends SavedQueryCreateArgs>(args: SelectSubset<T, SavedQueryCreateArgs<ExtArgs>>): Prisma__SavedQueryClient<$Result.GetResult<Prisma.$SavedQueryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SavedQueries.
+     * @param {SavedQueryCreateManyArgs} args - Arguments to create many SavedQueries.
+     * @example
+     * // Create many SavedQueries
+     * const savedQuery = await prisma.savedQuery.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SavedQueryCreateManyArgs>(args?: SelectSubset<T, SavedQueryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SavedQueries and returns the data saved in the database.
+     * @param {SavedQueryCreateManyAndReturnArgs} args - Arguments to create many SavedQueries.
+     * @example
+     * // Create many SavedQueries
+     * const savedQuery = await prisma.savedQuery.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SavedQueries and only return the `id`
+     * const savedQueryWithIdOnly = await prisma.savedQuery.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SavedQueryCreateManyAndReturnArgs>(args?: SelectSubset<T, SavedQueryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavedQueryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SavedQuery.
+     * @param {SavedQueryDeleteArgs} args - Arguments to delete one SavedQuery.
+     * @example
+     * // Delete one SavedQuery
+     * const SavedQuery = await prisma.savedQuery.delete({
+     *   where: {
+     *     // ... filter to delete one SavedQuery
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SavedQueryDeleteArgs>(args: SelectSubset<T, SavedQueryDeleteArgs<ExtArgs>>): Prisma__SavedQueryClient<$Result.GetResult<Prisma.$SavedQueryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SavedQuery.
+     * @param {SavedQueryUpdateArgs} args - Arguments to update one SavedQuery.
+     * @example
+     * // Update one SavedQuery
+     * const savedQuery = await prisma.savedQuery.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SavedQueryUpdateArgs>(args: SelectSubset<T, SavedQueryUpdateArgs<ExtArgs>>): Prisma__SavedQueryClient<$Result.GetResult<Prisma.$SavedQueryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SavedQueries.
+     * @param {SavedQueryDeleteManyArgs} args - Arguments to filter SavedQueries to delete.
+     * @example
+     * // Delete a few SavedQueries
+     * const { count } = await prisma.savedQuery.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SavedQueryDeleteManyArgs>(args?: SelectSubset<T, SavedQueryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SavedQueries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedQueryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SavedQueries
+     * const savedQuery = await prisma.savedQuery.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SavedQueryUpdateManyArgs>(args: SelectSubset<T, SavedQueryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SavedQueries and returns the data updated in the database.
+     * @param {SavedQueryUpdateManyAndReturnArgs} args - Arguments to update many SavedQueries.
+     * @example
+     * // Update many SavedQueries
+     * const savedQuery = await prisma.savedQuery.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SavedQueries and only return the `id`
+     * const savedQueryWithIdOnly = await prisma.savedQuery.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SavedQueryUpdateManyAndReturnArgs>(args: SelectSubset<T, SavedQueryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavedQueryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SavedQuery.
+     * @param {SavedQueryUpsertArgs} args - Arguments to update or create a SavedQuery.
+     * @example
+     * // Update or create a SavedQuery
+     * const savedQuery = await prisma.savedQuery.upsert({
+     *   create: {
+     *     // ... data to create a SavedQuery
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SavedQuery we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SavedQueryUpsertArgs>(args: SelectSubset<T, SavedQueryUpsertArgs<ExtArgs>>): Prisma__SavedQueryClient<$Result.GetResult<Prisma.$SavedQueryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SavedQueries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedQueryCountArgs} args - Arguments to filter SavedQueries to count.
+     * @example
+     * // Count the number of SavedQueries
+     * const count = await prisma.savedQuery.count({
+     *   where: {
+     *     // ... the filter for the SavedQueries we want to count
+     *   }
+     * })
+    **/
+    count<T extends SavedQueryCountArgs>(
+      args?: Subset<T, SavedQueryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SavedQueryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SavedQuery.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedQueryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SavedQueryAggregateArgs>(args: Subset<T, SavedQueryAggregateArgs>): Prisma.PrismaPromise<GetSavedQueryAggregateType<T>>
+
+    /**
+     * Group by SavedQuery.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedQueryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SavedQueryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SavedQueryGroupByArgs['orderBy'] }
+        : { orderBy?: SavedQueryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SavedQueryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSavedQueryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SavedQuery model
+   */
+  readonly fields: SavedQueryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SavedQuery.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SavedQueryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    responses<T extends SavedQuery$responsesArgs<ExtArgs> = {}>(args?: Subset<T, SavedQuery$responsesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserListingResponsePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SavedQuery model
+   */
+  interface SavedQueryFieldRefs {
+    readonly id: FieldRef<"SavedQuery", 'String'>
+    readonly createdAt: FieldRef<"SavedQuery", 'DateTime'>
+    readonly updatedAt: FieldRef<"SavedQuery", 'DateTime'>
+    readonly userId: FieldRef<"SavedQuery", 'String'>
+    readonly name: FieldRef<"SavedQuery", 'String'>
+    readonly description: FieldRef<"SavedQuery", 'String'>
+    readonly searchType: FieldRef<"SavedQuery", 'String'>
+    readonly searchQuery: FieldRef<"SavedQuery", 'Json'>
+    readonly enhancementQuery: FieldRef<"SavedQuery", 'String'>
+    readonly columnWeights: FieldRef<"SavedQuery", 'Json'>
+    readonly lastRunAt: FieldRef<"SavedQuery", 'DateTime'>
+    readonly lastScrapeId: FieldRef<"SavedQuery", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SavedQuery findUnique
+   */
+  export type SavedQueryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedQuery
+     */
+    select?: SavedQuerySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedQuery
+     */
+    omit?: SavedQueryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedQueryInclude<ExtArgs> | null
+    /**
+     * Filter, which SavedQuery to fetch.
+     */
+    where: SavedQueryWhereUniqueInput
+  }
+
+  /**
+   * SavedQuery findUniqueOrThrow
+   */
+  export type SavedQueryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedQuery
+     */
+    select?: SavedQuerySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedQuery
+     */
+    omit?: SavedQueryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedQueryInclude<ExtArgs> | null
+    /**
+     * Filter, which SavedQuery to fetch.
+     */
+    where: SavedQueryWhereUniqueInput
+  }
+
+  /**
+   * SavedQuery findFirst
+   */
+  export type SavedQueryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedQuery
+     */
+    select?: SavedQuerySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedQuery
+     */
+    omit?: SavedQueryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedQueryInclude<ExtArgs> | null
+    /**
+     * Filter, which SavedQuery to fetch.
+     */
+    where?: SavedQueryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SavedQueries to fetch.
+     */
+    orderBy?: SavedQueryOrderByWithRelationInput | SavedQueryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SavedQueries.
+     */
+    cursor?: SavedQueryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SavedQueries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SavedQueries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SavedQueries.
+     */
+    distinct?: SavedQueryScalarFieldEnum | SavedQueryScalarFieldEnum[]
+  }
+
+  /**
+   * SavedQuery findFirstOrThrow
+   */
+  export type SavedQueryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedQuery
+     */
+    select?: SavedQuerySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedQuery
+     */
+    omit?: SavedQueryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedQueryInclude<ExtArgs> | null
+    /**
+     * Filter, which SavedQuery to fetch.
+     */
+    where?: SavedQueryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SavedQueries to fetch.
+     */
+    orderBy?: SavedQueryOrderByWithRelationInput | SavedQueryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SavedQueries.
+     */
+    cursor?: SavedQueryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SavedQueries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SavedQueries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SavedQueries.
+     */
+    distinct?: SavedQueryScalarFieldEnum | SavedQueryScalarFieldEnum[]
+  }
+
+  /**
+   * SavedQuery findMany
+   */
+  export type SavedQueryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedQuery
+     */
+    select?: SavedQuerySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedQuery
+     */
+    omit?: SavedQueryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedQueryInclude<ExtArgs> | null
+    /**
+     * Filter, which SavedQueries to fetch.
+     */
+    where?: SavedQueryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SavedQueries to fetch.
+     */
+    orderBy?: SavedQueryOrderByWithRelationInput | SavedQueryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SavedQueries.
+     */
+    cursor?: SavedQueryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SavedQueries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SavedQueries.
+     */
+    skip?: number
+    distinct?: SavedQueryScalarFieldEnum | SavedQueryScalarFieldEnum[]
+  }
+
+  /**
+   * SavedQuery create
+   */
+  export type SavedQueryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedQuery
+     */
+    select?: SavedQuerySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedQuery
+     */
+    omit?: SavedQueryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedQueryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SavedQuery.
+     */
+    data: XOR<SavedQueryCreateInput, SavedQueryUncheckedCreateInput>
+  }
+
+  /**
+   * SavedQuery createMany
+   */
+  export type SavedQueryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SavedQueries.
+     */
+    data: SavedQueryCreateManyInput | SavedQueryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SavedQuery createManyAndReturn
+   */
+  export type SavedQueryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedQuery
+     */
+    select?: SavedQuerySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedQuery
+     */
+    omit?: SavedQueryOmit<ExtArgs> | null
+    /**
+     * The data used to create many SavedQueries.
+     */
+    data: SavedQueryCreateManyInput | SavedQueryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SavedQuery update
+   */
+  export type SavedQueryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedQuery
+     */
+    select?: SavedQuerySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedQuery
+     */
+    omit?: SavedQueryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedQueryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SavedQuery.
+     */
+    data: XOR<SavedQueryUpdateInput, SavedQueryUncheckedUpdateInput>
+    /**
+     * Choose, which SavedQuery to update.
+     */
+    where: SavedQueryWhereUniqueInput
+  }
+
+  /**
+   * SavedQuery updateMany
+   */
+  export type SavedQueryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SavedQueries.
+     */
+    data: XOR<SavedQueryUpdateManyMutationInput, SavedQueryUncheckedUpdateManyInput>
+    /**
+     * Filter which SavedQueries to update
+     */
+    where?: SavedQueryWhereInput
+    /**
+     * Limit how many SavedQueries to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SavedQuery updateManyAndReturn
+   */
+  export type SavedQueryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedQuery
+     */
+    select?: SavedQuerySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedQuery
+     */
+    omit?: SavedQueryOmit<ExtArgs> | null
+    /**
+     * The data used to update SavedQueries.
+     */
+    data: XOR<SavedQueryUpdateManyMutationInput, SavedQueryUncheckedUpdateManyInput>
+    /**
+     * Filter which SavedQueries to update
+     */
+    where?: SavedQueryWhereInput
+    /**
+     * Limit how many SavedQueries to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SavedQuery upsert
+   */
+  export type SavedQueryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedQuery
+     */
+    select?: SavedQuerySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedQuery
+     */
+    omit?: SavedQueryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedQueryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SavedQuery to update in case it exists.
+     */
+    where: SavedQueryWhereUniqueInput
+    /**
+     * In case the SavedQuery found by the `where` argument doesn't exist, create a new SavedQuery with this data.
+     */
+    create: XOR<SavedQueryCreateInput, SavedQueryUncheckedCreateInput>
+    /**
+     * In case the SavedQuery was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SavedQueryUpdateInput, SavedQueryUncheckedUpdateInput>
+  }
+
+  /**
+   * SavedQuery delete
+   */
+  export type SavedQueryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedQuery
+     */
+    select?: SavedQuerySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedQuery
+     */
+    omit?: SavedQueryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedQueryInclude<ExtArgs> | null
+    /**
+     * Filter which SavedQuery to delete.
+     */
+    where: SavedQueryWhereUniqueInput
+  }
+
+  /**
+   * SavedQuery deleteMany
+   */
+  export type SavedQueryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SavedQueries to delete
+     */
+    where?: SavedQueryWhereInput
+    /**
+     * Limit how many SavedQueries to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SavedQuery.responses
+   */
+  export type SavedQuery$responsesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserListingResponse
+     */
+    select?: UserListingResponseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserListingResponse
+     */
+    omit?: UserListingResponseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserListingResponseInclude<ExtArgs> | null
+    where?: UserListingResponseWhereInput
+    orderBy?: UserListingResponseOrderByWithRelationInput | UserListingResponseOrderByWithRelationInput[]
+    cursor?: UserListingResponseWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserListingResponseScalarFieldEnum | UserListingResponseScalarFieldEnum[]
+  }
+
+  /**
+   * SavedQuery without action
+   */
+  export type SavedQueryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedQuery
+     */
+    select?: SavedQuerySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedQuery
+     */
+    omit?: SavedQueryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedQueryInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UserListingResponse
+   */
+
+  export type AggregateUserListingResponse = {
+    _count: UserListingResponseCountAggregateOutputType | null
+    _min: UserListingResponseMinAggregateOutputType | null
+    _max: UserListingResponseMaxAggregateOutputType | null
+  }
+
+  export type UserListingResponseMinAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    userId: string | null
+    savedQueryId: string | null
+    listingId: string | null
+    response: string | null
+    notes: string | null
+  }
+
+  export type UserListingResponseMaxAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    userId: string | null
+    savedQueryId: string | null
+    listingId: string | null
+    response: string | null
+    notes: string | null
+  }
+
+  export type UserListingResponseCountAggregateOutputType = {
+    id: number
+    createdAt: number
+    updatedAt: number
+    userId: number
+    savedQueryId: number
+    listingId: number
+    response: number
+    notes: number
+    _all: number
+  }
+
+
+  export type UserListingResponseMinAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    userId?: true
+    savedQueryId?: true
+    listingId?: true
+    response?: true
+    notes?: true
+  }
+
+  export type UserListingResponseMaxAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    userId?: true
+    savedQueryId?: true
+    listingId?: true
+    response?: true
+    notes?: true
+  }
+
+  export type UserListingResponseCountAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    userId?: true
+    savedQueryId?: true
+    listingId?: true
+    response?: true
+    notes?: true
+    _all?: true
+  }
+
+  export type UserListingResponseAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserListingResponse to aggregate.
+     */
+    where?: UserListingResponseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserListingResponses to fetch.
+     */
+    orderBy?: UserListingResponseOrderByWithRelationInput | UserListingResponseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserListingResponseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserListingResponses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserListingResponses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserListingResponses
+    **/
+    _count?: true | UserListingResponseCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserListingResponseMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserListingResponseMaxAggregateInputType
+  }
+
+  export type GetUserListingResponseAggregateType<T extends UserListingResponseAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserListingResponse]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserListingResponse[P]>
+      : GetScalarType<T[P], AggregateUserListingResponse[P]>
+  }
+
+
+
+
+  export type UserListingResponseGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserListingResponseWhereInput
+    orderBy?: UserListingResponseOrderByWithAggregationInput | UserListingResponseOrderByWithAggregationInput[]
+    by: UserListingResponseScalarFieldEnum[] | UserListingResponseScalarFieldEnum
+    having?: UserListingResponseScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserListingResponseCountAggregateInputType | true
+    _min?: UserListingResponseMinAggregateInputType
+    _max?: UserListingResponseMaxAggregateInputType
+  }
+
+  export type UserListingResponseGroupByOutputType = {
+    id: string
+    createdAt: Date
+    updatedAt: Date
+    userId: string
+    savedQueryId: string
+    listingId: string
+    response: string
+    notes: string | null
+    _count: UserListingResponseCountAggregateOutputType | null
+    _min: UserListingResponseMinAggregateOutputType | null
+    _max: UserListingResponseMaxAggregateOutputType | null
+  }
+
+  type GetUserListingResponseGroupByPayload<T extends UserListingResponseGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserListingResponseGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserListingResponseGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserListingResponseGroupByOutputType[P]>
+            : GetScalarType<T[P], UserListingResponseGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserListingResponseSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+    savedQueryId?: boolean
+    listingId?: boolean
+    response?: boolean
+    notes?: boolean
+    savedQuery?: boolean | SavedQueryDefaultArgs<ExtArgs>
+    listing?: boolean | ListingDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userListingResponse"]>
+
+  export type UserListingResponseSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+    savedQueryId?: boolean
+    listingId?: boolean
+    response?: boolean
+    notes?: boolean
+    savedQuery?: boolean | SavedQueryDefaultArgs<ExtArgs>
+    listing?: boolean | ListingDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userListingResponse"]>
+
+  export type UserListingResponseSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+    savedQueryId?: boolean
+    listingId?: boolean
+    response?: boolean
+    notes?: boolean
+    savedQuery?: boolean | SavedQueryDefaultArgs<ExtArgs>
+    listing?: boolean | ListingDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userListingResponse"]>
+
+  export type UserListingResponseSelectScalar = {
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+    savedQueryId?: boolean
+    listingId?: boolean
+    response?: boolean
+    notes?: boolean
+  }
+
+  export type UserListingResponseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "userId" | "savedQueryId" | "listingId" | "response" | "notes", ExtArgs["result"]["userListingResponse"]>
+  export type UserListingResponseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    savedQuery?: boolean | SavedQueryDefaultArgs<ExtArgs>
+    listing?: boolean | ListingDefaultArgs<ExtArgs>
+  }
+  export type UserListingResponseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    savedQuery?: boolean | SavedQueryDefaultArgs<ExtArgs>
+    listing?: boolean | ListingDefaultArgs<ExtArgs>
+  }
+  export type UserListingResponseIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    savedQuery?: boolean | SavedQueryDefaultArgs<ExtArgs>
+    listing?: boolean | ListingDefaultArgs<ExtArgs>
+  }
+
+  export type $UserListingResponsePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserListingResponse"
+    objects: {
+      savedQuery: Prisma.$SavedQueryPayload<ExtArgs>
+      listing: Prisma.$ListingPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      createdAt: Date
+      updatedAt: Date
+      userId: string
+      savedQueryId: string
+      listingId: string
+      response: string
+      notes: string | null
+    }, ExtArgs["result"]["userListingResponse"]>
+    composites: {}
+  }
+
+  type UserListingResponseGetPayload<S extends boolean | null | undefined | UserListingResponseDefaultArgs> = $Result.GetResult<Prisma.$UserListingResponsePayload, S>
+
+  type UserListingResponseCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserListingResponseFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserListingResponseCountAggregateInputType | true
+    }
+
+  export interface UserListingResponseDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserListingResponse'], meta: { name: 'UserListingResponse' } }
+    /**
+     * Find zero or one UserListingResponse that matches the filter.
+     * @param {UserListingResponseFindUniqueArgs} args - Arguments to find a UserListingResponse
+     * @example
+     * // Get one UserListingResponse
+     * const userListingResponse = await prisma.userListingResponse.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserListingResponseFindUniqueArgs>(args: SelectSubset<T, UserListingResponseFindUniqueArgs<ExtArgs>>): Prisma__UserListingResponseClient<$Result.GetResult<Prisma.$UserListingResponsePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserListingResponse that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserListingResponseFindUniqueOrThrowArgs} args - Arguments to find a UserListingResponse
+     * @example
+     * // Get one UserListingResponse
+     * const userListingResponse = await prisma.userListingResponse.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserListingResponseFindUniqueOrThrowArgs>(args: SelectSubset<T, UserListingResponseFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserListingResponseClient<$Result.GetResult<Prisma.$UserListingResponsePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserListingResponse that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserListingResponseFindFirstArgs} args - Arguments to find a UserListingResponse
+     * @example
+     * // Get one UserListingResponse
+     * const userListingResponse = await prisma.userListingResponse.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserListingResponseFindFirstArgs>(args?: SelectSubset<T, UserListingResponseFindFirstArgs<ExtArgs>>): Prisma__UserListingResponseClient<$Result.GetResult<Prisma.$UserListingResponsePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserListingResponse that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserListingResponseFindFirstOrThrowArgs} args - Arguments to find a UserListingResponse
+     * @example
+     * // Get one UserListingResponse
+     * const userListingResponse = await prisma.userListingResponse.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserListingResponseFindFirstOrThrowArgs>(args?: SelectSubset<T, UserListingResponseFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserListingResponseClient<$Result.GetResult<Prisma.$UserListingResponsePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserListingResponses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserListingResponseFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserListingResponses
+     * const userListingResponses = await prisma.userListingResponse.findMany()
+     * 
+     * // Get first 10 UserListingResponses
+     * const userListingResponses = await prisma.userListingResponse.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userListingResponseWithIdOnly = await prisma.userListingResponse.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserListingResponseFindManyArgs>(args?: SelectSubset<T, UserListingResponseFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserListingResponsePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserListingResponse.
+     * @param {UserListingResponseCreateArgs} args - Arguments to create a UserListingResponse.
+     * @example
+     * // Create one UserListingResponse
+     * const UserListingResponse = await prisma.userListingResponse.create({
+     *   data: {
+     *     // ... data to create a UserListingResponse
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserListingResponseCreateArgs>(args: SelectSubset<T, UserListingResponseCreateArgs<ExtArgs>>): Prisma__UserListingResponseClient<$Result.GetResult<Prisma.$UserListingResponsePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserListingResponses.
+     * @param {UserListingResponseCreateManyArgs} args - Arguments to create many UserListingResponses.
+     * @example
+     * // Create many UserListingResponses
+     * const userListingResponse = await prisma.userListingResponse.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserListingResponseCreateManyArgs>(args?: SelectSubset<T, UserListingResponseCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserListingResponses and returns the data saved in the database.
+     * @param {UserListingResponseCreateManyAndReturnArgs} args - Arguments to create many UserListingResponses.
+     * @example
+     * // Create many UserListingResponses
+     * const userListingResponse = await prisma.userListingResponse.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserListingResponses and only return the `id`
+     * const userListingResponseWithIdOnly = await prisma.userListingResponse.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserListingResponseCreateManyAndReturnArgs>(args?: SelectSubset<T, UserListingResponseCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserListingResponsePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserListingResponse.
+     * @param {UserListingResponseDeleteArgs} args - Arguments to delete one UserListingResponse.
+     * @example
+     * // Delete one UserListingResponse
+     * const UserListingResponse = await prisma.userListingResponse.delete({
+     *   where: {
+     *     // ... filter to delete one UserListingResponse
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserListingResponseDeleteArgs>(args: SelectSubset<T, UserListingResponseDeleteArgs<ExtArgs>>): Prisma__UserListingResponseClient<$Result.GetResult<Prisma.$UserListingResponsePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserListingResponse.
+     * @param {UserListingResponseUpdateArgs} args - Arguments to update one UserListingResponse.
+     * @example
+     * // Update one UserListingResponse
+     * const userListingResponse = await prisma.userListingResponse.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserListingResponseUpdateArgs>(args: SelectSubset<T, UserListingResponseUpdateArgs<ExtArgs>>): Prisma__UserListingResponseClient<$Result.GetResult<Prisma.$UserListingResponsePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserListingResponses.
+     * @param {UserListingResponseDeleteManyArgs} args - Arguments to filter UserListingResponses to delete.
+     * @example
+     * // Delete a few UserListingResponses
+     * const { count } = await prisma.userListingResponse.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserListingResponseDeleteManyArgs>(args?: SelectSubset<T, UserListingResponseDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserListingResponses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserListingResponseUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserListingResponses
+     * const userListingResponse = await prisma.userListingResponse.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserListingResponseUpdateManyArgs>(args: SelectSubset<T, UserListingResponseUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserListingResponses and returns the data updated in the database.
+     * @param {UserListingResponseUpdateManyAndReturnArgs} args - Arguments to update many UserListingResponses.
+     * @example
+     * // Update many UserListingResponses
+     * const userListingResponse = await prisma.userListingResponse.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserListingResponses and only return the `id`
+     * const userListingResponseWithIdOnly = await prisma.userListingResponse.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserListingResponseUpdateManyAndReturnArgs>(args: SelectSubset<T, UserListingResponseUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserListingResponsePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserListingResponse.
+     * @param {UserListingResponseUpsertArgs} args - Arguments to update or create a UserListingResponse.
+     * @example
+     * // Update or create a UserListingResponse
+     * const userListingResponse = await prisma.userListingResponse.upsert({
+     *   create: {
+     *     // ... data to create a UserListingResponse
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserListingResponse we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserListingResponseUpsertArgs>(args: SelectSubset<T, UserListingResponseUpsertArgs<ExtArgs>>): Prisma__UserListingResponseClient<$Result.GetResult<Prisma.$UserListingResponsePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserListingResponses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserListingResponseCountArgs} args - Arguments to filter UserListingResponses to count.
+     * @example
+     * // Count the number of UserListingResponses
+     * const count = await prisma.userListingResponse.count({
+     *   where: {
+     *     // ... the filter for the UserListingResponses we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserListingResponseCountArgs>(
+      args?: Subset<T, UserListingResponseCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserListingResponseCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserListingResponse.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserListingResponseAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserListingResponseAggregateArgs>(args: Subset<T, UserListingResponseAggregateArgs>): Prisma.PrismaPromise<GetUserListingResponseAggregateType<T>>
+
+    /**
+     * Group by UserListingResponse.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserListingResponseGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserListingResponseGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserListingResponseGroupByArgs['orderBy'] }
+        : { orderBy?: UserListingResponseGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserListingResponseGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserListingResponseGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserListingResponse model
+   */
+  readonly fields: UserListingResponseFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserListingResponse.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserListingResponseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    savedQuery<T extends SavedQueryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SavedQueryDefaultArgs<ExtArgs>>): Prisma__SavedQueryClient<$Result.GetResult<Prisma.$SavedQueryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    listing<T extends ListingDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ListingDefaultArgs<ExtArgs>>): Prisma__ListingClient<$Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserListingResponse model
+   */
+  interface UserListingResponseFieldRefs {
+    readonly id: FieldRef<"UserListingResponse", 'String'>
+    readonly createdAt: FieldRef<"UserListingResponse", 'DateTime'>
+    readonly updatedAt: FieldRef<"UserListingResponse", 'DateTime'>
+    readonly userId: FieldRef<"UserListingResponse", 'String'>
+    readonly savedQueryId: FieldRef<"UserListingResponse", 'String'>
+    readonly listingId: FieldRef<"UserListingResponse", 'String'>
+    readonly response: FieldRef<"UserListingResponse", 'String'>
+    readonly notes: FieldRef<"UserListingResponse", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserListingResponse findUnique
+   */
+  export type UserListingResponseFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserListingResponse
+     */
+    select?: UserListingResponseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserListingResponse
+     */
+    omit?: UserListingResponseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserListingResponseInclude<ExtArgs> | null
+    /**
+     * Filter, which UserListingResponse to fetch.
+     */
+    where: UserListingResponseWhereUniqueInput
+  }
+
+  /**
+   * UserListingResponse findUniqueOrThrow
+   */
+  export type UserListingResponseFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserListingResponse
+     */
+    select?: UserListingResponseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserListingResponse
+     */
+    omit?: UserListingResponseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserListingResponseInclude<ExtArgs> | null
+    /**
+     * Filter, which UserListingResponse to fetch.
+     */
+    where: UserListingResponseWhereUniqueInput
+  }
+
+  /**
+   * UserListingResponse findFirst
+   */
+  export type UserListingResponseFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserListingResponse
+     */
+    select?: UserListingResponseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserListingResponse
+     */
+    omit?: UserListingResponseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserListingResponseInclude<ExtArgs> | null
+    /**
+     * Filter, which UserListingResponse to fetch.
+     */
+    where?: UserListingResponseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserListingResponses to fetch.
+     */
+    orderBy?: UserListingResponseOrderByWithRelationInput | UserListingResponseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserListingResponses.
+     */
+    cursor?: UserListingResponseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserListingResponses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserListingResponses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserListingResponses.
+     */
+    distinct?: UserListingResponseScalarFieldEnum | UserListingResponseScalarFieldEnum[]
+  }
+
+  /**
+   * UserListingResponse findFirstOrThrow
+   */
+  export type UserListingResponseFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserListingResponse
+     */
+    select?: UserListingResponseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserListingResponse
+     */
+    omit?: UserListingResponseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserListingResponseInclude<ExtArgs> | null
+    /**
+     * Filter, which UserListingResponse to fetch.
+     */
+    where?: UserListingResponseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserListingResponses to fetch.
+     */
+    orderBy?: UserListingResponseOrderByWithRelationInput | UserListingResponseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserListingResponses.
+     */
+    cursor?: UserListingResponseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserListingResponses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserListingResponses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserListingResponses.
+     */
+    distinct?: UserListingResponseScalarFieldEnum | UserListingResponseScalarFieldEnum[]
+  }
+
+  /**
+   * UserListingResponse findMany
+   */
+  export type UserListingResponseFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserListingResponse
+     */
+    select?: UserListingResponseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserListingResponse
+     */
+    omit?: UserListingResponseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserListingResponseInclude<ExtArgs> | null
+    /**
+     * Filter, which UserListingResponses to fetch.
+     */
+    where?: UserListingResponseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserListingResponses to fetch.
+     */
+    orderBy?: UserListingResponseOrderByWithRelationInput | UserListingResponseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserListingResponses.
+     */
+    cursor?: UserListingResponseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserListingResponses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserListingResponses.
+     */
+    skip?: number
+    distinct?: UserListingResponseScalarFieldEnum | UserListingResponseScalarFieldEnum[]
+  }
+
+  /**
+   * UserListingResponse create
+   */
+  export type UserListingResponseCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserListingResponse
+     */
+    select?: UserListingResponseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserListingResponse
+     */
+    omit?: UserListingResponseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserListingResponseInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserListingResponse.
+     */
+    data: XOR<UserListingResponseCreateInput, UserListingResponseUncheckedCreateInput>
+  }
+
+  /**
+   * UserListingResponse createMany
+   */
+  export type UserListingResponseCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserListingResponses.
+     */
+    data: UserListingResponseCreateManyInput | UserListingResponseCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserListingResponse createManyAndReturn
+   */
+  export type UserListingResponseCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserListingResponse
+     */
+    select?: UserListingResponseSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserListingResponse
+     */
+    omit?: UserListingResponseOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserListingResponses.
+     */
+    data: UserListingResponseCreateManyInput | UserListingResponseCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserListingResponseIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserListingResponse update
+   */
+  export type UserListingResponseUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserListingResponse
+     */
+    select?: UserListingResponseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserListingResponse
+     */
+    omit?: UserListingResponseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserListingResponseInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserListingResponse.
+     */
+    data: XOR<UserListingResponseUpdateInput, UserListingResponseUncheckedUpdateInput>
+    /**
+     * Choose, which UserListingResponse to update.
+     */
+    where: UserListingResponseWhereUniqueInput
+  }
+
+  /**
+   * UserListingResponse updateMany
+   */
+  export type UserListingResponseUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserListingResponses.
+     */
+    data: XOR<UserListingResponseUpdateManyMutationInput, UserListingResponseUncheckedUpdateManyInput>
+    /**
+     * Filter which UserListingResponses to update
+     */
+    where?: UserListingResponseWhereInput
+    /**
+     * Limit how many UserListingResponses to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserListingResponse updateManyAndReturn
+   */
+  export type UserListingResponseUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserListingResponse
+     */
+    select?: UserListingResponseSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserListingResponse
+     */
+    omit?: UserListingResponseOmit<ExtArgs> | null
+    /**
+     * The data used to update UserListingResponses.
+     */
+    data: XOR<UserListingResponseUpdateManyMutationInput, UserListingResponseUncheckedUpdateManyInput>
+    /**
+     * Filter which UserListingResponses to update
+     */
+    where?: UserListingResponseWhereInput
+    /**
+     * Limit how many UserListingResponses to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserListingResponseIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserListingResponse upsert
+   */
+  export type UserListingResponseUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserListingResponse
+     */
+    select?: UserListingResponseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserListingResponse
+     */
+    omit?: UserListingResponseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserListingResponseInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserListingResponse to update in case it exists.
+     */
+    where: UserListingResponseWhereUniqueInput
+    /**
+     * In case the UserListingResponse found by the `where` argument doesn't exist, create a new UserListingResponse with this data.
+     */
+    create: XOR<UserListingResponseCreateInput, UserListingResponseUncheckedCreateInput>
+    /**
+     * In case the UserListingResponse was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserListingResponseUpdateInput, UserListingResponseUncheckedUpdateInput>
+  }
+
+  /**
+   * UserListingResponse delete
+   */
+  export type UserListingResponseDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserListingResponse
+     */
+    select?: UserListingResponseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserListingResponse
+     */
+    omit?: UserListingResponseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserListingResponseInclude<ExtArgs> | null
+    /**
+     * Filter which UserListingResponse to delete.
+     */
+    where: UserListingResponseWhereUniqueInput
+  }
+
+  /**
+   * UserListingResponse deleteMany
+   */
+  export type UserListingResponseDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserListingResponses to delete
+     */
+    where?: UserListingResponseWhereInput
+    /**
+     * Limit how many UserListingResponses to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserListingResponse without action
+   */
+  export type UserListingResponseDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserListingResponse
+     */
+    select?: UserListingResponseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserListingResponse
+     */
+    omit?: UserListingResponseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserListingResponseInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -10247,6 +12755,38 @@ export namespace Prisma {
   };
 
   export type EnhancementValueScalarFieldEnum = (typeof EnhancementValueScalarFieldEnum)[keyof typeof EnhancementValueScalarFieldEnum]
+
+
+  export const SavedQueryScalarFieldEnum: {
+    id: 'id',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    userId: 'userId',
+    name: 'name',
+    description: 'description',
+    searchType: 'searchType',
+    searchQuery: 'searchQuery',
+    enhancementQuery: 'enhancementQuery',
+    columnWeights: 'columnWeights',
+    lastRunAt: 'lastRunAt',
+    lastScrapeId: 'lastScrapeId'
+  };
+
+  export type SavedQueryScalarFieldEnum = (typeof SavedQueryScalarFieldEnum)[keyof typeof SavedQueryScalarFieldEnum]
+
+
+  export const UserListingResponseScalarFieldEnum: {
+    id: 'id',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    userId: 'userId',
+    savedQueryId: 'savedQueryId',
+    listingId: 'listingId',
+    response: 'response',
+    notes: 'notes'
+  };
+
+  export type UserListingResponseScalarFieldEnum = (typeof UserListingResponseScalarFieldEnum)[keyof typeof UserListingResponseScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -10518,6 +13058,7 @@ export namespace Prisma {
     rawData?: JsonFilter<"Listing">
     scrapes?: ScrapeListingListRelationFilter
     enhancementResults?: EnhancementResultListRelationFilter
+    userResponses?: UserListingResponseListRelationFilter
   }
 
   export type ListingOrderByWithRelationInput = {
@@ -10556,6 +13097,7 @@ export namespace Prisma {
     rawData?: SortOrder
     scrapes?: ScrapeListingOrderByRelationAggregateInput
     enhancementResults?: EnhancementResultOrderByRelationAggregateInput
+    userResponses?: UserListingResponseOrderByRelationAggregateInput
   }
 
   export type ListingWhereUniqueInput = Prisma.AtLeast<{
@@ -10597,6 +13139,7 @@ export namespace Prisma {
     rawData?: JsonFilter<"Listing">
     scrapes?: ScrapeListingListRelationFilter
     enhancementResults?: EnhancementResultListRelationFilter
+    userResponses?: UserListingResponseListRelationFilter
   }, "id" | "zpid">
 
   export type ListingOrderByWithAggregationInput = {
@@ -11056,6 +13599,170 @@ export namespace Prisma {
     normalizedValue?: FloatWithAggregatesFilter<"EnhancementValue"> | number
   }
 
+  export type SavedQueryWhereInput = {
+    AND?: SavedQueryWhereInput | SavedQueryWhereInput[]
+    OR?: SavedQueryWhereInput[]
+    NOT?: SavedQueryWhereInput | SavedQueryWhereInput[]
+    id?: StringFilter<"SavedQuery"> | string
+    createdAt?: DateTimeFilter<"SavedQuery"> | Date | string
+    updatedAt?: DateTimeFilter<"SavedQuery"> | Date | string
+    userId?: StringFilter<"SavedQuery"> | string
+    name?: StringFilter<"SavedQuery"> | string
+    description?: StringNullableFilter<"SavedQuery"> | string | null
+    searchType?: StringFilter<"SavedQuery"> | string
+    searchQuery?: JsonFilter<"SavedQuery">
+    enhancementQuery?: StringFilter<"SavedQuery"> | string
+    columnWeights?: JsonFilter<"SavedQuery">
+    lastRunAt?: DateTimeNullableFilter<"SavedQuery"> | Date | string | null
+    lastScrapeId?: StringNullableFilter<"SavedQuery"> | string | null
+    responses?: UserListingResponseListRelationFilter
+  }
+
+  export type SavedQueryOrderByWithRelationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    searchType?: SortOrder
+    searchQuery?: SortOrder
+    enhancementQuery?: SortOrder
+    columnWeights?: SortOrder
+    lastRunAt?: SortOrderInput | SortOrder
+    lastScrapeId?: SortOrderInput | SortOrder
+    responses?: UserListingResponseOrderByRelationAggregateInput
+  }
+
+  export type SavedQueryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SavedQueryWhereInput | SavedQueryWhereInput[]
+    OR?: SavedQueryWhereInput[]
+    NOT?: SavedQueryWhereInput | SavedQueryWhereInput[]
+    createdAt?: DateTimeFilter<"SavedQuery"> | Date | string
+    updatedAt?: DateTimeFilter<"SavedQuery"> | Date | string
+    userId?: StringFilter<"SavedQuery"> | string
+    name?: StringFilter<"SavedQuery"> | string
+    description?: StringNullableFilter<"SavedQuery"> | string | null
+    searchType?: StringFilter<"SavedQuery"> | string
+    searchQuery?: JsonFilter<"SavedQuery">
+    enhancementQuery?: StringFilter<"SavedQuery"> | string
+    columnWeights?: JsonFilter<"SavedQuery">
+    lastRunAt?: DateTimeNullableFilter<"SavedQuery"> | Date | string | null
+    lastScrapeId?: StringNullableFilter<"SavedQuery"> | string | null
+    responses?: UserListingResponseListRelationFilter
+  }, "id">
+
+  export type SavedQueryOrderByWithAggregationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    searchType?: SortOrder
+    searchQuery?: SortOrder
+    enhancementQuery?: SortOrder
+    columnWeights?: SortOrder
+    lastRunAt?: SortOrderInput | SortOrder
+    lastScrapeId?: SortOrderInput | SortOrder
+    _count?: SavedQueryCountOrderByAggregateInput
+    _max?: SavedQueryMaxOrderByAggregateInput
+    _min?: SavedQueryMinOrderByAggregateInput
+  }
+
+  export type SavedQueryScalarWhereWithAggregatesInput = {
+    AND?: SavedQueryScalarWhereWithAggregatesInput | SavedQueryScalarWhereWithAggregatesInput[]
+    OR?: SavedQueryScalarWhereWithAggregatesInput[]
+    NOT?: SavedQueryScalarWhereWithAggregatesInput | SavedQueryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SavedQuery"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"SavedQuery"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SavedQuery"> | Date | string
+    userId?: StringWithAggregatesFilter<"SavedQuery"> | string
+    name?: StringWithAggregatesFilter<"SavedQuery"> | string
+    description?: StringNullableWithAggregatesFilter<"SavedQuery"> | string | null
+    searchType?: StringWithAggregatesFilter<"SavedQuery"> | string
+    searchQuery?: JsonWithAggregatesFilter<"SavedQuery">
+    enhancementQuery?: StringWithAggregatesFilter<"SavedQuery"> | string
+    columnWeights?: JsonWithAggregatesFilter<"SavedQuery">
+    lastRunAt?: DateTimeNullableWithAggregatesFilter<"SavedQuery"> | Date | string | null
+    lastScrapeId?: StringNullableWithAggregatesFilter<"SavedQuery"> | string | null
+  }
+
+  export type UserListingResponseWhereInput = {
+    AND?: UserListingResponseWhereInput | UserListingResponseWhereInput[]
+    OR?: UserListingResponseWhereInput[]
+    NOT?: UserListingResponseWhereInput | UserListingResponseWhereInput[]
+    id?: StringFilter<"UserListingResponse"> | string
+    createdAt?: DateTimeFilter<"UserListingResponse"> | Date | string
+    updatedAt?: DateTimeFilter<"UserListingResponse"> | Date | string
+    userId?: StringFilter<"UserListingResponse"> | string
+    savedQueryId?: StringFilter<"UserListingResponse"> | string
+    listingId?: StringFilter<"UserListingResponse"> | string
+    response?: StringFilter<"UserListingResponse"> | string
+    notes?: StringNullableFilter<"UserListingResponse"> | string | null
+    savedQuery?: XOR<SavedQueryScalarRelationFilter, SavedQueryWhereInput>
+    listing?: XOR<ListingScalarRelationFilter, ListingWhereInput>
+  }
+
+  export type UserListingResponseOrderByWithRelationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+    savedQueryId?: SortOrder
+    listingId?: SortOrder
+    response?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    savedQuery?: SavedQueryOrderByWithRelationInput
+    listing?: ListingOrderByWithRelationInput
+  }
+
+  export type UserListingResponseWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    savedQueryId_listingId?: UserListingResponseSavedQueryIdListingIdCompoundUniqueInput
+    AND?: UserListingResponseWhereInput | UserListingResponseWhereInput[]
+    OR?: UserListingResponseWhereInput[]
+    NOT?: UserListingResponseWhereInput | UserListingResponseWhereInput[]
+    createdAt?: DateTimeFilter<"UserListingResponse"> | Date | string
+    updatedAt?: DateTimeFilter<"UserListingResponse"> | Date | string
+    userId?: StringFilter<"UserListingResponse"> | string
+    savedQueryId?: StringFilter<"UserListingResponse"> | string
+    listingId?: StringFilter<"UserListingResponse"> | string
+    response?: StringFilter<"UserListingResponse"> | string
+    notes?: StringNullableFilter<"UserListingResponse"> | string | null
+    savedQuery?: XOR<SavedQueryScalarRelationFilter, SavedQueryWhereInput>
+    listing?: XOR<ListingScalarRelationFilter, ListingWhereInput>
+  }, "id" | "savedQueryId_listingId">
+
+  export type UserListingResponseOrderByWithAggregationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+    savedQueryId?: SortOrder
+    listingId?: SortOrder
+    response?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    _count?: UserListingResponseCountOrderByAggregateInput
+    _max?: UserListingResponseMaxOrderByAggregateInput
+    _min?: UserListingResponseMinOrderByAggregateInput
+  }
+
+  export type UserListingResponseScalarWhereWithAggregatesInput = {
+    AND?: UserListingResponseScalarWhereWithAggregatesInput | UserListingResponseScalarWhereWithAggregatesInput[]
+    OR?: UserListingResponseScalarWhereWithAggregatesInput[]
+    NOT?: UserListingResponseScalarWhereWithAggregatesInput | UserListingResponseScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserListingResponse"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"UserListingResponse"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UserListingResponse"> | Date | string
+    userId?: StringWithAggregatesFilter<"UserListingResponse"> | string
+    savedQueryId?: StringWithAggregatesFilter<"UserListingResponse"> | string
+    listingId?: StringWithAggregatesFilter<"UserListingResponse"> | string
+    response?: StringWithAggregatesFilter<"UserListingResponse"> | string
+    notes?: StringNullableWithAggregatesFilter<"UserListingResponse"> | string | null
+  }
+
   export type ScrapeCreateInput = {
     id?: string
     createdAt?: Date | string
@@ -11219,6 +13926,7 @@ export namespace Prisma {
     rawData: JsonNullValueInput | InputJsonValue
     scrapes?: ScrapeListingCreateNestedManyWithoutListingInput
     enhancementResults?: EnhancementResultCreateNestedManyWithoutListingInput
+    userResponses?: UserListingResponseCreateNestedManyWithoutListingInput
   }
 
   export type ListingUncheckedCreateInput = {
@@ -11257,6 +13965,7 @@ export namespace Prisma {
     rawData: JsonNullValueInput | InputJsonValue
     scrapes?: ScrapeListingUncheckedCreateNestedManyWithoutListingInput
     enhancementResults?: EnhancementResultUncheckedCreateNestedManyWithoutListingInput
+    userResponses?: UserListingResponseUncheckedCreateNestedManyWithoutListingInput
   }
 
   export type ListingUpdateInput = {
@@ -11295,6 +14004,7 @@ export namespace Prisma {
     rawData?: JsonNullValueInput | InputJsonValue
     scrapes?: ScrapeListingUpdateManyWithoutListingNestedInput
     enhancementResults?: EnhancementResultUpdateManyWithoutListingNestedInput
+    userResponses?: UserListingResponseUpdateManyWithoutListingNestedInput
   }
 
   export type ListingUncheckedUpdateInput = {
@@ -11333,6 +14043,7 @@ export namespace Prisma {
     rawData?: JsonNullValueInput | InputJsonValue
     scrapes?: ScrapeListingUncheckedUpdateManyWithoutListingNestedInput
     enhancementResults?: EnhancementResultUncheckedUpdateManyWithoutListingNestedInput
+    userResponses?: UserListingResponseUncheckedUpdateManyWithoutListingNestedInput
   }
 
   export type ListingCreateManyInput = {
@@ -11829,6 +14540,190 @@ export namespace Prisma {
     normalizedValue?: FloatFieldUpdateOperationsInput | number
   }
 
+  export type SavedQueryCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    name: string
+    description?: string | null
+    searchType: string
+    searchQuery: JsonNullValueInput | InputJsonValue
+    enhancementQuery: string
+    columnWeights?: JsonNullValueInput | InputJsonValue
+    lastRunAt?: Date | string | null
+    lastScrapeId?: string | null
+    responses?: UserListingResponseCreateNestedManyWithoutSavedQueryInput
+  }
+
+  export type SavedQueryUncheckedCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    name: string
+    description?: string | null
+    searchType: string
+    searchQuery: JsonNullValueInput | InputJsonValue
+    enhancementQuery: string
+    columnWeights?: JsonNullValueInput | InputJsonValue
+    lastRunAt?: Date | string | null
+    lastScrapeId?: string | null
+    responses?: UserListingResponseUncheckedCreateNestedManyWithoutSavedQueryInput
+  }
+
+  export type SavedQueryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    searchType?: StringFieldUpdateOperationsInput | string
+    searchQuery?: JsonNullValueInput | InputJsonValue
+    enhancementQuery?: StringFieldUpdateOperationsInput | string
+    columnWeights?: JsonNullValueInput | InputJsonValue
+    lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastScrapeId?: NullableStringFieldUpdateOperationsInput | string | null
+    responses?: UserListingResponseUpdateManyWithoutSavedQueryNestedInput
+  }
+
+  export type SavedQueryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    searchType?: StringFieldUpdateOperationsInput | string
+    searchQuery?: JsonNullValueInput | InputJsonValue
+    enhancementQuery?: StringFieldUpdateOperationsInput | string
+    columnWeights?: JsonNullValueInput | InputJsonValue
+    lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastScrapeId?: NullableStringFieldUpdateOperationsInput | string | null
+    responses?: UserListingResponseUncheckedUpdateManyWithoutSavedQueryNestedInput
+  }
+
+  export type SavedQueryCreateManyInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    name: string
+    description?: string | null
+    searchType: string
+    searchQuery: JsonNullValueInput | InputJsonValue
+    enhancementQuery: string
+    columnWeights?: JsonNullValueInput | InputJsonValue
+    lastRunAt?: Date | string | null
+    lastScrapeId?: string | null
+  }
+
+  export type SavedQueryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    searchType?: StringFieldUpdateOperationsInput | string
+    searchQuery?: JsonNullValueInput | InputJsonValue
+    enhancementQuery?: StringFieldUpdateOperationsInput | string
+    columnWeights?: JsonNullValueInput | InputJsonValue
+    lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastScrapeId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SavedQueryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    searchType?: StringFieldUpdateOperationsInput | string
+    searchQuery?: JsonNullValueInput | InputJsonValue
+    enhancementQuery?: StringFieldUpdateOperationsInput | string
+    columnWeights?: JsonNullValueInput | InputJsonValue
+    lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastScrapeId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type UserListingResponseCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    response: string
+    notes?: string | null
+    savedQuery: SavedQueryCreateNestedOneWithoutResponsesInput
+    listing: ListingCreateNestedOneWithoutUserResponsesInput
+  }
+
+  export type UserListingResponseUncheckedCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    savedQueryId: string
+    listingId: string
+    response: string
+    notes?: string | null
+  }
+
+  export type UserListingResponseUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    response?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    savedQuery?: SavedQueryUpdateOneRequiredWithoutResponsesNestedInput
+    listing?: ListingUpdateOneRequiredWithoutUserResponsesNestedInput
+  }
+
+  export type UserListingResponseUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    savedQueryId?: StringFieldUpdateOperationsInput | string
+    listingId?: StringFieldUpdateOperationsInput | string
+    response?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type UserListingResponseCreateManyInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    savedQueryId: string
+    listingId: string
+    response: string
+    notes?: string | null
+  }
+
+  export type UserListingResponseUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    response?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type UserListingResponseUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    savedQueryId?: StringFieldUpdateOperationsInput | string
+    listingId?: StringFieldUpdateOperationsInput | string
+    response?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -12162,7 +15057,17 @@ export namespace Prisma {
     none?: EnhancementResultWhereInput
   }
 
+  export type UserListingResponseListRelationFilter = {
+    every?: UserListingResponseWhereInput
+    some?: UserListingResponseWhereInput
+    none?: UserListingResponseWhereInput
+  }
+
   export type EnhancementResultOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserListingResponseOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -12599,6 +15504,90 @@ export namespace Prisma {
     normalizedValue?: SortOrder
   }
 
+  export type SavedQueryCountOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    searchType?: SortOrder
+    searchQuery?: SortOrder
+    enhancementQuery?: SortOrder
+    columnWeights?: SortOrder
+    lastRunAt?: SortOrder
+    lastScrapeId?: SortOrder
+  }
+
+  export type SavedQueryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    searchType?: SortOrder
+    enhancementQuery?: SortOrder
+    lastRunAt?: SortOrder
+    lastScrapeId?: SortOrder
+  }
+
+  export type SavedQueryMinOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    searchType?: SortOrder
+    enhancementQuery?: SortOrder
+    lastRunAt?: SortOrder
+    lastScrapeId?: SortOrder
+  }
+
+  export type SavedQueryScalarRelationFilter = {
+    is?: SavedQueryWhereInput
+    isNot?: SavedQueryWhereInput
+  }
+
+  export type UserListingResponseSavedQueryIdListingIdCompoundUniqueInput = {
+    savedQueryId: string
+    listingId: string
+  }
+
+  export type UserListingResponseCountOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+    savedQueryId?: SortOrder
+    listingId?: SortOrder
+    response?: SortOrder
+    notes?: SortOrder
+  }
+
+  export type UserListingResponseMaxOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+    savedQueryId?: SortOrder
+    listingId?: SortOrder
+    response?: SortOrder
+    notes?: SortOrder
+  }
+
+  export type UserListingResponseMinOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+    savedQueryId?: SortOrder
+    listingId?: SortOrder
+    response?: SortOrder
+    notes?: SortOrder
+  }
+
   export type ScrapeListingCreateNestedManyWithoutScrapeInput = {
     create?: XOR<ScrapeListingCreateWithoutScrapeInput, ScrapeListingUncheckedCreateWithoutScrapeInput> | ScrapeListingCreateWithoutScrapeInput[] | ScrapeListingUncheckedCreateWithoutScrapeInput[]
     connectOrCreate?: ScrapeListingCreateOrConnectWithoutScrapeInput | ScrapeListingCreateOrConnectWithoutScrapeInput[]
@@ -12733,6 +15722,13 @@ export namespace Prisma {
     connect?: EnhancementResultWhereUniqueInput | EnhancementResultWhereUniqueInput[]
   }
 
+  export type UserListingResponseCreateNestedManyWithoutListingInput = {
+    create?: XOR<UserListingResponseCreateWithoutListingInput, UserListingResponseUncheckedCreateWithoutListingInput> | UserListingResponseCreateWithoutListingInput[] | UserListingResponseUncheckedCreateWithoutListingInput[]
+    connectOrCreate?: UserListingResponseCreateOrConnectWithoutListingInput | UserListingResponseCreateOrConnectWithoutListingInput[]
+    createMany?: UserListingResponseCreateManyListingInputEnvelope
+    connect?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
+  }
+
   export type ScrapeListingUncheckedCreateNestedManyWithoutListingInput = {
     create?: XOR<ScrapeListingCreateWithoutListingInput, ScrapeListingUncheckedCreateWithoutListingInput> | ScrapeListingCreateWithoutListingInput[] | ScrapeListingUncheckedCreateWithoutListingInput[]
     connectOrCreate?: ScrapeListingCreateOrConnectWithoutListingInput | ScrapeListingCreateOrConnectWithoutListingInput[]
@@ -12745,6 +15741,13 @@ export namespace Prisma {
     connectOrCreate?: EnhancementResultCreateOrConnectWithoutListingInput | EnhancementResultCreateOrConnectWithoutListingInput[]
     createMany?: EnhancementResultCreateManyListingInputEnvelope
     connect?: EnhancementResultWhereUniqueInput | EnhancementResultWhereUniqueInput[]
+  }
+
+  export type UserListingResponseUncheckedCreateNestedManyWithoutListingInput = {
+    create?: XOR<UserListingResponseCreateWithoutListingInput, UserListingResponseUncheckedCreateWithoutListingInput> | UserListingResponseCreateWithoutListingInput[] | UserListingResponseUncheckedCreateWithoutListingInput[]
+    connectOrCreate?: UserListingResponseCreateOrConnectWithoutListingInput | UserListingResponseCreateOrConnectWithoutListingInput[]
+    createMany?: UserListingResponseCreateManyListingInputEnvelope
+    connect?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
   }
 
   export type ListingUpdatephotosInput = {
@@ -12792,6 +15795,20 @@ export namespace Prisma {
     deleteMany?: EnhancementResultScalarWhereInput | EnhancementResultScalarWhereInput[]
   }
 
+  export type UserListingResponseUpdateManyWithoutListingNestedInput = {
+    create?: XOR<UserListingResponseCreateWithoutListingInput, UserListingResponseUncheckedCreateWithoutListingInput> | UserListingResponseCreateWithoutListingInput[] | UserListingResponseUncheckedCreateWithoutListingInput[]
+    connectOrCreate?: UserListingResponseCreateOrConnectWithoutListingInput | UserListingResponseCreateOrConnectWithoutListingInput[]
+    upsert?: UserListingResponseUpsertWithWhereUniqueWithoutListingInput | UserListingResponseUpsertWithWhereUniqueWithoutListingInput[]
+    createMany?: UserListingResponseCreateManyListingInputEnvelope
+    set?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
+    disconnect?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
+    delete?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
+    connect?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
+    update?: UserListingResponseUpdateWithWhereUniqueWithoutListingInput | UserListingResponseUpdateWithWhereUniqueWithoutListingInput[]
+    updateMany?: UserListingResponseUpdateManyWithWhereWithoutListingInput | UserListingResponseUpdateManyWithWhereWithoutListingInput[]
+    deleteMany?: UserListingResponseScalarWhereInput | UserListingResponseScalarWhereInput[]
+  }
+
   export type ScrapeListingUncheckedUpdateManyWithoutListingNestedInput = {
     create?: XOR<ScrapeListingCreateWithoutListingInput, ScrapeListingUncheckedCreateWithoutListingInput> | ScrapeListingCreateWithoutListingInput[] | ScrapeListingUncheckedCreateWithoutListingInput[]
     connectOrCreate?: ScrapeListingCreateOrConnectWithoutListingInput | ScrapeListingCreateOrConnectWithoutListingInput[]
@@ -12818,6 +15835,20 @@ export namespace Prisma {
     update?: EnhancementResultUpdateWithWhereUniqueWithoutListingInput | EnhancementResultUpdateWithWhereUniqueWithoutListingInput[]
     updateMany?: EnhancementResultUpdateManyWithWhereWithoutListingInput | EnhancementResultUpdateManyWithWhereWithoutListingInput[]
     deleteMany?: EnhancementResultScalarWhereInput | EnhancementResultScalarWhereInput[]
+  }
+
+  export type UserListingResponseUncheckedUpdateManyWithoutListingNestedInput = {
+    create?: XOR<UserListingResponseCreateWithoutListingInput, UserListingResponseUncheckedCreateWithoutListingInput> | UserListingResponseCreateWithoutListingInput[] | UserListingResponseUncheckedCreateWithoutListingInput[]
+    connectOrCreate?: UserListingResponseCreateOrConnectWithoutListingInput | UserListingResponseCreateOrConnectWithoutListingInput[]
+    upsert?: UserListingResponseUpsertWithWhereUniqueWithoutListingInput | UserListingResponseUpsertWithWhereUniqueWithoutListingInput[]
+    createMany?: UserListingResponseCreateManyListingInputEnvelope
+    set?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
+    disconnect?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
+    delete?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
+    connect?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
+    update?: UserListingResponseUpdateWithWhereUniqueWithoutListingInput | UserListingResponseUpdateWithWhereUniqueWithoutListingInput[]
+    updateMany?: UserListingResponseUpdateManyWithWhereWithoutListingInput | UserListingResponseUpdateManyWithWhereWithoutListingInput[]
+    deleteMany?: UserListingResponseScalarWhereInput | UserListingResponseScalarWhereInput[]
   }
 
   export type ScrapeCreateNestedOneWithoutListingsInput = {
@@ -13106,6 +16137,76 @@ export namespace Prisma {
     upsert?: EnhancementColumnUpsertWithoutValuesInput
     connect?: EnhancementColumnWhereUniqueInput
     update?: XOR<XOR<EnhancementColumnUpdateToOneWithWhereWithoutValuesInput, EnhancementColumnUpdateWithoutValuesInput>, EnhancementColumnUncheckedUpdateWithoutValuesInput>
+  }
+
+  export type UserListingResponseCreateNestedManyWithoutSavedQueryInput = {
+    create?: XOR<UserListingResponseCreateWithoutSavedQueryInput, UserListingResponseUncheckedCreateWithoutSavedQueryInput> | UserListingResponseCreateWithoutSavedQueryInput[] | UserListingResponseUncheckedCreateWithoutSavedQueryInput[]
+    connectOrCreate?: UserListingResponseCreateOrConnectWithoutSavedQueryInput | UserListingResponseCreateOrConnectWithoutSavedQueryInput[]
+    createMany?: UserListingResponseCreateManySavedQueryInputEnvelope
+    connect?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
+  }
+
+  export type UserListingResponseUncheckedCreateNestedManyWithoutSavedQueryInput = {
+    create?: XOR<UserListingResponseCreateWithoutSavedQueryInput, UserListingResponseUncheckedCreateWithoutSavedQueryInput> | UserListingResponseCreateWithoutSavedQueryInput[] | UserListingResponseUncheckedCreateWithoutSavedQueryInput[]
+    connectOrCreate?: UserListingResponseCreateOrConnectWithoutSavedQueryInput | UserListingResponseCreateOrConnectWithoutSavedQueryInput[]
+    createMany?: UserListingResponseCreateManySavedQueryInputEnvelope
+    connect?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
+  }
+
+  export type UserListingResponseUpdateManyWithoutSavedQueryNestedInput = {
+    create?: XOR<UserListingResponseCreateWithoutSavedQueryInput, UserListingResponseUncheckedCreateWithoutSavedQueryInput> | UserListingResponseCreateWithoutSavedQueryInput[] | UserListingResponseUncheckedCreateWithoutSavedQueryInput[]
+    connectOrCreate?: UserListingResponseCreateOrConnectWithoutSavedQueryInput | UserListingResponseCreateOrConnectWithoutSavedQueryInput[]
+    upsert?: UserListingResponseUpsertWithWhereUniqueWithoutSavedQueryInput | UserListingResponseUpsertWithWhereUniqueWithoutSavedQueryInput[]
+    createMany?: UserListingResponseCreateManySavedQueryInputEnvelope
+    set?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
+    disconnect?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
+    delete?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
+    connect?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
+    update?: UserListingResponseUpdateWithWhereUniqueWithoutSavedQueryInput | UserListingResponseUpdateWithWhereUniqueWithoutSavedQueryInput[]
+    updateMany?: UserListingResponseUpdateManyWithWhereWithoutSavedQueryInput | UserListingResponseUpdateManyWithWhereWithoutSavedQueryInput[]
+    deleteMany?: UserListingResponseScalarWhereInput | UserListingResponseScalarWhereInput[]
+  }
+
+  export type UserListingResponseUncheckedUpdateManyWithoutSavedQueryNestedInput = {
+    create?: XOR<UserListingResponseCreateWithoutSavedQueryInput, UserListingResponseUncheckedCreateWithoutSavedQueryInput> | UserListingResponseCreateWithoutSavedQueryInput[] | UserListingResponseUncheckedCreateWithoutSavedQueryInput[]
+    connectOrCreate?: UserListingResponseCreateOrConnectWithoutSavedQueryInput | UserListingResponseCreateOrConnectWithoutSavedQueryInput[]
+    upsert?: UserListingResponseUpsertWithWhereUniqueWithoutSavedQueryInput | UserListingResponseUpsertWithWhereUniqueWithoutSavedQueryInput[]
+    createMany?: UserListingResponseCreateManySavedQueryInputEnvelope
+    set?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
+    disconnect?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
+    delete?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
+    connect?: UserListingResponseWhereUniqueInput | UserListingResponseWhereUniqueInput[]
+    update?: UserListingResponseUpdateWithWhereUniqueWithoutSavedQueryInput | UserListingResponseUpdateWithWhereUniqueWithoutSavedQueryInput[]
+    updateMany?: UserListingResponseUpdateManyWithWhereWithoutSavedQueryInput | UserListingResponseUpdateManyWithWhereWithoutSavedQueryInput[]
+    deleteMany?: UserListingResponseScalarWhereInput | UserListingResponseScalarWhereInput[]
+  }
+
+  export type SavedQueryCreateNestedOneWithoutResponsesInput = {
+    create?: XOR<SavedQueryCreateWithoutResponsesInput, SavedQueryUncheckedCreateWithoutResponsesInput>
+    connectOrCreate?: SavedQueryCreateOrConnectWithoutResponsesInput
+    connect?: SavedQueryWhereUniqueInput
+  }
+
+  export type ListingCreateNestedOneWithoutUserResponsesInput = {
+    create?: XOR<ListingCreateWithoutUserResponsesInput, ListingUncheckedCreateWithoutUserResponsesInput>
+    connectOrCreate?: ListingCreateOrConnectWithoutUserResponsesInput
+    connect?: ListingWhereUniqueInput
+  }
+
+  export type SavedQueryUpdateOneRequiredWithoutResponsesNestedInput = {
+    create?: XOR<SavedQueryCreateWithoutResponsesInput, SavedQueryUncheckedCreateWithoutResponsesInput>
+    connectOrCreate?: SavedQueryCreateOrConnectWithoutResponsesInput
+    upsert?: SavedQueryUpsertWithoutResponsesInput
+    connect?: SavedQueryWhereUniqueInput
+    update?: XOR<XOR<SavedQueryUpdateToOneWithWhereWithoutResponsesInput, SavedQueryUpdateWithoutResponsesInput>, SavedQueryUncheckedUpdateWithoutResponsesInput>
+  }
+
+  export type ListingUpdateOneRequiredWithoutUserResponsesNestedInput = {
+    create?: XOR<ListingCreateWithoutUserResponsesInput, ListingUncheckedCreateWithoutUserResponsesInput>
+    connectOrCreate?: ListingCreateOrConnectWithoutUserResponsesInput
+    upsert?: ListingUpsertWithoutUserResponsesInput
+    connect?: ListingWhereUniqueInput
+    update?: XOR<XOR<ListingUpdateToOneWithWhereWithoutUserResponsesInput, ListingUpdateWithoutUserResponsesInput>, ListingUncheckedUpdateWithoutUserResponsesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -13539,6 +16640,36 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type UserListingResponseCreateWithoutListingInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    response: string
+    notes?: string | null
+    savedQuery: SavedQueryCreateNestedOneWithoutResponsesInput
+  }
+
+  export type UserListingResponseUncheckedCreateWithoutListingInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    savedQueryId: string
+    response: string
+    notes?: string | null
+  }
+
+  export type UserListingResponseCreateOrConnectWithoutListingInput = {
+    where: UserListingResponseWhereUniqueInput
+    create: XOR<UserListingResponseCreateWithoutListingInput, UserListingResponseUncheckedCreateWithoutListingInput>
+  }
+
+  export type UserListingResponseCreateManyListingInputEnvelope = {
+    data: UserListingResponseCreateManyListingInput | UserListingResponseCreateManyListingInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ScrapeListingUpsertWithWhereUniqueWithoutListingInput = {
     where: ScrapeListingWhereUniqueInput
     update: XOR<ScrapeListingUpdateWithoutListingInput, ScrapeListingUncheckedUpdateWithoutListingInput>
@@ -13584,6 +16715,36 @@ export namespace Prisma {
     compositeScore?: FloatFilter<"EnhancementResult"> | number
     status?: StringFilter<"EnhancementResult"> | string
     error?: StringNullableFilter<"EnhancementResult"> | string | null
+  }
+
+  export type UserListingResponseUpsertWithWhereUniqueWithoutListingInput = {
+    where: UserListingResponseWhereUniqueInput
+    update: XOR<UserListingResponseUpdateWithoutListingInput, UserListingResponseUncheckedUpdateWithoutListingInput>
+    create: XOR<UserListingResponseCreateWithoutListingInput, UserListingResponseUncheckedCreateWithoutListingInput>
+  }
+
+  export type UserListingResponseUpdateWithWhereUniqueWithoutListingInput = {
+    where: UserListingResponseWhereUniqueInput
+    data: XOR<UserListingResponseUpdateWithoutListingInput, UserListingResponseUncheckedUpdateWithoutListingInput>
+  }
+
+  export type UserListingResponseUpdateManyWithWhereWithoutListingInput = {
+    where: UserListingResponseScalarWhereInput
+    data: XOR<UserListingResponseUpdateManyMutationInput, UserListingResponseUncheckedUpdateManyWithoutListingInput>
+  }
+
+  export type UserListingResponseScalarWhereInput = {
+    AND?: UserListingResponseScalarWhereInput | UserListingResponseScalarWhereInput[]
+    OR?: UserListingResponseScalarWhereInput[]
+    NOT?: UserListingResponseScalarWhereInput | UserListingResponseScalarWhereInput[]
+    id?: StringFilter<"UserListingResponse"> | string
+    createdAt?: DateTimeFilter<"UserListingResponse"> | Date | string
+    updatedAt?: DateTimeFilter<"UserListingResponse"> | Date | string
+    userId?: StringFilter<"UserListingResponse"> | string
+    savedQueryId?: StringFilter<"UserListingResponse"> | string
+    listingId?: StringFilter<"UserListingResponse"> | string
+    response?: StringFilter<"UserListingResponse"> | string
+    notes?: StringNullableFilter<"UserListingResponse"> | string | null
   }
 
   export type ScrapeCreateWithoutListingsInput = {
@@ -13662,6 +16823,7 @@ export namespace Prisma {
     isFeaturedListing?: boolean
     rawData: JsonNullValueInput | InputJsonValue
     enhancementResults?: EnhancementResultCreateNestedManyWithoutListingInput
+    userResponses?: UserListingResponseCreateNestedManyWithoutListingInput
   }
 
   export type ListingUncheckedCreateWithoutScrapesInput = {
@@ -13699,6 +16861,7 @@ export namespace Prisma {
     isFeaturedListing?: boolean
     rawData: JsonNullValueInput | InputJsonValue
     enhancementResults?: EnhancementResultUncheckedCreateNestedManyWithoutListingInput
+    userResponses?: UserListingResponseUncheckedCreateNestedManyWithoutListingInput
   }
 
   export type ListingCreateOrConnectWithoutScrapesInput = {
@@ -13799,6 +16962,7 @@ export namespace Prisma {
     isFeaturedListing?: BoolFieldUpdateOperationsInput | boolean
     rawData?: JsonNullValueInput | InputJsonValue
     enhancementResults?: EnhancementResultUpdateManyWithoutListingNestedInput
+    userResponses?: UserListingResponseUpdateManyWithoutListingNestedInput
   }
 
   export type ListingUncheckedUpdateWithoutScrapesInput = {
@@ -13836,6 +17000,7 @@ export namespace Prisma {
     isFeaturedListing?: BoolFieldUpdateOperationsInput | boolean
     rawData?: JsonNullValueInput | InputJsonValue
     enhancementResults?: EnhancementResultUncheckedUpdateManyWithoutListingNestedInput
+    userResponses?: UserListingResponseUncheckedUpdateManyWithoutListingNestedInput
   }
 
   export type ScrapeCreateWithoutEnhancementsInput = {
@@ -14247,6 +17412,7 @@ export namespace Prisma {
     isFeaturedListing?: boolean
     rawData: JsonNullValueInput | InputJsonValue
     scrapes?: ScrapeListingCreateNestedManyWithoutListingInput
+    userResponses?: UserListingResponseCreateNestedManyWithoutListingInput
   }
 
   export type ListingUncheckedCreateWithoutEnhancementResultsInput = {
@@ -14284,6 +17450,7 @@ export namespace Prisma {
     isFeaturedListing?: boolean
     rawData: JsonNullValueInput | InputJsonValue
     scrapes?: ScrapeListingUncheckedCreateNestedManyWithoutListingInput
+    userResponses?: UserListingResponseUncheckedCreateNestedManyWithoutListingInput
   }
 
   export type ListingCreateOrConnectWithoutEnhancementResultsInput = {
@@ -14408,6 +17575,7 @@ export namespace Prisma {
     isFeaturedListing?: BoolFieldUpdateOperationsInput | boolean
     rawData?: JsonNullValueInput | InputJsonValue
     scrapes?: ScrapeListingUpdateManyWithoutListingNestedInput
+    userResponses?: UserListingResponseUpdateManyWithoutListingNestedInput
   }
 
   export type ListingUncheckedUpdateWithoutEnhancementResultsInput = {
@@ -14445,6 +17613,7 @@ export namespace Prisma {
     isFeaturedListing?: BoolFieldUpdateOperationsInput | boolean
     rawData?: JsonNullValueInput | InputJsonValue
     scrapes?: ScrapeListingUncheckedUpdateManyWithoutListingNestedInput
+    userResponses?: UserListingResponseUncheckedUpdateManyWithoutListingNestedInput
   }
 
   export type EnhancementValueUpsertWithWhereUniqueWithoutResultInput = {
@@ -14587,6 +17756,296 @@ export namespace Prisma {
     order?: IntFieldUpdateOperationsInput | number
   }
 
+  export type UserListingResponseCreateWithoutSavedQueryInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    response: string
+    notes?: string | null
+    listing: ListingCreateNestedOneWithoutUserResponsesInput
+  }
+
+  export type UserListingResponseUncheckedCreateWithoutSavedQueryInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    listingId: string
+    response: string
+    notes?: string | null
+  }
+
+  export type UserListingResponseCreateOrConnectWithoutSavedQueryInput = {
+    where: UserListingResponseWhereUniqueInput
+    create: XOR<UserListingResponseCreateWithoutSavedQueryInput, UserListingResponseUncheckedCreateWithoutSavedQueryInput>
+  }
+
+  export type UserListingResponseCreateManySavedQueryInputEnvelope = {
+    data: UserListingResponseCreateManySavedQueryInput | UserListingResponseCreateManySavedQueryInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserListingResponseUpsertWithWhereUniqueWithoutSavedQueryInput = {
+    where: UserListingResponseWhereUniqueInput
+    update: XOR<UserListingResponseUpdateWithoutSavedQueryInput, UserListingResponseUncheckedUpdateWithoutSavedQueryInput>
+    create: XOR<UserListingResponseCreateWithoutSavedQueryInput, UserListingResponseUncheckedCreateWithoutSavedQueryInput>
+  }
+
+  export type UserListingResponseUpdateWithWhereUniqueWithoutSavedQueryInput = {
+    where: UserListingResponseWhereUniqueInput
+    data: XOR<UserListingResponseUpdateWithoutSavedQueryInput, UserListingResponseUncheckedUpdateWithoutSavedQueryInput>
+  }
+
+  export type UserListingResponseUpdateManyWithWhereWithoutSavedQueryInput = {
+    where: UserListingResponseScalarWhereInput
+    data: XOR<UserListingResponseUpdateManyMutationInput, UserListingResponseUncheckedUpdateManyWithoutSavedQueryInput>
+  }
+
+  export type SavedQueryCreateWithoutResponsesInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    name: string
+    description?: string | null
+    searchType: string
+    searchQuery: JsonNullValueInput | InputJsonValue
+    enhancementQuery: string
+    columnWeights?: JsonNullValueInput | InputJsonValue
+    lastRunAt?: Date | string | null
+    lastScrapeId?: string | null
+  }
+
+  export type SavedQueryUncheckedCreateWithoutResponsesInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    name: string
+    description?: string | null
+    searchType: string
+    searchQuery: JsonNullValueInput | InputJsonValue
+    enhancementQuery: string
+    columnWeights?: JsonNullValueInput | InputJsonValue
+    lastRunAt?: Date | string | null
+    lastScrapeId?: string | null
+  }
+
+  export type SavedQueryCreateOrConnectWithoutResponsesInput = {
+    where: SavedQueryWhereUniqueInput
+    create: XOR<SavedQueryCreateWithoutResponsesInput, SavedQueryUncheckedCreateWithoutResponsesInput>
+  }
+
+  export type ListingCreateWithoutUserResponsesInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    zpid: string
+    detailUrl: string
+    imgSrc?: string | null
+    photos?: ListingCreatephotosInput | string[]
+    hasImage?: boolean
+    has3DModel?: boolean
+    hasVideo?: boolean
+    statusType: string
+    statusText: string
+    price: number
+    priceFormatted?: string | null
+    currency?: string
+    address: string
+    addressStreet?: string | null
+    addressCity?: string | null
+    addressState?: string | null
+    addressZipcode?: string | null
+    latitude?: number | null
+    longitude?: number | null
+    beds?: number | null
+    baths?: number | null
+    area?: number | null
+    homeType?: string | null
+    availabilityDate?: Date | string | null
+    scrapedAt?: Date | string
+    brokerName?: string | null
+    zestimate?: number | null
+    rentZestimate?: number | null
+    isFeaturedListing?: boolean
+    rawData: JsonNullValueInput | InputJsonValue
+    scrapes?: ScrapeListingCreateNestedManyWithoutListingInput
+    enhancementResults?: EnhancementResultCreateNestedManyWithoutListingInput
+  }
+
+  export type ListingUncheckedCreateWithoutUserResponsesInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    zpid: string
+    detailUrl: string
+    imgSrc?: string | null
+    photos?: ListingCreatephotosInput | string[]
+    hasImage?: boolean
+    has3DModel?: boolean
+    hasVideo?: boolean
+    statusType: string
+    statusText: string
+    price: number
+    priceFormatted?: string | null
+    currency?: string
+    address: string
+    addressStreet?: string | null
+    addressCity?: string | null
+    addressState?: string | null
+    addressZipcode?: string | null
+    latitude?: number | null
+    longitude?: number | null
+    beds?: number | null
+    baths?: number | null
+    area?: number | null
+    homeType?: string | null
+    availabilityDate?: Date | string | null
+    scrapedAt?: Date | string
+    brokerName?: string | null
+    zestimate?: number | null
+    rentZestimate?: number | null
+    isFeaturedListing?: boolean
+    rawData: JsonNullValueInput | InputJsonValue
+    scrapes?: ScrapeListingUncheckedCreateNestedManyWithoutListingInput
+    enhancementResults?: EnhancementResultUncheckedCreateNestedManyWithoutListingInput
+  }
+
+  export type ListingCreateOrConnectWithoutUserResponsesInput = {
+    where: ListingWhereUniqueInput
+    create: XOR<ListingCreateWithoutUserResponsesInput, ListingUncheckedCreateWithoutUserResponsesInput>
+  }
+
+  export type SavedQueryUpsertWithoutResponsesInput = {
+    update: XOR<SavedQueryUpdateWithoutResponsesInput, SavedQueryUncheckedUpdateWithoutResponsesInput>
+    create: XOR<SavedQueryCreateWithoutResponsesInput, SavedQueryUncheckedCreateWithoutResponsesInput>
+    where?: SavedQueryWhereInput
+  }
+
+  export type SavedQueryUpdateToOneWithWhereWithoutResponsesInput = {
+    where?: SavedQueryWhereInput
+    data: XOR<SavedQueryUpdateWithoutResponsesInput, SavedQueryUncheckedUpdateWithoutResponsesInput>
+  }
+
+  export type SavedQueryUpdateWithoutResponsesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    searchType?: StringFieldUpdateOperationsInput | string
+    searchQuery?: JsonNullValueInput | InputJsonValue
+    enhancementQuery?: StringFieldUpdateOperationsInput | string
+    columnWeights?: JsonNullValueInput | InputJsonValue
+    lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastScrapeId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SavedQueryUncheckedUpdateWithoutResponsesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    searchType?: StringFieldUpdateOperationsInput | string
+    searchQuery?: JsonNullValueInput | InputJsonValue
+    enhancementQuery?: StringFieldUpdateOperationsInput | string
+    columnWeights?: JsonNullValueInput | InputJsonValue
+    lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastScrapeId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ListingUpsertWithoutUserResponsesInput = {
+    update: XOR<ListingUpdateWithoutUserResponsesInput, ListingUncheckedUpdateWithoutUserResponsesInput>
+    create: XOR<ListingCreateWithoutUserResponsesInput, ListingUncheckedCreateWithoutUserResponsesInput>
+    where?: ListingWhereInput
+  }
+
+  export type ListingUpdateToOneWithWhereWithoutUserResponsesInput = {
+    where?: ListingWhereInput
+    data: XOR<ListingUpdateWithoutUserResponsesInput, ListingUncheckedUpdateWithoutUserResponsesInput>
+  }
+
+  export type ListingUpdateWithoutUserResponsesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    zpid?: StringFieldUpdateOperationsInput | string
+    detailUrl?: StringFieldUpdateOperationsInput | string
+    imgSrc?: NullableStringFieldUpdateOperationsInput | string | null
+    photos?: ListingUpdatephotosInput | string[]
+    hasImage?: BoolFieldUpdateOperationsInput | boolean
+    has3DModel?: BoolFieldUpdateOperationsInput | boolean
+    hasVideo?: BoolFieldUpdateOperationsInput | boolean
+    statusType?: StringFieldUpdateOperationsInput | string
+    statusText?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    priceFormatted?: NullableStringFieldUpdateOperationsInput | string | null
+    currency?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    addressStreet?: NullableStringFieldUpdateOperationsInput | string | null
+    addressCity?: NullableStringFieldUpdateOperationsInput | string | null
+    addressState?: NullableStringFieldUpdateOperationsInput | string | null
+    addressZipcode?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    beds?: NullableIntFieldUpdateOperationsInput | number | null
+    baths?: NullableFloatFieldUpdateOperationsInput | number | null
+    area?: NullableIntFieldUpdateOperationsInput | number | null
+    homeType?: NullableStringFieldUpdateOperationsInput | string | null
+    availabilityDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scrapedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    brokerName?: NullableStringFieldUpdateOperationsInput | string | null
+    zestimate?: NullableIntFieldUpdateOperationsInput | number | null
+    rentZestimate?: NullableIntFieldUpdateOperationsInput | number | null
+    isFeaturedListing?: BoolFieldUpdateOperationsInput | boolean
+    rawData?: JsonNullValueInput | InputJsonValue
+    scrapes?: ScrapeListingUpdateManyWithoutListingNestedInput
+    enhancementResults?: EnhancementResultUpdateManyWithoutListingNestedInput
+  }
+
+  export type ListingUncheckedUpdateWithoutUserResponsesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    zpid?: StringFieldUpdateOperationsInput | string
+    detailUrl?: StringFieldUpdateOperationsInput | string
+    imgSrc?: NullableStringFieldUpdateOperationsInput | string | null
+    photos?: ListingUpdatephotosInput | string[]
+    hasImage?: BoolFieldUpdateOperationsInput | boolean
+    has3DModel?: BoolFieldUpdateOperationsInput | boolean
+    hasVideo?: BoolFieldUpdateOperationsInput | boolean
+    statusType?: StringFieldUpdateOperationsInput | string
+    statusText?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    priceFormatted?: NullableStringFieldUpdateOperationsInput | string | null
+    currency?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    addressStreet?: NullableStringFieldUpdateOperationsInput | string | null
+    addressCity?: NullableStringFieldUpdateOperationsInput | string | null
+    addressState?: NullableStringFieldUpdateOperationsInput | string | null
+    addressZipcode?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    beds?: NullableIntFieldUpdateOperationsInput | number | null
+    baths?: NullableFloatFieldUpdateOperationsInput | number | null
+    area?: NullableIntFieldUpdateOperationsInput | number | null
+    homeType?: NullableStringFieldUpdateOperationsInput | string | null
+    availabilityDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scrapedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    brokerName?: NullableStringFieldUpdateOperationsInput | string | null
+    zestimate?: NullableIntFieldUpdateOperationsInput | number | null
+    rentZestimate?: NullableIntFieldUpdateOperationsInput | number | null
+    isFeaturedListing?: BoolFieldUpdateOperationsInput | boolean
+    rawData?: JsonNullValueInput | InputJsonValue
+    scrapes?: ScrapeListingUncheckedUpdateManyWithoutListingNestedInput
+    enhancementResults?: EnhancementResultUncheckedUpdateManyWithoutListingNestedInput
+  }
+
   export type ScrapeListingCreateManyScrapeInput = {
     listingId: string
     foundAt?: Date | string
@@ -14683,6 +18142,16 @@ export namespace Prisma {
     error?: string | null
   }
 
+  export type UserListingResponseCreateManyListingInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    savedQueryId: string
+    response: string
+    notes?: string | null
+  }
+
   export type ScrapeListingUpdateWithoutListingInput = {
     foundAt?: DateTimeFieldUpdateOperationsInput | Date | string
     scrape?: ScrapeUpdateOneRequiredWithoutListingsNestedInput
@@ -14731,6 +18200,36 @@ export namespace Prisma {
     compositeScore?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     error?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type UserListingResponseUpdateWithoutListingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    response?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    savedQuery?: SavedQueryUpdateOneRequiredWithoutResponsesNestedInput
+  }
+
+  export type UserListingResponseUncheckedUpdateWithoutListingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    savedQueryId?: StringFieldUpdateOperationsInput | string
+    response?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type UserListingResponseUncheckedUpdateManyWithoutListingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    savedQueryId?: StringFieldUpdateOperationsInput | string
+    response?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type EnhancementColumnCreateManyEnhancementInput = {
@@ -14891,6 +18390,46 @@ export namespace Prisma {
     enhancementId?: StringFieldUpdateOperationsInput | string
     listingId?: StringFieldUpdateOperationsInput | string
     normalizedValue?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type UserListingResponseCreateManySavedQueryInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    listingId: string
+    response: string
+    notes?: string | null
+  }
+
+  export type UserListingResponseUpdateWithoutSavedQueryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    response?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    listing?: ListingUpdateOneRequiredWithoutUserResponsesNestedInput
+  }
+
+  export type UserListingResponseUncheckedUpdateWithoutSavedQueryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    listingId?: StringFieldUpdateOperationsInput | string
+    response?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type UserListingResponseUncheckedUpdateManyWithoutSavedQueryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    listingId?: StringFieldUpdateOperationsInput | string
+    response?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 
