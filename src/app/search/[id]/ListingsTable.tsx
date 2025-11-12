@@ -164,18 +164,18 @@ export default function ListingsTable({
 
       {/* Table Header */}
       <div className="flex items-center gap-4 py-2 px-3 bg-gray-100 dark:bg-gray-800 border-y border-gray-200 dark:border-gray-700 text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
-        <div className="w-24 flex-shrink-0">Image</div>
-        <div className="w-28 flex-shrink-0">Price</div>
-        <div className="w-32 flex-shrink-0">Beds/Baths</div>
-        <div className="w-24 flex-shrink-0">Area</div>
+        <div className="w-24 shrink-0">Image</div>
+        <div className="w-28 shrink-0">Price</div>
+        <div className="w-32 shrink-0">Beds/Baths</div>
+        <div className="w-24 shrink-0">Area</div>
         <div className="flex-1 min-w-0">Address</div>
         {enhancementColumns.length > 0 && (
           <>
-            <div className="w-20 flex-shrink-0 text-center">Score</div>
-            <div className="w-24 flex-shrink-0 text-center">Details</div>
+            <div className="w-20 shrink-0 text-center">Score</div>
+            <div className="w-24 shrink-0 text-center">Details</div>
           </>
         )}
-        <div className="w-16 flex-shrink-0">Link</div>
+        <div className="w-16 shrink-0">Link</div>
       </div>
 
       {/* Listings */}
