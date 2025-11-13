@@ -1,7 +1,7 @@
-import { EchoAccount } from '@/components/echo-account-next';
-import { isSignedIn } from '@/echo';
-import Link from 'next/link';
-import type { FC } from 'react';
+import { EchoAccount } from "@/components/echo-account-next";
+import { isSignedIn } from "@/echo";
+import Link from "next/link";
+import type { FC } from "react";
 
 interface HeaderProps {
   title?: string;
@@ -9,8 +9,8 @@ interface HeaderProps {
 }
 
 const Header: FC<HeaderProps> = async ({
-  title = 'My App',
-  className = '',
+  title = "My App",
+  className = "",
 }) => {
   const signedIn = await isSignedIn();
 
@@ -22,20 +22,22 @@ const Header: FC<HeaderProps> = async ({
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center gap-8">
             <Link href="/">
-              <h1 className="font-semibold text-gray-900 text-xl hover:text-gray-700 cursor-pointer">{title}</h1>
+              <h1 className="font-semibold text-gray-900 text-xl hover:text-gray-700 cursor-pointer">
+                {title}
+              </h1>
             </Link>
             <nav className="flex items-center space-x-4">
-              <Link 
-                href="/searches" 
+              <Link
+                href="/searches"
                 className="text-gray-600 hover:text-gray-900 text-sm font-medium"
               >
                 My Searches
               </Link>
-              <Link 
-                href="/likes" 
+              <Link
+                href="/likes"
                 className="text-gray-600 hover:text-gray-900 text-sm font-medium"
               >
-                ❤️ Likes
+                Likes
               </Link>
             </nav>
           </div>

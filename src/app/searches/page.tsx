@@ -2,10 +2,18 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Search, Heart, Trash2 } from "lucide-react";
+import { Plus, Search, ExternalLink } from "lucide-react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 interface SearchConfiguration {
   id: string;
@@ -107,9 +115,9 @@ export default function SearchesPage() {
         {/* Header */}
         <div className="mb-6 flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold mb-2">My Searches</h1>
+            <h1 className="text-3xl font-bold mb-2">Search Runs</h1>
             <p className="text-gray-600 dark:text-gray-400">
-              View and manage your apartment searches
+              {searches.length} {searches.length === 1 ? "run" : "runs"}
             </p>
           </div>
           <Button onClick={() => router.push("/")}>
@@ -118,7 +126,7 @@ export default function SearchesPage() {
           </Button>
         </div>
 
-        {/* Searches grid */}
+        {/* Searches table */}
         {searches.length === 0 ? (
           <Card>
             <CardContent className="py-12 text-center">
@@ -133,92 +141,85 @@ export default function SearchesPage() {
             </CardContent>
           </Card>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {searches.map((config) => {
-              const searchQuery = config.scrape.searchQuery;
-              const searchDisplay =
-                config.scrape.searchType === "zipcode"
-                  ? searchQuery?.zipCodes?.join(", ")
-                  : searchQuery?.searchUrls?.[0]?.url || "URL Search";
-              
-              const displayName = config.name || config.scrape.name || searchDisplay;
-              const responseCounts = config._count.userResponses;
+          <Card>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Name</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Query</TableHead>
+                  <TableHead className="text-right">Listings</TableHead>
+                  <TableHead className="text-right">Reviewed</TableHead>
+                  <TableHead>Created</TableHead>
+                  <TableHead className="text-right">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {searches.map((config) => {
+                  const searchQuery = config.scrape.searchQuery;
+                  const searchDisplay =
+                    config.scrape.searchType === "zipcode"
+                      ? searchQuery?.zipCodes?.join(", ")
+                      : searchQuery?.searchUrls?.[0]?.url || "URL Search";
+                  
+                  const displayName = config.name || config.scrape.name || searchDisplay;
+                  const responseCounts = config._count.userResponses;
 
-              return (
-                <Card
-                  key={config.id}
-                  className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
-                  onClick={() => router.push(`/search/${config.id}`)}
-                >
-                  <CardHeader>
-                    <div className="flex items-start justify-between gap-2">
-                      <CardTitle className="text-xl line-clamp-2 flex-1">{displayName}</CardTitle>
-                      <Badge className={`${getStatusColor(config.scrape.status)} text-white shrink-0`}>
-                        {config.scrape.status}
-                      </Badge>
-                    </div>
-                    {config.description && (
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">
-                        {config.description}
-                      </p>
-                    )}
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    {/* Enhancement query */}
-                    <div>
-                      <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">
-                        Looking for
-                      </p>
-                      <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-2">
-                        {config.enhancement.query}
-                      </p>
-                    </div>
-
-                    {/* Stats */}
-                    <div className="flex gap-4 text-sm text-gray-600 dark:text-gray-400">
-                      <div className="flex items-center gap-1">
-                        <Search className="h-4 w-4" />
-                        <span>{config.scrape.listingsCount} listings</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Heart className="h-4 w-4" />
-                        <span>{responseCounts} reviewed</span>
-                      </div>
-                    </div>
-
-                    {/* Created date */}
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      Created {new Date(config.createdAt).toLocaleDateString()}
-                    </p>
-
-                    {/* Actions */}
-                    <div className="flex gap-2 pt-2">
-                      <Button
-                        size="sm"
-                        className="flex-1"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          router.push(`/search/${config.id}`);
-                        }}
-                      >
-                        View
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          router.push(`/search/${config.id}/review`);
-                        }}
-                      >
-                        Review
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
+                  return (
+                    <TableRow
+                      key={config.id}
+                      className="cursor-pointer hover:bg-muted/50"
+                      onClick={() => router.push(`/search/${config.id}`)}
+                    >
+                      <TableCell className="font-medium max-w-xs">
+                        <div className="truncate" title={displayName}>
+                          {displayName}
+                        </div>
+                        {config.description && (
+                          <div className="text-xs text-muted-foreground truncate" title={config.description}>
+                            {config.description}
+                          </div>
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        <Badge className={`${getStatusColor(config.scrape.status)} text-white`}>
+                          {config.scrape.status}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="max-w-md">
+                        <div className="text-sm truncate" title={config.enhancement.query}>
+                          {config.enhancement.query}
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        {config.scrape.listingsCount}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        {responseCounts}
+                      </TableCell>
+                      <TableCell className="text-sm text-muted-foreground">
+                        {new Date(config.createdAt).toLocaleDateString()}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <div className="flex gap-2 justify-end">
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              router.push(`/search/${config.id}`);
+                            }}
+                          >
+                            <ExternalLink className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </Card>
         )}
       </div>
     </div>
