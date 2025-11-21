@@ -25,14 +25,14 @@ export const metadata: Metadata = {
         url: "/og-image-cat.png",
         width: 1200,
         height: 630,
-        alt: "Hunter Agent",
+        alt: "Apt Agent",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hunter Agent",
+    title: "Apt Agent",
     description: "I will hunt down your next home, bro",
     images: ["/og-image-cat.png"],
   },
@@ -49,7 +49,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} flex h-screen flex-col antialiased`}
       >
         <Providers>
-          <Header title="Hunter Agent" />
+          <Header title="Apt Agent" />
           <div className="min-h-0 flex-1">{children}</div>
         </Providers>
       </body>
