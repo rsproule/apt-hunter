@@ -69,8 +69,8 @@ importers:
         specifier: ^5.90.7
         version: 5.90.7(react@19.1.0)
       '@trigger.dev/sdk':
-        specifier: ^4.0.7
-        version: 4.0.7(ai@5.0.19(zod@4.1.12))(zod@4.1.12)
+        specifier: 4.1.1
+        version: 4.1.1(ai@5.0.19(zod@4.1.12))(typescript@5.9.3)(zod@4.1.12)
       '@vercel/functions':
         specifier: ^3.3.0
         version: 3.3.0(@aws-sdk/credential-provider-web-identity@3.609.0(@aws-sdk/client-sts@3.928.0))
@@ -1124,6 +1124,9 @@ packages:
   '@prisma/get-platform@6.19.0':
     resolution: {integrity: sha512-ym85WDO2yDhC3fIXHWYpG3kVMBA49cL1XD2GCsCF8xbwoy2OkDQY44gEbAt2X46IQ4Apq9H6g0Ex1iFfPqEkHA==}
 
+  '@protobuf-ts/runtime@2.11.1':
+    resolution: {integrity: sha512-KuDaT1IfHkugM2pyz+FwiY80ejWrkH1pAtOBOZFuR6SXEFTsnb/jiQWQ1rCIrcKx2BtyxnxW6BWwsVSA/Ie+WQ==}
+
   '@protobufjs/aspromise@1.1.2':
     resolution: {integrity: sha512-j+gKExEuLmKwvz3OgROXtrJ2UG2x8Ch2YZUxahh+s1F2HZ+wAceUNLkvy6zKCPVRkU++ZWQrdxsUeQXmcg4uoQ==}
 
@@ -1594,6 +1597,11 @@ packages:
     cpu: [arm64]
     os: [darwin]
 
+  '@s2-dev/streamstore@0.17.3':
+    resolution: {integrity: sha512-UeXL5+MgZQfNkbhCgEDVm7PrV5B3bxh6Zp4C5pUzQQwaoA+iGh2QiiIptRZynWgayzRv4vh0PYfnKpTzJEXegQ==}
+    peerDependencies:
+      typescript: ^5.9.3
+
   '@sec-ant/readable-stream@0.4.1':
     resolution: {integrity: sha512-831qok9r2t8AlxLko40y2ebgSDhenenCatLVeW/uBtnHPyhHOvG0C7TvfgecV+wHzIm5KUICgzmVpWS+IMEAeg==}
 
@@ -1637,6 +1645,7 @@ packages:
   '@smithy/core@3.18.0':
     resolution: {integrity: sha512-vGSDXOJFZgOPTatSI1ly7Gwyy/d/R9zh2TO3y0JZ0uut5qQ88p9IaWaZYIWSSqtdekNM4CGok/JppxbAff4KcQ==}
     engines: {node: '>=18.0.0'}
+    deprecated: Please upgrade your lockfile to use the latest 3.x version of @smithy/core for various fixes, see https://github.com/smithy-lang/smithy-typescript/blob/main/packages/core/CHANGELOG.md
 
   '@smithy/credential-provider-imds@4.2.5':
     resolution: {integrity: sha512-BZwotjoZWn9+36nimwm/OLIcVe+KYRwzMjfhd4QT7QxPm9WY0HiOV8t/Wlh+HVUif0SBVV7ksq8//hPaBC/okQ==}
@@ -1986,12 +1995,12 @@ packages:
     peerDependencies:
       react: ^18 || ^19
 
-  '@trigger.dev/core@4.0.7':
-    resolution: {integrity: sha512-FwwTW1SI1hREPeAzrr5EHUPdhXi8eRy36QibWi+GMR+qW+ukxpNCUWlLBH6wI11qd4n4dvsTmx6iaaAS9gv3cg==}
+  '@trigger.dev/core@4.1.1':
+    resolution: {integrity: sha512-j17zAwBqzPmNqg4SRLyA33Q9z2o67+EyRU3w7CiX9kfwcjzdN7pbR4QYcbe1Jf/oIXkU4oTBpppj+GN41eYnuw==}
     engines: {node: '>=18.20.0'}
 
-  '@trigger.dev/sdk@4.0.7':
-    resolution: {integrity: sha512-dFPYPtj5pwggHMaPQW77E1KOU/sjdI0ZCEmnoU17v7CBQ+FoTkZFjMMMwD9K2qp9d6v55lm4DQ8EHlKTTiA5og==}
+  '@trigger.dev/sdk@4.1.1':
+    resolution: {integrity: sha512-wgO6zVW/TG+33F/Mxidn4rnkq7E0kZlBYwG8r1E3twDbvewtqAEVOtkuKfN13Q1sqryDbqCzpNvlLFe6gzNCmw==}
     engines: {node: '>=18.20.0'}
     peerDependencies:
       ai: ^4.2.0 || ^5.0.0
@@ -5849,6 +5858,8 @@ snapshots:
     dependencies:
       '@prisma/debug': 6.19.0
 
+  '@protobuf-ts/runtime@2.11.1': {}
+
   '@protobufjs/aspromise@1.1.2': {}
 
   '@protobufjs/base64@1.1.2': {}
@@ -6302,6 +6313,11 @@ snapshots:
 
   '@rollup/rollup-darwin-arm64@4.53.2':
     optional: true
+
+  '@s2-dev/streamstore@0.17.3(typescript@5.9.3)':
+    dependencies:
+      '@protobuf-ts/runtime': 2.11.1
+      typescript: 5.9.3
 
   '@sec-ant/readable-stream@0.4.1': {}
 
@@ -6761,7 +6777,7 @@ snapshots:
       '@tanstack/query-core': 5.90.7
       react: 19.1.0
 
-  '@trigger.dev/core@4.0.7':
+  '@trigger.dev/core@4.1.1(typescript@5.9.3)':
     dependencies:
       '@bugsnag/cuid': 3.2.1
       '@electric-sql/client': 1.0.14
@@ -6778,6 +6794,7 @@ snapshots:
       '@opentelemetry/sdk-trace-base': 2.0.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/sdk-trace-node': 2.0.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.36.0
+      '@s2-dev/streamstore': 0.17.3(typescript@5.9.3)
       dequal: 2.0.3
       eventsource: 3.0.7
       eventsource-parser: 3.0.6
@@ -6798,13 +6815,14 @@ snapshots:
     transitivePeerDependencies:
       - bufferutil
       - supports-color
+      - typescript
       - utf-8-validate
 
-  '@trigger.dev/sdk@4.0.7(ai@5.0.19(zod@4.1.12))(zod@4.1.12)':
+  '@trigger.dev/sdk@4.1.1(ai@5.0.19(zod@4.1.12))(typescript@5.9.3)(zod@4.1.12)':
     dependencies:
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/semantic-conventions': 1.36.0
-      '@trigger.dev/core': 4.0.7
+      '@trigger.dev/core': 4.1.1(typescript@5.9.3)
       chalk: 5.6.2
       cronstrue: 2.59.0
       debug: 4.4.3(supports-color@8.1.1)
@@ -6820,6 +6838,7 @@ snapshots:
     transitivePeerDependencies:
       - bufferutil
       - supports-color
+      - typescript
       - utf-8-validate
 
   '@types/cookie@0.4.1': {}
