@@ -15,10 +15,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Hunter Agent",
+  title: "Apt Agent",
   description: "AI-powered real estate hunter",
   openGraph: {
-    title: "Hunter Agent",
+    title: "Apt Agent",
     description: "I will hunt down your next home, bro",
     images: [
       {
