@@ -78,10 +78,10 @@ export default function HomePage() {
           {/* Header */}
           <div className="text-center space-y-4">
             <h1 className="text-5xl font-bold text-gray-900 dark:text-white">
-              Hunter Agent
+              Apartment Hunter Agent
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-400">
-              Find your perfect apartment with AI-powered search
+              Find your perfect apartment
             </p>
           </div>
 
@@ -131,15 +131,14 @@ export default function HomePage() {
                     className="resize-none"
                   />
                   <p className="text-xs text-gray-500">
-                    Describe the features you care about. Our AI will analyze
-                    photos from each listing.
+                    Describe the features you care about.
                   </p>
                 </div>
 
                 {/* Error message */}
                 {error && (
                   <div className="p-4 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-lg text-sm flex items-start gap-2">
-                    <XCircle className="h-5 w-5 flex-shrink-0 mt-0.5" />
+                    <XCircle className="h-5 w-5 shrink-0 mt-0.5" />
                     <span>{error}</span>
                   </div>
                 )}
@@ -163,23 +162,6 @@ export default function HomePage() {
               </form>
             </CardContent>
           </Card>
-
-          {/* Quick Links */}
-          <div className="flex justify-center gap-4 text-sm">
-            <a
-              href="/saved-queries"
-              className="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white underline"
-            >
-              View Saved Searches
-            </a>
-            <span className="text-gray-400">•</span>
-            <a
-              href="/dev/apify"
-              className="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white underline"
-            >
-              Advanced Testing
-            </a>
-          </div>
         </div>
       </div>
     </div>
