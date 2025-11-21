@@ -17,6 +17,25 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Hunter Agent",
   description: "AI-powered real estate hunter",
+  openGraph: {
+    title: "Hunter Agent",
+    description: "I will hunt down your next home, bro",
+    images: [
+      {
+        url: "/og-image-cat.png",
+        width: 1200,
+        height: 630,
+        alt: "Hunter Agent",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Hunter Agent",
+    description: "I will hunt down your next home, bro",
+    images: ["/og-image-cat.png"],
+  },
 };
 
 export default function RootLayout({
