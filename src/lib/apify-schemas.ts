@@ -2,69 +2,69 @@ import { z } from "zod";
 
 // Environment schema for Apify token
 export const ApifyEnvSchema = z.object({
-  APIFY_TOKEN: z.string().min(1, "Apify token not configured"),
+	APIFY_TOKEN: z.string().min(1, "Apify token not configured"),
 });
 
 // Simplified search request schema
 export const SearchRequestSchema = z.object({
-  zipCodes: z.array(z.string()).min(1, "At least one zip code is required"),
-  priceMax: z.number().min(1000).optional(),
-  forRent: z.boolean().default(true),
+	zipCodes: z.array(z.string()).min(1, "At least one zip code is required"),
+	priceMax: z.number().min(1000).optional(),
+	forRent: z.boolean().default(true),
 });
 
 // Generic Apify actor run schema
 export const ApifyActorRunSchema = z.object({
-  actorId: z.string().min(1, "Actor ID is required"),
-  input: z.record(z.string(), z.any()),
+	actorId: z.string().min(1, "Actor ID is required"),
+	input: z.record(z.string(), z.any()),
 });
 
 // Zillow URL search schema
 export const ZillowUrlSearchSchema = z.object({
-  searchUrl: z.string().url("Valid Zillow search URL is required"),
+	searchUrl: z.string().url("Valid Zillow search URL is required"),
 });
 
 // Get results query schema
 export const GetResultsQuerySchema = z.object({
-  runId: z.string().min(1, "Run ID is required"),
+	runId: z.string().min(1, "Run ID is required"),
 });
 
 // Download results schema
 export const DownloadResultsSchema = z.object({
-  runId: z.string().min(1, "Run ID is required"),
-  format: z.enum(["json", "csv"]).default("json"),
+	runId: z.string().min(1, "Run ID is required"),
+	format: z.enum(["json", "csv"]).default("json"),
 });
 
 // Apify run status enum based on SDK
 export const ApifyRunStatus = z.enum([
-  "READY",
-  "RUNNING",
-  "SUCCEEDED",
-  "FAILED",
-  "TIMING-OUT",
-  "TIMED-OUT",
-  "ABORTING",
-  "ABORTED",
+	"READY",
+	"RUNNING",
+	"SUCCEEDED",
+	"FAILED",
+	"TIMING-OUT",
+	"TIMED-OUT",
+	"ABORTING",
+	"ABORTED",
 ]);
 
 // Response schemas for better type safety
 export const StartTaskResponseSchema = z.object({
-  success: z.boolean(),
-  runId: z.string(),
-  status: ApifyRunStatus,
-  message: z.string(),
+	success: z.boolean(),
+	runId: z.string(),
+	status: ApifyRunStatus,
+	message: z.string(),
 });
 
 export const GetResultsResponseSchema = z.object({
-  success: z.boolean(),
-  status: ApifyRunStatus,
-  finished: z.boolean(),
-  message: z.string().optional(),
-  results: z.array(z.record(z.any(), z.any())).optional(),
-  count: z.number().optional(),
+	success: z.boolean(),
+	status: ApifyRunStatus,
+	finished: z.boolean(),
+	message: z.string().optional(),
+	results: z.array(z.record(z.any(), z.any())).optional(),
+	count: z.number().optional(),
 });
 
 export const ErrorResponseSchema = z.object({
-  error: z.string(),
+	error: z.string(),
 });
 
 // Type exports

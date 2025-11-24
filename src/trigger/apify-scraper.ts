@@ -1,275 +1,294 @@
+import { task, wait } from "@trigger.dev/sdk/v3";
+import { ApifyClient } from "apify-client";
 import type { ApifyActorId } from "@/lib/apify-actors";
 import { ApifyWorkflowRequestSchema } from "@/lib/apify-actors";
 import { ApifyEnvSchema } from "@/lib/apify-schemas";
 import { prisma } from "@/lib/db";
 import { extractListingForDb, parseZillowListings } from "@/lib/zillow-schemas";
-import { task, wait } from "@trigger.dev/sdk/v3";
-import { ApifyClient } from "apify-client";
 
 const MAX_WAIT_TIME = 10 * 60 * 1000; // 10 minutes
 const POLL_INTERVAL = 6000; // 5 seconds
 
 interface ApifyTaskPayload {
-  actorId: ApifyActorId;
-  input: any;
-  userId: string;
-  searchType: "zipcode" | "url";
-  searchQuery: any;
-  scrapeId?: string; // Optional: if provided, update existing scrape instead of creating
+	actorId: ApifyActorId;
+	input: any;
+	userId: string;
+	searchType: "zipcode" | "url";
+	searchQuery: any;
+	scrapeId?: string; // Optional: if provided, update existing scrape instead of creating
 }
 
 interface ApifyTaskResult {
-  success: boolean;
-  runId: string;
-  scrapeId?: string;
-  status: string;
-  results?: any[];
-  count?: number;
-  error?: string;
+	success: boolean;
+	runId: string;
+	scrapeId?: string;
+	status: string;
+	results?: any[];
+	count?: number;
+	error?: string;
 }
 
 export const runApifyTask = task({
-  id: "apify-scraper",
-  run: async (payload: ApifyTaskPayload): Promise<ApifyTaskResult> => {
-    const startTime = Date.now();
+	id: "apify-scraper",
+	run: async (payload: ApifyTaskPayload): Promise<ApifyTaskResult> => {
+		const startTime = Date.now();
 
-    // Validate the actorId and input part of the payload
-    const validatedRequest = ApifyWorkflowRequestSchema.parse({
-      actorId: payload.actorId,
-      input: payload.input,
-    });
-    const { actorId, input, userId, searchType, searchQuery, scrapeId } =
-      payload;
+		// Validate the actorId and input part of the payload
+		const validatedRequest = ApifyWorkflowRequestSchema.parse({
+			actorId: payload.actorId,
+			input: payload.input,
+		});
+		const { actorId, input, userId, searchType, searchQuery, scrapeId } =
+			payload;
 
-    // Get API token from environment
-    const env = ApifyEnvSchema.parse(process.env);
-    const apiToken = env.APIFY_TOKEN;
+		// Get API token from environment
+		const env = ApifyEnvSchema.parse(process.env);
+		const apiToken = env.APIFY_TOKEN;
 
-    // Initialize Apify client
-    const client = new ApifyClient({ token: apiToken });
+		// Initialize Apify client
+		const client = new ApifyClient({ token: apiToken });
 
-    // Step 1: Start the actor
-    console.log(`Starting Apify actor ${actorId}...`);
-    const run = await client.actor(actorId).start(input);
-    const runId = run.id;
-    console.log(`Started Apify actor ${actorId} with run ID: ${runId}`);
+		// Step 1: Start the actor
+		console.log(`Starting Apify actor ${actorId}...`);
+		const run = await client.actor(actorId).start(input);
+		const runId = run.id;
+		console.log(`Started Apify actor ${actorId} with run ID: ${runId}`);
 
-    // Step 2: Update or create scrape record
-    let scrape;
-    try {
-      if (scrapeId) {
-        // Update existing scrape record
-        scrape = await prisma.scrape.update({
-          where: { id: scrapeId },
-          data: {
-            apifyRunId: runId,
-            status: "running",
-          },
-        });
-        console.log(`Updated scrape record: ${scrape.id}`);
-      } else {
-        // Create new scrape record (fallback for old behavior)
-        scrape = await prisma.scrape.create({
-          data: {
-            userId,
-            searchType,
-            searchQuery,
-            apifyRunId: runId,
-            status: "running",
-          },
-        });
-        console.log(`Created scrape record: ${scrape.id}`);
-      }
-    } catch (error) {
-      console.error("Failed to create/update scrape record:", error);
-      // Continue anyway, we still want to get the results
-    }
+		// Step 2: Update or create scrape record
+		let scrape;
+		try {
+			if (scrapeId) {
+				// Update existing scrape record
+				scrape = await prisma.scrape.update({
+					where: { id: scrapeId },
+					data: {
+						apifyRunId: runId,
+						status: "running",
+					},
+				});
+				console.log(`Updated scrape record: ${scrape.id}`);
+			} else {
+				// Create new scrape record (fallback for old behavior)
+				scrape = await prisma.scrape.create({
+					data: {
+						userId,
+						searchType,
+						searchQuery,
+						apifyRunId: runId,
+						status: "running",
+					},
+				});
+				console.log(`Created scrape record: ${scrape.id}`);
+			}
+		} catch (error) {
+			console.error("Failed to create/update scrape record:", error);
+			// Continue anyway, we still want to get the results
+		}
 
-    // Step 3: Poll for completion
-    while (Date.now() - startTime < MAX_WAIT_TIME) {
-      // Check run status
-      const runStatus = await client.run(runId).get();
-      console.log(`Checking status for run ${runId}: ${runStatus?.status}`);
+		// Step 3: Poll for completion
+		while (Date.now() - startTime < MAX_WAIT_TIME) {
+			// Check run status
+			const runStatus = await client.run(runId).get();
+			console.log(`Checking status for run ${runId}: ${runStatus?.status}`);
 
-      if (runStatus?.status === "SUCCEEDED") {
-        // Fetch results
-        const dataset = await client
-          .dataset(runStatus.defaultDatasetId)
-          .listItems();
+			if (runStatus?.status === "SUCCEEDED") {
+				// Fetch results
+				const dataset = await client
+					.dataset(runStatus.defaultDatasetId)
+					.listItems();
 
-        console.log(`Fetched ${dataset.items.length} items from Apify`);
+				console.log(`Fetched ${dataset.items.length} items from Apify`);
 
-        // Debug: Log first item structure to understand the data format
-        if (dataset.items.length > 0) {
-          const firstItem = dataset.items[0];
-          console.log("=== DEBUG: First item structure ===");
-          console.log("Keys:", Object.keys(firstItem));
-          console.log("Full item (first 2000 chars):", JSON.stringify(firstItem, null, 2).substring(0, 2000));
-          
-          // Check if data might be nested
-          if (firstItem.data) {
-            console.log("Found 'data' key, keys inside:", Object.keys(firstItem.data));
-          }
-          if (firstItem.results) {
-            console.log("Found 'results' key, checking if array:", Array.isArray(firstItem.results));
-          }
-          console.log("=== END DEBUG ===");
-        }
+				// Debug: Log first item structure to understand the data format
+				if (dataset.items.length > 0) {
+					const firstItem = dataset.items[0];
+					console.log("=== DEBUG: First item structure ===");
+					console.log("Keys:", Object.keys(firstItem));
+					console.log(
+						"Full item (first 2000 chars):",
+						JSON.stringify(firstItem, null, 2).substring(0, 2000),
+					);
 
-        // Parse and save listings
-        if (scrape) {
-          try {
-            // Check if the data is wrapped or direct
-            let listingsData = dataset.items;
-            
-            // Handle case where Apify returns data wrapped in a structure
-            if (dataset.items.length > 0 && dataset.items[0].data) {
-              console.log("Data appears to be wrapped in 'data' key, unwrapping...");
-              listingsData = dataset.items.map((item: any) => item.data);
-            } else if (dataset.items.length > 0 && dataset.items[0].results && Array.isArray(dataset.items[0].results)) {
-              console.log("Data appears to be wrapped in 'results' array, flattening...");
-              listingsData = dataset.items.flatMap((item: any) => item.results || []);
-            }
-            
-            console.log(`Processing ${listingsData.length} listing records...`);
-            const validListings = parseZillowListings(listingsData);
-            console.log(
-              `Parsed ${validListings.length} listings from ${dataset.items.length} raw items (includes expanded multi-unit buildings)`,
-            );
+					// Check if data might be nested
+					if (firstItem.data) {
+						console.log(
+							"Found 'data' key, keys inside:",
+							Object.keys(firstItem.data),
+						);
+					}
+					if (firstItem.results) {
+						console.log(
+							"Found 'results' key, checking if array:",
+							Array.isArray(firstItem.results),
+						);
+					}
+					console.log("=== END DEBUG ===");
+				}
 
-            let created = 0;
-            let skipped = 0;
+				// Parse and save listings
+				if (scrape) {
+					try {
+						// Check if the data is wrapped or direct
+						let listingsData = dataset.items;
 
-            // Save each listing and associate with scrape
-            for (const listing of validListings) {
-              const data = extractListingForDb(listing);
+						// Handle case where Apify returns data wrapped in a structure
+						if (dataset.items.length > 0 && dataset.items[0].data) {
+							console.log(
+								"Data appears to be wrapped in 'data' key, unwrapping...",
+							);
+							listingsData = dataset.items.map((item: any) => item.data);
+						} else if (
+							dataset.items.length > 0 &&
+							dataset.items[0].results &&
+							Array.isArray(dataset.items[0].results)
+						) {
+							console.log(
+								"Data appears to be wrapped in 'results' array, flattening...",
+							);
+							listingsData = dataset.items.flatMap(
+								(item: any) => item.results || [],
+							);
+						}
 
-              // Check if listing already exists
-              let savedListing = await prisma.listing.findUnique({
-                where: { zpid: data.zpid },
-              });
+						console.log(`Processing ${listingsData.length} listing records...`);
+						const validListings = parseZillowListings(listingsData);
+						console.log(
+							`Parsed ${validListings.length} listings from ${dataset.items.length} raw items (includes expanded multi-unit buildings)`,
+						);
 
-              if (!savedListing) {
-                // Only create if it doesn't exist
-                savedListing = await prisma.listing.create({
-                  data: {
-                    ...data,
-                    rawData: data.rawData as any,
-                  },
-                });
-                created++;
-              } else {
-                skipped++;
-              }
+						let created = 0;
+						let skipped = 0;
 
-              // Associate with scrape (avoid duplicate associations)
-              await prisma.scrapeListing.upsert({
-                where: {
-                  scrapeId_listingId: {
-                    scrapeId: scrape.id,
-                    listingId: savedListing.id,
-                  },
-                },
-                create: {
-                  scrapeId: scrape.id,
-                  listingId: savedListing.id,
-                },
-                update: {}, // No-op if already associated
-              });
-            }
+						// Save each listing and associate with scrape
+						for (const listing of validListings) {
+							const data = extractListingForDb(listing);
 
-            console.log(
-              `Saved listings: ${created} created, ${skipped} skipped (already exist)`,
-            );
+							// Check if listing already exists
+							let savedListing = await prisma.listing.findUnique({
+								where: { zpid: data.zpid },
+							});
 
-            // Update scrape as completed
-            await prisma.scrape.update({
-              where: { id: scrape.id },
-              data: {
-                status: "completed",
-                completedAt: new Date(),
-                durationMs: Date.now() - startTime,
-                listingsCount: validListings.length,
-              },
-            });
-          } catch (error) {
-            console.error("Failed to save listings:", error);
-            if (scrape) {
-              await prisma.scrape.update({
-                where: { id: scrape.id },
-                data: {
-                  status: "failed",
-                  error: `Failed to save listings: ${
-                    error instanceof Error ? error.message : "Unknown error"
-                  }`,
-                  completedAt: new Date(),
-                },
-              });
-            }
-          }
-        }
+							if (!savedListing) {
+								// Only create if it doesn't exist
+								savedListing = await prisma.listing.create({
+									data: {
+										...data,
+										rawData: data.rawData as any,
+									},
+								});
+								created++;
+							} else {
+								skipped++;
+							}
 
-        return {
-          success: true,
-          runId,
-          scrapeId: scrape?.id,
-          status: runStatus.status,
-          results: dataset.items,
-          count: dataset.items.length,
-        };
-      }
+							// Associate with scrape (avoid duplicate associations)
+							await prisma.scrapeListing.upsert({
+								where: {
+									scrapeId_listingId: {
+										scrapeId: scrape.id,
+										listingId: savedListing.id,
+									},
+								},
+								create: {
+									scrapeId: scrape.id,
+									listingId: savedListing.id,
+								},
+								update: {}, // No-op if already associated
+							});
+						}
 
-      if (
-        runStatus?.status === "FAILED" ||
-        runStatus?.status === "ABORTED" ||
-        runStatus?.status === "TIMED-OUT"
-      ) {
-        const error = `Actor run ${runStatus.status.toLowerCase()}`;
+						console.log(
+							`Saved listings: ${created} created, ${skipped} skipped (already exist)`,
+						);
 
-        // Mark scrape as failed
-        if (scrape) {
-          await prisma.scrape.update({
-            where: { id: scrape.id },
-            data: {
-              status: "failed",
-              error,
-              completedAt: new Date(),
-            },
-          });
-        }
+						// Update scrape as completed
+						await prisma.scrape.update({
+							where: { id: scrape.id },
+							data: {
+								status: "completed",
+								completedAt: new Date(),
+								durationMs: Date.now() - startTime,
+								listingsCount: validListings.length,
+							},
+						});
+					} catch (error) {
+						console.error("Failed to save listings:", error);
+						if (scrape) {
+							await prisma.scrape.update({
+								where: { id: scrape.id },
+								data: {
+									status: "failed",
+									error: `Failed to save listings: ${
+										error instanceof Error ? error.message : "Unknown error"
+									}`,
+									completedAt: new Date(),
+								},
+							});
+						}
+					}
+				}
 
-        return {
-          success: false,
-          runId,
-          scrapeId: scrape?.id,
-          status: runStatus.status,
-          error,
-        };
-      }
+				return {
+					success: true,
+					runId,
+					scrapeId: scrape?.id,
+					status: runStatus.status,
+					results: dataset.items,
+					count: dataset.items.length,
+				};
+			}
 
-      // Still running, wait before checking again
-      await wait.for({ seconds: POLL_INTERVAL / 1000 });
-    }
+			if (
+				runStatus?.status === "FAILED" ||
+				runStatus?.status === "ABORTED" ||
+				runStatus?.status === "TIMED-OUT"
+			) {
+				const error = `Actor run ${runStatus.status.toLowerCase()}`;
 
-    // Timeout
-    const error = "Task timed out waiting for actor completion";
-    if (scrape) {
-      await prisma.scrape.update({
-        where: { id: scrape.id },
-        data: {
-          status: "failed",
-          error,
-          completedAt: new Date(),
-        },
-      });
-    }
+				// Mark scrape as failed
+				if (scrape) {
+					await prisma.scrape.update({
+						where: { id: scrape.id },
+						data: {
+							status: "failed",
+							error,
+							completedAt: new Date(),
+						},
+					});
+				}
 
-    return {
-      success: false,
-      runId,
-      scrapeId: scrape?.id,
-      status: "TIMEOUT",
-      error,
-    };
-  },
+				return {
+					success: false,
+					runId,
+					scrapeId: scrape?.id,
+					status: runStatus.status,
+					error,
+				};
+			}
+
+			// Still running, wait before checking again
+			await wait.for({ seconds: POLL_INTERVAL / 1000 });
+		}
+
+		// Timeout
+		const error = "Task timed out waiting for actor completion";
+		if (scrape) {
+			await prisma.scrape.update({
+				where: { id: scrape.id },
+				data: {
+					status: "failed",
+					error,
+					completedAt: new Date(),
+				},
+			});
+		}
+
+		return {
+			success: false,
+			runId,
+			scrapeId: scrape?.id,
+			status: "TIMEOUT",
+			error,
+		};
+	},
 });
