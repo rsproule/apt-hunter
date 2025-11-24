@@ -1,9 +1,7 @@
 import { prisma } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import { tasks } from "@trigger.dev/sdk/v3";
-import type { runApifyTask } from "@/trigger/apify-scraper";
-import type { runSemanticEnhancement } from "@/trigger/semantic-enhancer";
-import type { ApifyActorId } from "@/lib/apify-actors";
+import type { runSingleSearch } from "@/trigger/search-runner";
 import { createOpenAI } from "@ai-sdk/openai";
 import { generateText } from "ai";
 import { getUserId } from "@/echo";
@@ -53,7 +51,7 @@ Just return the name, nothing else.`,
 
     console.log(`Generated query name: ${queryName}`);
 
-    // Create a scrape record
+    // Create scrape, enhancement, and configuration
     const scrape = await prisma.scrape.create({
       data: {
         userId,
@@ -67,37 +65,6 @@ Just return the name, nothing else.`,
       },
     });
 
-    console.log(`Created scrape: ${scrape.id}`);
-
-    // Trigger the scraper task
-    const scrapeHandle = await tasks.trigger<typeof runApifyTask>(
-      "apify-scraper",
-      {
-        actorId: "maxcopell/zillow-scraper" as ApifyActorId,
-        input: {
-          searchUrls: [{ url: searchUrl }],
-        },
-        scrapeId: scrape.id,
-        userId,
-        searchType: "url",
-        searchQuery: {
-          searchUrls: [{ url: searchUrl }],
-        },
-      },
-    );
-
-    console.log(`Triggered scraper task: ${scrapeHandle.id}`);
-
-    // Update scrape with task ID
-    await prisma.scrape.update({
-      where: { id: scrape.id },
-      data: {
-        taskId: scrapeHandle.id,
-        status: "running",
-      },
-    });
-
-    // Create enhancement record
     const enhancement = await prisma.enhancement.create({
       data: {
         scrapeId: scrape.id,
@@ -107,41 +74,28 @@ Just return the name, nothing else.`,
       },
     });
 
-    console.log(`Created enhancement: ${enhancement.id}`);
-
-    // Trigger the enhancement task (it will wait for scrape to complete if needed)
-    const enhancementHandle = await tasks.trigger<typeof runSemanticEnhancement>(
-      "semantic-enhancer",
-      {
-        enhancementId: enhancement.id,
-        scrapeId: scrape.id,
-        query: enhancementQuery,
-        userId,
-      },
-    );
-
-    console.log(`Triggered enhancement task: ${enhancementHandle.id}`);
-
-    // Update enhancement with task ID
-    await prisma.enhancement.update({
-      where: { id: enhancement.id },
-      data: {
-        taskId: enhancementHandle.id,
-      },
-    });
-
-    // Create a search configuration that links the scrape and enhancement
     const configuration = await prisma.searchConfiguration.create({
       data: {
         userId,
         name: queryName,
         scrapeId: scrape.id,
         enhancementId: enhancement.id,
-        columnWeights: {}, // Default empty weights, user will adjust later
+        columnWeights: {},
       },
     });
 
     console.log(`Created search configuration: ${configuration.id}`);
+
+    // Trigger the single search job (handles scrape + enhancement + notifications)
+    const handle = await tasks.trigger<typeof runSingleSearch>(
+      "run-single-search",
+      {
+        configurationId: configuration.id,
+        userId,
+      },
+    );
+
+    console.log(`Triggered search job: ${handle.id}`);
 
     return NextResponse.json({
       success: true,
@@ -149,15 +103,8 @@ Just return the name, nothing else.`,
         id: configuration.id,
         name: queryName,
       },
-      scrape: {
-        id: scrape.id,
-        status: scrape.status,
-      },
-      enhancement: {
-        id: enhancement.id,
-        status: enhancement.status,
-      },
-      message: "Workflow started successfully. Scraping and enhancement are running in the background.",
+      taskId: handle.id,
+      message: "Search started successfully. Scraping, enhancement, and notifications will run in the background.",
     });
   } catch (error) {
     console.error("Error starting workflow:", error);

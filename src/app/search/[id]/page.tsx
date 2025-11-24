@@ -3,11 +3,8 @@ import EnhancementPolling from "@/app/search/[id]/EnhancementPolling";
 import ListingsTable from "@/app/search/[id]/ListingsTable";
 import SearchPageClient from "@/app/search/[id]/SearchPageClient";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { prisma } from "@/lib/db";
-import { Heart } from "lucide-react";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 interface SearchPageProps {
@@ -211,16 +208,6 @@ export default async function SearchPage({
             </p>
           </div>
 
-          {/* Review Button */}
-          {scrape.status === "completed" &&
-            enhancement.status === "completed" && (
-              <Link href={`/search/${configuration.id}/review`}>
-                <Button>
-                  <Heart className="h-4 w-4 mr-2" />
-                  Review Listings
-                </Button>
-              </Link>
-            )}
         </div>
 
         {/* Column Weights */}

@@ -2,7 +2,7 @@ import { prisma } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import { getUserId } from "@/echo";
 
-// GET /api/configurations - List all search configurations for the user
+// GET /api/searches - List all searches for the user
 export async function GET(request: NextRequest) {
   try {
     const userId = await getUserId();
@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const configurations = await prisma.searchConfiguration.findMany({
+    const searches = await prisma.searchConfiguration.findMany({
       where: { userId },
       orderBy: { updatedAt: "desc" },
       include: {
@@ -30,13 +30,12 @@ export async function GET(request: NextRequest) {
       },
     });
 
-    return NextResponse.json({ configurations });
+    return NextResponse.json({ searches });
   } catch (error) {
-    console.error("Error fetching configurations:", error);
+    console.error("Error fetching searches:", error);
     return NextResponse.json(
-      { error: "Failed to fetch configurations" },
+      { error: "Failed to fetch searches" },
       { status: 500 },
     );
   }
 }
-

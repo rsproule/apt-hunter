@@ -109,6 +109,7 @@ model Listing {
     scrapes            ScrapeListing[]
     enhancementResults EnhancementResult[]
     userResponses      UserListingResponse[]
+    sentNotifications  SentNotification[]
 
     @@index([zpid])
     @@index([addressZipcode])
@@ -255,14 +256,15 @@ model EnhancementValue {
     @@index([listingId, columnId])
 }
 
-// Search configuration - the user-facing "search" concept
+// Pipeline - the unified concept for apartment search pipelines
 // Combines a scrape (data), enhancement (AI analysis), and preferences (weights)
+// Can be enabled/disabled for daily cron notifications
 model SearchConfiguration {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    // Echo user who owns this configuration
+    // User ID for sending notifications via Echo
     userId String
 
     // Configuration metadata
@@ -281,6 +283,9 @@ model SearchConfiguration {
     // Structure: { "columnName1": 5.0, "columnName2": 8.5, ... }
     columnWeights Json @default("{}")
 
+    // Daily cron control - if true, this pipeline runs in the daily digest
+    enabledForDailyCron Boolean @default(false)
+
     // Relations
     userResponses UserListingResponse[]
 
@@ -288,6 +293,7 @@ model SearchConfiguration {
     @@index([scrapeId])
     @@index([enhancementId])
     @@index([createdAt])
+    @@index([userId, enabledForDailyCron])
 }
 
 // User's response to a listing (like/dislike/pass)
@@ -319,4 +325,32 @@ model UserListingResponse {
     @@index([listingId])
     @@index([userId, response]) // Efficiently find all user's liked/disliked across configs
     @@index([configurationId, response]) // Efficiently find liked/disliked for a config
+}
+
+// Track which listings have been sent via cron notifications
+model SentNotification {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+
+    // User who received the notification
+    userId String
+
+    // Search configuration this notification is for
+    configurationId String
+
+    // Listing that was sent
+    listing   Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+    listingId String
+
+    // Composite score at time of sending
+    compositeScore Float
+
+    // Rank (1, 2, or 3) in the notification
+    rank Int
+
+    @@unique([configurationId, listingId]) // Only send each listing once per configuration
+    @@index([userId])
+    @@index([configurationId])
+    @@index([listingId])
+    @@index([createdAt])
 }

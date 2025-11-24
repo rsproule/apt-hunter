@@ -97,12 +97,42 @@ export const runApifyTask = task({
           .dataset(runStatus.defaultDatasetId)
           .listItems();
 
-        console.log(`Fetched ${dataset.items.length} listings from Apify`);
+        console.log(`Fetched ${dataset.items.length} items from Apify`);
+
+        // Debug: Log first item structure to understand the data format
+        if (dataset.items.length > 0) {
+          const firstItem = dataset.items[0];
+          console.log("=== DEBUG: First item structure ===");
+          console.log("Keys:", Object.keys(firstItem));
+          console.log("Full item (first 2000 chars):", JSON.stringify(firstItem, null, 2).substring(0, 2000));
+          
+          // Check if data might be nested
+          if (firstItem.data) {
+            console.log("Found 'data' key, keys inside:", Object.keys(firstItem.data));
+          }
+          if (firstItem.results) {
+            console.log("Found 'results' key, checking if array:", Array.isArray(firstItem.results));
+          }
+          console.log("=== END DEBUG ===");
+        }
 
         // Parse and save listings
         if (scrape) {
           try {
-            const validListings = parseZillowListings(dataset.items);
+            // Check if the data is wrapped or direct
+            let listingsData = dataset.items;
+            
+            // Handle case where Apify returns data wrapped in a structure
+            if (dataset.items.length > 0 && dataset.items[0].data) {
+              console.log("Data appears to be wrapped in 'data' key, unwrapping...");
+              listingsData = dataset.items.map((item: any) => item.data);
+            } else if (dataset.items.length > 0 && dataset.items[0].results && Array.isArray(dataset.items[0].results)) {
+              console.log("Data appears to be wrapped in 'results' array, flattening...");
+              listingsData = dataset.items.flatMap((item: any) => item.results || []);
+            }
+            
+            console.log(`Processing ${listingsData.length} listing records...`);
+            const validListings = parseZillowListings(listingsData);
             console.log(
               `Parsed ${validListings.length} listings from ${dataset.items.length} raw items (includes expanded multi-unit buildings)`,
             );
