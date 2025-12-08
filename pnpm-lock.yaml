@@ -16,7 +16,7 @@ importers:
         version: 2.0.17(react@19.1.0)(zod@4.1.12)
       '@merit-systems/echo-next-sdk':
         specifier: latest
-        version: 0.0.30(@ai-sdk/react@2.0.17(react@19.1.0)(zod@4.1.12))(next@16.0.1(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(openai@4.104.0(encoding@0.1.13)(ws@8.18.3)(zod@4.1.12))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(zod@4.1.12)
+        version: 0.0.30(@ai-sdk/react@2.0.17(react@19.1.0)(zod@4.1.12))(next@16.0.7(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(openai@4.104.0(encoding@0.1.13)(ws@8.18.3)(zod@4.1.12))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(zod@4.1.12)
       '@merit-systems/echo-react-sdk':
         specifier: latest
         version: 1.0.39(@ai-sdk/react@2.0.17(react@19.1.0)(zod@4.1.12))(ai@5.0.19(zod@4.1.12))(openai@4.104.0(encoding@0.1.13)(ws@8.18.3)(zod@4.1.12))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(zod@4.1.12)
@@ -69,8 +69,8 @@ importers:
         specifier: ^5.90.7
         version: 5.90.7(react@19.1.0)
       '@trigger.dev/sdk':
-        specifier: 4.1.1
-        version: 4.1.1(ai@5.0.19(zod@4.1.12))(typescript@5.9.3)(zod@4.1.12)
+        specifier: 4.1.2
+        version: 4.1.2(ai@5.0.19(zod@4.1.12))(typescript@5.9.3)(zod@4.1.12)
       '@vercel/functions':
         specifier: ^3.3.0
         version: 3.3.0(@aws-sdk/credential-provider-web-identity@3.609.0(@aws-sdk/client-sts@3.928.0))
@@ -102,8 +102,8 @@ importers:
         specifier: ^0.542.0
         version: 0.542.0(react@19.1.0)
       next:
-        specifier: 16.0.1
-        version: 16.0.1(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: 16.0.7
+        version: 16.0.7(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       pg:
         specifier: ^8.16.3
         version: 8.16.3
@@ -130,7 +130,7 @@ importers:
         version: 1.1.1(react@19.1.0)
       workflow:
         specifier: 4.0.1-beta.12
-        version: 4.0.1-beta.12(@aws-sdk/client-sts@3.928.0)(@opentelemetry/api@1.9.0)(next@16.0.1(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.9.3)
+        version: 4.0.1-beta.12(@aws-sdk/client-sts@3.928.0)(@opentelemetry/api@1.9.0)(next@16.0.7(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.9.3)
       zod:
         specifier: ^4.1.5
         version: 4.1.12
@@ -871,8 +871,8 @@ packages:
   '@next/env@15.5.4':
     resolution: {integrity: sha512-27SQhYp5QryzIT5uO8hq99C69eLQ7qkzkDPsk3N+GuS2XgOgoYEeOav7Pf8Tn4drECOVDsDg8oj+/DVy8qQL2A==}
 
-  '@next/env@16.0.1':
-    resolution: {integrity: sha512-LFvlK0TG2L3fEOX77OC35KowL8D7DlFF45C0OvKMC4hy8c/md1RC4UMNDlUGJqfCoCS2VWrZ4dSE6OjaX5+8mw==}
+  '@next/env@16.0.7':
+    resolution: {integrity: sha512-gpaNgUh5nftFKRkRQGnVi5dpcYSKGcZZkQffZ172OrG/XkrnS7UBTQ648YY+8ME92cC4IojpI2LqTC8sTDhAaw==}
 
   '@next/eslint-plugin-next@15.5.6':
     resolution: {integrity: sha512-YxDvsT2fwy1j5gMqk3ppXlsgDopHnkM4BoxSVASbvvgh5zgsK8lvWerDzPip8k3WVzsTZ1O7A7si1KNfN4OZfQ==}
@@ -883,8 +883,8 @@ packages:
     cpu: [arm64]
     os: [darwin]
 
-  '@next/swc-darwin-arm64@16.0.1':
-    resolution: {integrity: sha512-R0YxRp6/4W7yG1nKbfu41bp3d96a0EalonQXiMe+1H9GTHfKxGNCGFNWUho18avRBPsO8T3RmdWuzmfurlQPbg==}
+  '@next/swc-darwin-arm64@16.0.7':
+    resolution: {integrity: sha512-LlDtCYOEj/rfSnEn/Idi+j1QKHxY9BJFmxx7108A6D8K0SB+bNgfYQATPk/4LqOl4C0Wo3LACg2ie6s7xqMpJg==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
@@ -895,8 +895,8 @@ packages:
     cpu: [x64]
     os: [darwin]
 
-  '@next/swc-darwin-x64@16.0.1':
-    resolution: {integrity: sha512-kETZBocRux3xITiZtOtVoVvXyQLB7VBxN7L6EPqgI5paZiUlnsgYv4q8diTNYeHmF9EiehydOBo20lTttCbHAg==}
+  '@next/swc-darwin-x64@16.0.7':
+    resolution: {integrity: sha512-rtZ7BhnVvO1ICf3QzfW9H3aPz7GhBrnSIMZyr4Qy6boXF0b5E3QLs+cvJmg3PsTCG2M1PBoC+DANUi4wCOKXpA==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
@@ -907,8 +907,8 @@ packages:
     cpu: [arm64]
     os: [linux]
 
-  '@next/swc-linux-arm64-gnu@16.0.1':
-    resolution: {integrity: sha512-hWg3BtsxQuSKhfe0LunJoqxjO4NEpBmKkE+P2Sroos7yB//OOX3jD5ISP2wv8QdUwtRehMdwYz6VB50mY6hqAg==}
+  '@next/swc-linux-arm64-gnu@16.0.7':
+    resolution: {integrity: sha512-mloD5WcPIeIeeZqAIP5c2kdaTa6StwP4/2EGy1mUw8HiexSHGK/jcM7lFuS3u3i2zn+xH9+wXJs6njO7VrAqww==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
@@ -919,8 +919,8 @@ packages:
     cpu: [arm64]
     os: [linux]
 
-  '@next/swc-linux-arm64-musl@16.0.1':
-    resolution: {integrity: sha512-UPnOvYg+fjAhP3b1iQStcYPWeBFRLrugEyK/lDKGk7kLNua8t5/DvDbAEFotfV1YfcOY6bru76qN9qnjLoyHCQ==}
+  '@next/swc-linux-arm64-musl@16.0.7':
+    resolution: {integrity: sha512-+ksWNrZrthisXuo9gd1XnjHRowCbMtl/YgMpbRvFeDEqEBd523YHPWpBuDjomod88U8Xliw5DHhekBC3EOOd9g==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
@@ -931,8 +931,8 @@ packages:
     cpu: [x64]
     os: [linux]
 
-  '@next/swc-linux-x64-gnu@16.0.1':
-    resolution: {integrity: sha512-Et81SdWkcRqAJziIgFtsFyJizHoWne4fzJkvjd6V4wEkWTB4MX6J0uByUb0peiJQ4WeAt6GGmMszE5KrXK6WKg==}
+  '@next/swc-linux-x64-gnu@16.0.7':
+    resolution: {integrity: sha512-4WtJU5cRDxpEE44Ana2Xro1284hnyVpBb62lIpU5k85D8xXxatT+rXxBgPkc7C1XwkZMWpK5rXLXTh9PFipWsA==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
@@ -943,8 +943,8 @@ packages:
     cpu: [x64]
     os: [linux]
 
-  '@next/swc-linux-x64-musl@16.0.1':
-    resolution: {integrity: sha512-qBbgYEBRrC1egcG03FZaVfVxrJm8wBl7vr8UFKplnxNRprctdP26xEv9nJ07Ggq4y1adwa0nz2mz83CELY7N6Q==}
+  '@next/swc-linux-x64-musl@16.0.7':
+    resolution: {integrity: sha512-HYlhqIP6kBPXalW2dbMTSuB4+8fe+j9juyxwfMwCe9kQPPeiyFn7NMjNfoFOfJ2eXkeQsoUGXg+O2SE3m4Qg2w==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
@@ -955,8 +955,8 @@ packages:
     cpu: [arm64]
     os: [win32]
 
-  '@next/swc-win32-arm64-msvc@16.0.1':
-    resolution: {integrity: sha512-cPuBjYP6I699/RdbHJonb3BiRNEDm5CKEBuJ6SD8k3oLam2fDRMKAvmrli4QMDgT2ixyRJ0+DTkiODbIQhRkeQ==}
+  '@next/swc-win32-arm64-msvc@16.0.7':
+    resolution: {integrity: sha512-EviG+43iOoBRZg9deGauXExjRphhuYmIOJ12b9sAPy0eQ6iwcPxfED2asb/s2/yiLYOdm37kPaiZu8uXSYPs0Q==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [win32]
@@ -967,8 +967,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@next/swc-win32-x64-msvc@16.0.1':
-    resolution: {integrity: sha512-XeEUJsE4JYtfrXe/LaJn3z1pD19fK0Q6Er8Qoufi+HqvdO4LEPyCxLUt4rxA+4RfYo6S9gMlmzCMU2F+AatFqQ==}
+  '@next/swc-win32-x64-msvc@16.0.7':
+    resolution: {integrity: sha512-gniPjy55zp5Eg0896qSrf3yB1dw4F/3s8VK1ephdsZZ129j2n6e1WqCbE2YgcKhW9hPB9TVZENugquWJD5x0ug==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
@@ -1995,12 +1995,12 @@ packages:
     peerDependencies:
       react: ^18 || ^19
 
-  '@trigger.dev/core@4.1.1':
-    resolution: {integrity: sha512-j17zAwBqzPmNqg4SRLyA33Q9z2o67+EyRU3w7CiX9kfwcjzdN7pbR4QYcbe1Jf/oIXkU4oTBpppj+GN41eYnuw==}
+  '@trigger.dev/core@4.1.2':
+    resolution: {integrity: sha512-pQX1FA5zwB5jkcH2JGwpJllsA33t6sFI4dZKsPShrAKAdxb7/JHtcJwxeJSFJygxo4j4tP+o0wr6kX/lUpYCqg==}
     engines: {node: '>=18.20.0'}
 
-  '@trigger.dev/sdk@4.1.1':
-    resolution: {integrity: sha512-wgO6zVW/TG+33F/Mxidn4rnkq7E0kZlBYwG8r1E3twDbvewtqAEVOtkuKfN13Q1sqryDbqCzpNvlLFe6gzNCmw==}
+  '@trigger.dev/sdk@4.1.2':
+    resolution: {integrity: sha512-BQLcskVAlUvOM4jN91PNpXtcmgjsHOL8IFes3aEt/fnBfnDRzRNIUlO+H4KkBy5/66pAOgODLmevMSCKd0keYw==}
     engines: {node: '>=18.20.0'}
     peerDependencies:
       ai: ^4.2.0 || ^5.0.0
@@ -3758,6 +3758,7 @@ packages:
   next@15.5.4:
     resolution: {integrity: sha512-xH4Yjhb82sFYQfY3vbkJfgSDgXvBB6a8xPs9i35k6oZJRoQRihZH+4s9Yo2qsWpzBmZ3lPXaJ2KPXLfkvW4LnA==}
     engines: {node: ^18.18.0 || ^19.8.0 || >= 20.0.0}
+    deprecated: This version has a security vulnerability. Please upgrade to a patched version. See https://nextjs.org/blog/CVE-2025-66478 for more details.
     hasBin: true
     peerDependencies:
       '@opentelemetry/api': ^1.1.0
@@ -3776,8 +3777,8 @@ packages:
       sass:
         optional: true
 
-  next@16.0.1:
-    resolution: {integrity: sha512-e9RLSssZwd35p7/vOa+hoDFggUZIUbZhIUSLZuETCwrCVvxOs87NamoUzT+vbcNAL8Ld9GobBnWOA6SbV/arOw==}
+  next@16.0.7:
+    resolution: {integrity: sha512-3mBRJyPxT4LOxAJI6IsXeFtKfiJUbjCLgvXO02fV8Wy/lIhPvP94Fe7dGhUgHXcQy4sSuYwQNcOLhIfOm0rL0A==}
     engines: {node: '>=20.9.0'}
     hasBin: true
     peerDependencies:
@@ -5545,13 +5546,13 @@ snapshots:
 
   '@jsonhero/path@1.0.21': {}
 
-  '@merit-systems/echo-next-sdk@0.0.30(@ai-sdk/react@2.0.17(react@19.1.0)(zod@4.1.12))(next@16.0.1(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(openai@4.104.0(encoding@0.1.13)(ws@8.18.3)(zod@4.1.12))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(zod@4.1.12)':
+  '@merit-systems/echo-next-sdk@0.0.30(@ai-sdk/react@2.0.17(react@19.1.0)(zod@4.1.12))(next@16.0.7(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(openai@4.104.0(encoding@0.1.13)(ws@8.18.3)(zod@4.1.12))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(zod@4.1.12)':
     dependencies:
       '@merit-systems/echo-react-sdk': 1.0.39(@ai-sdk/react@2.0.17(react@19.1.0)(zod@4.1.12))(ai@5.0.19(zod@4.1.12))(openai@4.104.0(encoding@0.1.13)(ws@8.18.3)(zod@4.1.12))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(zod@4.1.12)
       '@merit-systems/echo-typescript-sdk': 1.0.23(zod@4.1.12)
       ai: 5.0.19(zod@4.1.12)
       jwt-decode: 4.0.0
-      next: 16.0.1(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      next: 16.0.7(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
       swr: 2.3.6(react@19.1.0)
@@ -5596,7 +5597,7 @@ snapshots:
 
   '@next/env@15.5.4': {}
 
-  '@next/env@16.0.1': {}
+  '@next/env@16.0.7': {}
 
   '@next/eslint-plugin-next@15.5.6':
     dependencies:
@@ -5605,49 +5606,49 @@ snapshots:
   '@next/swc-darwin-arm64@15.5.4':
     optional: true
 
-  '@next/swc-darwin-arm64@16.0.1':
+  '@next/swc-darwin-arm64@16.0.7':
     optional: true
 
   '@next/swc-darwin-x64@15.5.4':
     optional: true
 
-  '@next/swc-darwin-x64@16.0.1':
+  '@next/swc-darwin-x64@16.0.7':
     optional: true
 
   '@next/swc-linux-arm64-gnu@15.5.4':
     optional: true
 
-  '@next/swc-linux-arm64-gnu@16.0.1':
+  '@next/swc-linux-arm64-gnu@16.0.7':
     optional: true
 
   '@next/swc-linux-arm64-musl@15.5.4':
     optional: true
 
-  '@next/swc-linux-arm64-musl@16.0.1':
+  '@next/swc-linux-arm64-musl@16.0.7':
     optional: true
 
   '@next/swc-linux-x64-gnu@15.5.4':
     optional: true
 
-  '@next/swc-linux-x64-gnu@16.0.1':
+  '@next/swc-linux-x64-gnu@16.0.7':
     optional: true
 
   '@next/swc-linux-x64-musl@15.5.4':
     optional: true
 
-  '@next/swc-linux-x64-musl@16.0.1':
+  '@next/swc-linux-x64-musl@16.0.7':
     optional: true
 
   '@next/swc-win32-arm64-msvc@15.5.4':
     optional: true
 
-  '@next/swc-win32-arm64-msvc@16.0.1':
+  '@next/swc-win32-arm64-msvc@16.0.7':
     optional: true
 
   '@next/swc-win32-x64-msvc@15.5.4':
     optional: true
 
-  '@next/swc-win32-x64-msvc@16.0.1':
+  '@next/swc-win32-x64-msvc@16.0.7':
     optional: true
 
   '@nodelib/fs.scandir@2.1.5':
@@ -6777,7 +6778,7 @@ snapshots:
       '@tanstack/query-core': 5.90.7
       react: 19.1.0
 
-  '@trigger.dev/core@4.1.1(typescript@5.9.3)':
+  '@trigger.dev/core@4.1.2(typescript@5.9.3)':
     dependencies:
       '@bugsnag/cuid': 3.2.1
       '@electric-sql/client': 1.0.14
@@ -6818,11 +6819,11 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@trigger.dev/sdk@4.1.1(ai@5.0.19(zod@4.1.12))(typescript@5.9.3)(zod@4.1.12)':
+  '@trigger.dev/sdk@4.1.2(ai@5.0.19(zod@4.1.12))(typescript@5.9.3)(zod@4.1.12)':
     dependencies:
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/semantic-conventions': 1.36.0
-      '@trigger.dev/core': 4.1.1(typescript@5.9.3)
+      '@trigger.dev/core': 4.1.2(typescript@5.9.3)
       chalk: 5.6.2
       cronstrue: 2.59.0
       debug: 4.4.3(supports-color@8.1.1)
@@ -7142,7 +7143,7 @@ snapshots:
       '@workflow/utils': 4.0.1-beta.2
       ms: 2.1.3
 
-  '@workflow/next@4.0.1-beta.12(@aws-sdk/client-sts@3.928.0)(@opentelemetry/api@1.9.0)(next@16.0.1(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))':
+  '@workflow/next@4.0.1-beta.12(@aws-sdk/client-sts@3.928.0)(@opentelemetry/api@1.9.0)(next@16.0.7(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))':
     dependencies:
       '@swc/core': 1.11.24
       '@workflow/builders': 4.0.1-beta.8(@aws-sdk/client-sts@3.928.0)(@opentelemetry/api@1.9.0)
@@ -7151,7 +7152,7 @@ snapshots:
       semver: 7.7.3
       watchpack: 2.4.4
     optionalDependencies:
-      next: 16.0.1(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      next: 16.0.7(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - '@aws-sdk/client-sts'
       - '@opentelemetry/api'
@@ -9055,9 +9056,9 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-  next@16.0.1(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  next@16.0.7(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
-      '@next/env': 16.0.1
+      '@next/env': 16.0.7
       '@swc/helpers': 0.5.15
       caniuse-lite: 1.0.30001754
       postcss: 8.4.31
@@ -9065,14 +9066,14 @@ snapshots:
       react-dom: 19.1.0(react@19.1.0)
       styled-jsx: 5.1.6(react@19.1.0)
     optionalDependencies:
-      '@next/swc-darwin-arm64': 16.0.1
-      '@next/swc-darwin-x64': 16.0.1
-      '@next/swc-linux-arm64-gnu': 16.0.1
-      '@next/swc-linux-arm64-musl': 16.0.1
-      '@next/swc-linux-x64-gnu': 16.0.1
-      '@next/swc-linux-x64-musl': 16.0.1
-      '@next/swc-win32-arm64-msvc': 16.0.1
-      '@next/swc-win32-x64-msvc': 16.0.1
+      '@next/swc-darwin-arm64': 16.0.7
+      '@next/swc-darwin-x64': 16.0.7
+      '@next/swc-linux-arm64-gnu': 16.0.7
+      '@next/swc-linux-arm64-musl': 16.0.7
+      '@next/swc-linux-x64-gnu': 16.0.7
+      '@next/swc-linux-x64-musl': 16.0.7
+      '@next/swc-win32-arm64-msvc': 16.0.7
+      '@next/swc-win32-x64-msvc': 16.0.7
       '@opentelemetry/api': 1.9.0
       sharp: 0.34.5
     transitivePeerDependencies:
@@ -10025,12 +10026,12 @@ snapshots:
 
   wordwrap@1.0.0: {}
 
-  workflow@4.0.1-beta.12(@aws-sdk/client-sts@3.928.0)(@opentelemetry/api@1.9.0)(next@16.0.1(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.9.3):
+  workflow@4.0.1-beta.12(@aws-sdk/client-sts@3.928.0)(@opentelemetry/api@1.9.0)(next@16.0.7(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.9.3):
     dependencies:
       '@workflow/cli': 4.0.1-beta.12(@aws-sdk/client-sts@3.928.0)(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@workflow/core': 4.0.1-beta.10(@aws-sdk/client-sts@3.928.0)(@opentelemetry/api@1.9.0)
       '@workflow/errors': 4.0.1-beta.4
-      '@workflow/next': 4.0.1-beta.12(@aws-sdk/client-sts@3.928.0)(@opentelemetry/api@1.9.0)(next@16.0.1(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))
+      '@workflow/next': 4.0.1-beta.12(@aws-sdk/client-sts@3.928.0)(@opentelemetry/api@1.9.0)(next@16.0.7(@opentelemetry/api@1.9.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))
       '@workflow/nitro': 4.0.1-beta.12(@aws-sdk/client-sts@3.928.0)(@opentelemetry/api@1.9.0)
       '@workflow/nuxt': 4.0.1-beta.1(@aws-sdk/client-sts@3.928.0)(@opentelemetry/api@1.9.0)
       '@workflow/sveltekit': 4.0.0-beta.6(@aws-sdk/client-sts@3.928.0)(@opentelemetry/api@1.9.0)
