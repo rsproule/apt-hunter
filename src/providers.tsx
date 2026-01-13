@@ -19,7 +19,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
 	return (
 		<QueryClientProvider client={queryClient}>
-			<EchoProvider config={{ appId: process.env.NEXT_PUBLIC_ECHO_APP_ID! }}>
+			<EchoProvider config={{ appId: process.env.NEXT_PUBLIC_ECHO_APP_ID || "00000000-0000-4000-8000-000000000000" }}>
 				{children}
 			</EchoProvider>
 		</QueryClientProvider>
